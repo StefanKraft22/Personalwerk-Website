@@ -482,7 +482,7 @@ ul,ol{list-style:none}
 /* ============================ CTA BAND ============================== */
 .ctaband{position:relative;overflow:hidden;padding:clamp(6rem,16vh,12rem) var(--pad);text-align:center}
 .ctaband__bg{position:absolute;inset:-10% 0;z-index:0;will-change:transform}
-.ctaband__img{position:absolute;inset:0;background-size:cover;background-position:center;
+.ctaband__img{position:absolute;inset:0;background-size:cover;background-position:78% 18%;
   background-image:var(--img-cta),radial-gradient(90% 120% at 50% 0,rgba(229,23,71,.5),transparent 60%),linear-gradient(180deg,#062138,#03192e)}
 .ctaband::after{content:"";position:absolute;inset:0;z-index:1;
   background:linear-gradient(180deg,rgba(3,25,46,.55),rgba(3,25,46,.8))}
@@ -895,7 +895,7 @@ ul,ol{list-style:none}
 .logowall__track{display:flex;align-items:center;gap:clamp(2.4rem,5vw,4.5rem);
   width:max-content;animation:logoscroll 55s linear infinite}
 .logowall:hover .logowall__track{animation-play-state:paused}
-.logowall__track img{height:clamp(26px,3.4vw,42px);width:auto;object-fit:contain;
+.logowall__track img{height:clamp(34px,4.4vw,56px);width:auto;object-fit:contain;
   filter:grayscale(1);opacity:.55;transition:filter .4s,opacity .4s}
 .logowall__track img:hover{filter:none;opacity:1}
 @keyframes logoscroll{to{transform:translateX(-50%)}}
@@ -1312,6 +1312,32 @@ ul,ol{list-style:none}
   font-family:var(--ff-display);font-weight:700;font-size:clamp(2.2rem,9vw,7rem);letter-spacing:-.02em;
   line-height:1;color:transparent;-webkit-text-stroke:1px rgba(174,200,224,.26)}
 .footer__care{text-align:center;color:var(--grey-2);font-size:.82rem;margin-top:1.4rem}
+
+/* ============================ CTA CONTACT FORM ====================== */
+.ctaform{width:min(100%,620px);margin-top:2.4rem;text-align:left;
+  display:flex;flex-direction:column;gap:.9rem;
+  background:rgba(3,25,46,.42);border:1px solid var(--line);border-radius:20px;
+  padding:1.7rem;backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px)}
+.ctaform__row{display:flex;gap:.9rem;flex-wrap:wrap}
+.ctaform__row input{flex:1;min-width:180px}
+.ctaform input,.ctaform textarea{width:100%;padding:.95rem 1.2rem;border-radius:14px;
+  background:rgba(255,255,255,.06);border:1px solid var(--line);color:#fff;
+  font-family:var(--ff-body);font-size:1rem}
+.ctaform input::placeholder,.ctaform textarea::placeholder{color:var(--grey-2)}
+.ctaform input:focus,.ctaform textarea:focus{outline:none;border-color:var(--accent);background:rgba(255,255,255,.09)}
+.ctaform textarea{resize:vertical;min-height:96px}
+.ctaform .btn{align-self:flex-start;margin-top:.3rem}
+.ctaform__note{color:var(--grey-2);font-size:.78rem;line-height:1.5;font-weight:300}
+
+/* ============================ ARE YOU READY ========================= */
+.readycta{background:var(--black);text-align:center;padding:clamp(5rem,13vh,10rem) var(--pad)}
+.readycta__inner{max-width:960px;margin-inline:auto;display:flex;flex-direction:column;align-items:center;gap:1.6rem}
+.readycta__title{font-family:var(--ff-display);font-weight:600;
+  font-size:clamp(3rem,12vw,9rem);line-height:.9;letter-spacing:-.03em}
+.readycta__title em{color:var(--accent);font-style:normal}
+.readycta__mail{font-family:var(--ff-display);font-size:clamp(1.1rem,2.6vw,1.9rem);letter-spacing:-.01em;
+  border-bottom:2px solid var(--line);padding-bottom:.2em;transition:color .4s,border-color .4s}
+.readycta__mail:hover{color:var(--accent);border-color:var(--accent)}
 
 @media (max-width:860px){
   .faq__inner{grid-template-columns:1fr;gap:1.6rem}
