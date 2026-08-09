@@ -95,10 +95,16 @@
   /* ---------------------------------------------- WORD-BY-WORD LIGHT --- */
   function splitWords() {
     $$("[data-splitwords]").forEach((node) => {
-      const words = node.textContent.trim().split(/\s+/);
-      node.innerHTML = words
-        .map((w) => `<span class="w">${w}</span>`)
-        .join(" ");
+      // keep explicit <br> line breaks, split each segment into words
+      const segments = node.innerHTML.split(/<br\s*\/?>/i);
+      node.innerHTML = segments
+        .map((seg) => {
+          const tmp = document.createElement("div");
+          tmp.innerHTML = seg;
+          const words = tmp.textContent.trim().split(/\s+/).filter(Boolean);
+          return words.map((w) => `<span class="w">${w}</span>`).join(" ");
+        })
+        .join("<br>");
     });
     if (RM) { $$("[data-splitwords] .w").forEach((w) => w.classList.add("lit")); return; }
 
@@ -206,10 +212,11 @@
       const num = parseFloat(s.dataset.num);
       const suffix = s.dataset.suffix || "";
       coreSuffix.textContent = suffix;
+      coreNum.classList.remove("is-big");
       if (hand) hand.style.transform = `rotate(${(i / (steps.length - 1)) * 300 - 30}deg)`;
       const fmt = (v) => v.toLocaleString("de-DE");
       // animate the core number
-      if (RM) { coreNum.textContent = fmt(num); return; }
+      if (RM) { coreNum.textContent = fmt(num); if (s.dataset.big) coreNum.classList.add("is-big"); return; }
       const from = parseFloat(coreNum.textContent.replace(/\./g, "")) || 0;
       const dur = 700; let start = null;
       const step = (ts) => {
@@ -218,6 +225,7 @@
         const val = Math.round(lerp(from, num, 1 - Math.pow(1 - p, 3)));
         coreNum.textContent = fmt(val);
         if (p < 1) requestAnimationFrame(step);
+        else if (s.dataset.big) coreNum.classList.add("is-big");
       };
       requestAnimationFrame(step);
     };
