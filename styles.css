@@ -423,12 +423,12 @@ ul,ol{list-style:none}
   background:var(--paper-2)}
 .card__img{position:absolute;inset:0;background-size:cover;background-position:center;
   transform:scale(1.02);transition:transform .8s var(--ease),filter .8s;filter:saturate(.92)}
-.card__img[data-img="c1"]{background-image:url("assets/coll-stellenanzeigen.jpg"),linear-gradient(150deg,#ff3d63,#b30f34)}
-.card__img[data-img="c2"]{background-image:linear-gradient(150deg,#0b2f4e,#072944)}
-.card__img[data-img="c3"]{background-image:linear-gradient(150deg,#0a3358,#072944)}
-.card__img[data-img="c4"]{background-image:linear-gradient(150deg,#073a4a,#072944)}
-.card__img[data-img="c5"]{background-image:linear-gradient(150deg,#0a2b52,#072944)}
-.card__img[data-img="c6"]{background-image:linear-gradient(150deg,#ff3d63,#8a0f2b)}
+.card__img[data-img="c1"]{background-image:url("assets/coll-stellenanzeigen-paket.jpg"),linear-gradient(150deg,#eef1f6,#dbe3ec)}
+.card__img[data-img="c2"]{background-image:url("assets/coll-karriereseiten.jpg"),linear-gradient(150deg,#0b2f4e,#072944)}
+.card__img[data-img="c3"]{background-image:url("assets/coll-employer-branding.jpg"),linear-gradient(150deg,#0a3358,#072944)}
+.card__img[data-img="c4"]{background-image:url("assets/coll-active-sourcing.jpg"),linear-gradient(150deg,#073a4a,#072944)}
+.card__img[data-img="c5"]{background-image:url("assets/coll-mediaplanung.jpg"),linear-gradient(150deg,#0a2b52,#072944)}
+.card__img[data-img="c6"]{background-image:url("assets/coll-bewerbermanagement.jpg"),linear-gradient(150deg,#ff3d63,#8a0f2b)}
 .card:hover .card__img{transform:scale(1.09);filter:saturate(1.05)}
 .card__row{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1.1rem .3rem 0}
 .card__row h3{font-family:var(--ff-display);font-weight:600;font-size:1.12rem;letter-spacing:-.01em}
@@ -453,11 +453,11 @@ ul,ol{list-style:none}
 .case{flex:0 0 min(78vw,440px);position:relative}
 .case__img{aspect-ratio:3/4;border-radius:14px;background-size:cover;background-position:center;
   background-color:var(--paper-2);position:relative;overflow:hidden}
-.case__img[data-img="k1"]{background-image:linear-gradient(160deg,#ff3d63,#8a0f2b)}
-.case__img[data-img="k2"]{background-image:linear-gradient(160deg,#0b2f4e,#072944)}
-.case__img[data-img="k3"]{background-image:linear-gradient(160deg,#0a3358,#072944)}
-.case__img[data-img="k4"]{background-image:linear-gradient(160deg,#073a4a,#072944)}
-.case__img[data-img="k5"]{background-image:linear-gradient(160deg,#0a2b52,#072944)}
+.case__img[data-img="k1"]{background-image:url("assets/case-gesundheit.jpg"),linear-gradient(160deg,#ff3d63,#8a0f2b)}
+.case__img[data-img="k2"]{background-image:url("assets/case-industrie.jpg"),linear-gradient(160deg,#0b2f4e,#072944)}
+.case__img[data-img="k3"]{background-image:url("assets/case-handel.jpg"),linear-gradient(160deg,#0a3358,#072944)}
+.case__img[data-img="k4"]{background-image:url("assets/case-it.jpg"),linear-gradient(160deg,#073a4a,#072944)}
+.case__img[data-img="k5"]{background-image:url("assets/case-oeffentlich.jpg"),linear-gradient(160deg,#0a2b52,#072944)}
 .case__img::after{content:"";position:absolute;inset:0;
   background:linear-gradient(0deg,rgba(3,25,46,.6),transparent 55%)}
 .case__meta{position:absolute;left:1.4rem;right:1.4rem;bottom:1.4rem;z-index:2;color:#fff}
@@ -883,6 +883,25 @@ ul,ol{list-style:none}
   text-shadow:0 1px 3px rgba(3,25,46,.6);
   background:linear-gradient(transparent,rgba(3,25,46,.42));
 }
+.media-ai-note--top{top:0;bottom:auto;background:linear-gradient(rgba(3,25,46,.42),transparent)}
+
+/* ---------- Kundenlogo-Wand (Referenzen) ---------- */
+.logowall{max-width:var(--maxw);margin:clamp(2.5rem,6vw,5rem) auto 0;padding:0 var(--pad)}
+.logowall__label{font-family:var(--ff-display);font-size:.72rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--grey-2);text-align:center;margin:0 0 1.8rem}
+.logowall__viewport{overflow:hidden;
+  -webkit-mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+  mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.logowall__track{display:flex;align-items:center;gap:clamp(2.4rem,5vw,4.5rem);
+  width:max-content;animation:logoscroll 55s linear infinite}
+.logowall:hover .logowall__track{animation-play-state:paused}
+.logowall__track img{height:clamp(26px,3.4vw,42px);width:auto;object-fit:contain;
+  filter:grayscale(1);opacity:.55;transition:filter .4s,opacity .4s}
+.logowall__track img:hover{filter:none;opacity:1}
+@keyframes logoscroll{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){
+  .logowall__track{animation:none;flex-wrap:wrap;justify-content:center;width:auto;row-gap:2rem}
+}
 
 /* =========================================================================
    PERSONALBERATUNG (Panel 03) — Loop-Animation mit echten Porträts
@@ -1241,4 +1260,60 @@ ul,ol{list-style:none}
     transform:translate(-50%,-50%)
       translate(calc(var(--cx)*var(--s)),calc(var(--cy)*var(--s))) rotate(var(--cr)) scale(1) !important}
   .mp-mail,.mp-flash{opacity:0 !important;animation:none !important}
+}
+
+/* ============================ KUNDENSTIMMEN ========================== */
+.stimmen{background:var(--black);padding:clamp(4rem,10vw,8rem) 0 clamp(4rem,9vw,7rem);overflow:hidden}
+.stimmen__head{max-width:var(--maxw);margin:0 auto clamp(2.4rem,5vw,4rem);padding:0 var(--pad);
+  display:flex;flex-direction:column;gap:1.1rem}
+.stimmen em{color:var(--accent);font-style:normal}
+.stimmen__marquee{overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.stimmen__track{display:inline-flex;gap:1.5rem;padding-inline:.75rem;
+  animation:marq 70s linear infinite;will-change:transform}
+.stimmen__marquee:hover .stimmen__track{animation-play-state:paused}
+.tcard{flex:0 0 min(84vw,400px);background:var(--ink);border:1px solid var(--line);border-radius:20px;
+  padding:2rem 1.9rem;display:flex;flex-direction:column;gap:1.4rem;white-space:normal}
+.tcard p{font-size:1.05rem;line-height:1.5;color:var(--white);font-weight:300}
+.tcard footer{display:flex;flex-direction:column;gap:.12rem;margin-top:auto}
+.tcard strong{font-family:var(--ff-display);font-weight:600;color:#fff;font-size:.98rem}
+.tcard span{color:var(--grey);font-size:.82rem;letter-spacing:.02em}
+
+/* ============================ FAQ =================================== */
+.faq{background:var(--black);padding:clamp(3rem,6vw,5rem) var(--pad) clamp(5rem,10vw,8rem)}
+.faq__inner{max-width:1120px;margin-inline:auto;display:grid;grid-template-columns:.85fr 1.15fr;
+  gap:clamp(2rem,5vw,4.5rem);align-items:start}
+.faq__head{position:sticky;top:120px;display:flex;flex-direction:column;gap:1.1rem}
+.faq em{color:var(--accent);font-style:normal}
+.faq__list{display:flex;flex-direction:column}
+.faq__item{border-top:1px solid var(--line)}
+.faq__item:last-child{border-bottom:1px solid var(--line)}
+.faq__item summary{list-style:none;cursor:pointer;position:relative;
+  padding:1.5rem 2.6rem 1.5rem 0;font-family:var(--ff-display);font-weight:500;
+  font-size:clamp(1.05rem,1.8vw,1.3rem);color:var(--white);transition:color .3s}
+.faq__item summary::-webkit-details-marker{display:none}
+.faq__item summary::after{content:"+";position:absolute;right:0;top:50%;transform:translateY(-50%);
+  font-size:1.6rem;line-height:0;color:var(--accent);transition:transform .35s var(--ease)}
+.faq__item[open] summary::after{transform:translateY(-50%) rotate(45deg)}
+.faq__item summary:hover{color:var(--accent)}
+.faq__answer{padding:0 2.6rem 1.7rem 0}
+.faq__answer p{color:var(--grey);font-weight:300;line-height:1.65;max-width:62ch}
+
+/* ============================ KEYWORD-MARQUEE ======================= */
+.marquee--kw{background:var(--black);border-block:1px solid var(--line)}
+.marquee--kw .marquee__track{animation-duration:55s;color:rgba(255,255,255,.55)}
+.marquee--kw .marquee__track i{color:var(--accent)}
+
+/* ================ FOOTER WORTMARKE-MARQUEE + CARE =================== */
+.footer__marquee{overflow:hidden;max-width:var(--maxw);margin:clamp(2.5rem,5vw,4rem) auto 0;
+  border-top:1px solid var(--line);padding-top:clamp(1.6rem,3vw,2.6rem)}
+.footer__marquee-track{display:inline-flex;white-space:nowrap;animation:marq 55s linear infinite;
+  font-family:var(--ff-display);font-weight:700;font-size:clamp(2.2rem,9vw,7rem);letter-spacing:-.02em;
+  line-height:1;color:transparent;-webkit-text-stroke:1px rgba(174,200,224,.26)}
+.footer__care{text-align:center;color:var(--grey-2);font-size:.82rem;margin-top:1.4rem}
+
+@media (max-width:860px){
+  .faq__inner{grid-template-columns:1fr;gap:1.6rem}
+  .faq__head{position:static}
 }

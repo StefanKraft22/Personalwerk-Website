@@ -3,7 +3,10 @@
     "allow": [
       "PowerShell(Get-ChildItem -Path \"C:\\\\Claude\\\\Personalwerk\\\\Personalwerk Mood 7\" -Filter \"Header*\" | Select-Object Name,Length,LastWriteTime; \"--- assets/hero ---\"; Get-ChildItem \"C:\\\\Claude\\\\Personalwerk\\\\Personalwerk Mood 7\\\\assets\" -Filter \"hero*\" | Select-Object Name,Length,LastWriteTime)",
       "mcp__nano-banana-2__get_configuration_status",
-      "PowerShell($u=\"https://cdn.21st.dev/user_3HDe6B3JjqD5UjbFVbQ5p8piDUu/lens-card/default/preview.1785424141371.png\"; $o=\"C:\\\\Users\\\\skraft\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Claude-Personalwerk-Personalwerk-Mood-7\\\\c9867be2-4933-4b42-8392-4e4ddd91af09\\\\scratchpad\\\\lens-card.png\"; Invoke-WebRequest -Uri $u -OutFile $o -UseBasicParsing; Add-Type -AssemblyName System.Drawing; $img=[System.Drawing.Image]::FromFile\\($o\\); \"$\\($img.Width\\) x $\\($img.Height\\), $\\(\\(Get-Item $o\\).Length\\) bytes\"; $img.Dispose\\(\\))"
+      "PowerShell($u=\"https://cdn.21st.dev/user_3HDe6B3JjqD5UjbFVbQ5p8piDUu/lens-card/default/preview.1785424141371.png\"; $o=\"C:\\\\Users\\\\skraft\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Claude-Personalwerk-Personalwerk-Mood-7\\\\c9867be2-4933-4b42-8392-4e4ddd91af09\\\\scratchpad\\\\lens-card.png\"; Invoke-WebRequest -Uri $u -OutFile $o -UseBasicParsing; Add-Type -AssemblyName System.Drawing; $img=[System.Drawing.Image]::FromFile\\($o\\); \"$\\($img.Width\\) x $\\($img.Height\\), $\\(\\(Get-Item $o\\).Length\\) bytes\"; $img.Dispose\\(\\))",
+      "mcp__nano-banana-2__edit_image",
+      "Bash(python -c ' *)",
+      "mcp__nano-banana-2__generate_image"
     ]
   },
   "enabledMcpjsonServers": [
