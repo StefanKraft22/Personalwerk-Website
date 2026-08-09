@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Personalwerk — Personalmarketing für die Zukunft</title>
+<meta name="description" content="Personalwerk verbindet Menschen und Marken: treffsichere Stellenanzeigen, Employer Branding, Personalberatung und E-Recruiting. Precision recruiting seit 2001." />
+<meta name="keywords" content="Personalwerk | Recruiting, Employer Branding, Personalmarketing" />
+
+<meta property="og:title" content="Personalwerk — Personalmarketing für die Zukunft" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="Recruiting. Employer Branding. Media. Wir machen Arbeitgeber sichtbar." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+
+<body class="pw is-loading" data-scroll-container>
+
+<!-- ══════════════════ CUSTOM CURSOR ══════════════════ -->
+<div class="cursor" data-cursor aria-hidden="true"></div>
+
+<!-- ══════════════════ INTRO LOADER ══════════════════ -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader__inner">
+    <span class="loader__mark">personal<em>werk</em></span>
+    <span class="loader__bar"><i></i></span>
+    <span class="loader__pct" id="loaderPct">00</span>
+  </div>
+</div>
+
+<!-- ══════════════════ TOP PROMO BAR ══════════════════ -->
+<div class="promobar" id="promobar">
+  <div class="promobar__track" aria-hidden="true">
+    <span>Kostenlose Erstberatung — jetzt Termin sichern</span>
+    <span>·</span>
+    <span>87&nbsp;% schneller besetzen</span>
+    <span>·</span>
+    <span>45% günstiger rekrutieren</span>
+    <span>·</span>
+    <span>Mehr als 25 Jahre Erfahrung</span>
+    <span>·</span>
+    <span>Europas größte Multiposting Agentur für Stellenanzeigen</span>
+    <span>·</span>
+    <span>ISO 9001 zertifizierte Qualitätsstandards</span>
+    <span>·</span>
+    <span>Top 3 Kundenchampions</span>
+    <span>·</span>
+    <span>Kostenlose Erstberatung — jetzt Termin sichern</span>
+    <span>·</span>
+    <span>87&nbsp;% schneller besetzen</span>
+    <span>·</span>
+    <span>45% günstiger rekrutieren</span>
+    <span>·</span>
+    <span>Mehr als 25 Jahre Erfahrung</span>
+    <span>·</span>
+    <span>Europas größte Multiposting Agentur für Stellenanzeigen</span>
+    <span>·</span>
+    <span>ISO 9001 zertifizierte Qualitätsstandards</span>
+    <span>·</span>
+    <span>Top 3 Kundenchampions</span>
+    <span>·</span>
+  </div>
+</div>
+
+<!-- ══════════════════ HEADER ══════════════════ -->
+<header class="header" id="header" data-header>
+  <div class="header__bar">
+    <button class="header__burger" id="burger" aria-label="Menü öffnen" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+
+    <a href="#top" class="header__logo" aria-label="Personalwerk Startseite">
+      <span class="header__logo-word">personalwerk<em>.</em></span>
+    </a>
+
+    <nav class="header__nav" aria-label="Hauptmenü">
+      <a href="#leistungen" class="header__link">Leistungen</a>
+      <a href="#ergebnisse" class="header__link">Ergebnisse</a>
+      <a href="#kollektion" class="header__link">Kollektion</a>
+      <a href="#referenzen" class="header__link">Referenzen</a>
+      <a href="#kontakt" class="header__link">Kontakt</a>
+    </nav>
+
+    <div class="header__actions">
+      <button class="header__icon" aria-label="Suche">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      </button>
+      <a href="#kontakt" class="btn btn--ghost header__cta" data-magnetic>Kontakt</a>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════ MOBILE MENU ══════════════════ -->
+<div class="menu" id="menu" aria-hidden="true">
+  <nav class="menu__nav">
+    <a href="#leistungen" class="menu__link"><span>01</span> Leistungen</a>
+    <a href="#ergebnisse" class="menu__link"><span>02</span> Ergebnisse</a>
+    <a href="#kollektion" class="menu__link"><span>03</span> Kollektion</a>
+    <a href="#referenzen" class="menu__link"><span>04</span> Referenzen</a>
+    <a href="#kontakt" class="menu__link"><span>05</span> Kontakt</a>
+  </nav>
+  <div class="menu__foot">
+    <a href="#kontakt">Kontakt</a>
+    <a href="tel:+49603993450">+49 6039 9345-0</a>
+  </div>
+</div>
+
+<main id="top">
+
+  <!-- ══════════════════ HERO ══════════════════ -->
+  <section class="hero" id="hero" data-hero>
+    <div class="hero__media" data-parallax="0.35">
+      <div class="hero__img" id="heroImg"></div>
+      <canvas class="hero__dots" id="dottedSurface" aria-hidden="true"></canvas>
+      <div class="hero__grain"></div>
+      <div class="hero__veil"></div>
+    </div>
+
+    <div class="hero__content">
+      <p class="hero__eyebrow reveal" data-reveal>
+        <span class="dot"></span> Precision recruiting · seit 2001
+      </p>
+      <h1 class="hero__title">
+        <span class="line" data-reveal><span>Wir machen Unternehmen</span></span>
+        <span class="line" data-reveal><span>zu starken <em>Arbeitgeber&shy;n</em></span></span>
+      </h1>
+      <p class="hero__sub reveal" data-reveal>
+        Recruiting. Employer Branding. Media. Wir verbinden Menschen und Marken —
+        mit Präzision, Kreativität und Technologie.
+      </p>
+      <div class="hero__cta reveal" data-reveal>
+        <a href="#leistungen" class="btn btn--solid" data-magnetic>Leistungen entdecken</a>
+        <a href="#kontakt" class="btn btn--ghost btn--light" data-magnetic>Beratung anfragen</a>
+      </div>
+    </div>
+
+    <div class="hero__scroll" aria-hidden="true">
+      <span>Scroll</span>
+      <i></i>
+    </div>
+
+    <ul class="hero__meta" aria-hidden="true">
+      <li><b data-count="87" data-suffix="%">0</b><span>schneller besetzt</span></li>
+      <li><b data-count="45" data-suffix="%">0</b><span>Kosten gespart</span></li>
+      <li><b data-count="25" data-suffix="+">0</b><span>Jahre Erfahrung</span></li>
+    </ul>
+  </section>
+
+  <!-- ══════════════════ KEYWORD MARQUEE ══════════════════ -->
+  <section class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span>Multiposting</span><i>•</i><span>Employer&nbsp;Branding</span><i>•</i>
+      <span>Personalberatung</span><i>•</i><span>E-Recruiting</span><i>•</i>
+      <span>Mediaplanung</span><i>•</i><span>Karriereseiten</span><i>•</i>
+      <span>Multiposting</span><i>•</i><span>Employer&nbsp;Branding</span><i>•</i>
+      <span>Personalberatung</span><i>•</i><span>E-Recruiting</span><i>•</i>
+      <span>Mediaplanung</span><i>•</i><span>Karriereseiten</span><i>•</i>
+    </div>
+  </section>
+
+  <!-- ══════════════════ MANIFESTO ══════════════════ -->
+  <section class="manifesto" id="manifesto">
+    <p class="manifesto__label reveal" data-reveal>[ Unsere Idee ]</p>
+    <h2 class="manifesto__text" data-splitwords>
+      Wir machen Arbeitgeber sichtbar. Treffsicher, messbar und mit einer
+      Handschrift, die man wiedererkennt — damit die richtigen Menschen zueinander finden.
+    </h2>
+    <div class="manifesto__foot reveal" data-reveal>
+      <span>Karben · München · Augsburg · Wiesbaden · Bad Hersfeld · Großostheim · Pforzheim · Stuttgart · Hamburg · Münster · Bamberg · Berlin</span>
+      <a href="#leistungen" class="arrowlink">Und so arbeiten wir <i>→</i></a>
+    </div>
+  </section>
+
+  <!-- ══════════════════ LEISTUNGEN — EDITORIAL PANELS ══════════════════ -->
+  <section class="panels" id="leistungen">
+    <header class="panels__head">
+      <p class="sec-eyebrow reveal" data-reveal><span class="dot"></span> Leistungen</p>
+      <h2 class="sec-title reveal" data-reveal>Vier Disziplinen.<br>Ein Uhrwerk.</h2>
+      <p class="sec-sub reveal" data-reveal>Power&nbsp;People&nbsp;Group: 360&nbsp;Grad Recruiting auf höchstem Niveau.</p>
+    </header>
+
+    <!-- Panel 01 -->
+    <article class="panel" data-panel>
+      <div class="panel__media" data-parallax="0.18">
+        <!-- ── Multiposting-Loop-Animation (ersetzt das statische Bild) ── -->
+        <div class="mp-scene" data-mp-scene aria-hidden="true">
+          <div class="mp-viewport">
+            <div class="mp-stage">
+
+              <!-- Szene 3: echte Kanal-Logos, fliegen heraus und bilden einen gleichmäßigen Kreis -->
+              <div class="mp-orbit">
+                <span class="mp-logo" style="--i:0;--tx:0;--ty:-.42"><span class="mp-logo__bob"><img class="mp-logo__img" src="assets/logos/Stepstone.png" alt="StepStone" onerror="this.remove()"><span class="mp-logo__txt">StepStone</span></span></span>
+                <span class="mp-logo" style="--i:1;--tx:.176;--ty:-.388"><span class="mp-logo__bob"><img class="mp-logo__img" src="assets/logos/Indeed.png" alt="Indeed" onerror="this.remove()"><span class="mp-logo__txt">indeed</span></span></span>
+                <span class="mp-logo" style="--i:2;--tx:.325;--ty:-.297"><span class="mp-logo__bob"><img class="mp-logo__img" src="assets/logos/LinkedIn.png" alt="LinkedIn" onerror="this.remove()"><span class="mp-logo__txt">LinkedIn</span></span></span>
+                <span class="mp-logo" style="--i:3;--tx:.425;--ty:-.161"><span class="mp-logo__bob"><img class="mp-logo__img" src="assets/logos/Xing.png" alt="XING" onerror="this.remove()"><span class="mp-logo__txt">XING</span></span></span>
+                <span class="mp-logo mp-logo--sm" style="--i:4;--tx:.46;--ty:0"><span class="mp-logo__bob"><img class="mp-logo__img" src="assets/logos/stellenanzeigen.de.png" alt="stellenanzeigen.de" onerror="this.remove()"><span class="mp-logo__txt">stellenanzeigen<i>.de</i></span></span></span>
+                <span class="mp-logo" style="--i:5;--tx:.425;--ty:.161"><span class="mp-logo__bob"><img class="mp-logo__img" src="assets/logos/Jobware.png" alt="Jobware" onerror="this.remove()"><span class="mp-logo__txt">Jobware</span></span></span>
+                <span class="mp-logo" style="--i:6;--tx:.325;--ty:.297"><span class="mp-logo__bob"><img class="mp-logo__img" src="assets/logos/Facebook.png" alt="Facebook" onerror="this.remove()"><span class="mp-logo__txt">Facebook</span></span></span>
+                <span class="mp-logo mp-logo--sm" style="--i:7;--tx:.176;--ty:.388"><span class="mp-logo__bob"><img class="mp-logo__img" src="assets/logos/meinestadt.de.png" alt="meinestadt.de" onerror="this.remove()"><span class="mp-logo__txt">meinestadt<i>.de</i></span></span></span>
+                <span class="mp-logo" style="--i:8;--tx:0;--ty:.42"><span class="mp-logo__bob"><img class="mp-logo__img" src="assets/logos/Instagram.png" alt="Instagram" onerror="this.remove()"><span class="mp-logo__txt">Instagram</span></span></span>
+                <span class="mp-logo mp-logo--sm" style="--i:9;--tx:-.176;--ty:.388"><span class="mp-logo__bob"><img class="mp-logo__img" src="assets/logos/yourfirm.de.png" alt="Yourfirm" onerror="this.remove()"><span class="mp-logo__txt">Yourfirm</span></span></span>
+                <span class="mp-logo mp-logo--sm" style="--i:10;--tx:-.325;--ty:.297"><span class="mp-logo__bob"><img class="mp-logo__img" src="assets/logos/jobvector.de.png" alt="jobvector.de" onerror="this.remove()"><span class="mp-logo__txt">jobvector<i>.de</i></span></span></span>
+                <span class="mp-logo" style="--i:11;--tx:-.425;--ty:.161"><span class="mp-logo__bob"><img class="mp-logo__img" src="assets/logos/TikTok.png" alt="TikTok" onerror="this.remove()"><span class="mp-logo__txt">TikTok</span></span></span>
+                <span class="mp-logo mp-logo--sm" style="--i:12;--tx:-.46;--ty:0"><span class="mp-logo__bob"><img class="mp-logo__img" src="assets/logos/kleinanzeigen.de.png" alt="Kleinanzeigen.de" onerror="this.remove()"><span class="mp-logo__txt">Kleinanzeigen<i>.de</i></span></span></span>
+                <span class="mp-logo mp-logo--sm" style="--i:13;--tx:-.425;--ty:-.161"><span class="mp-logo__bob"><img class="mp-logo__img" src="assets/logos/Arbeitsagentur.png" alt="Arbeitsagentur" onerror="this.remove()"><span class="mp-logo__txt">Arbeitsagentur</span></span></span>
+                <span class="mp-logo" style="--i:14;--tx:-.325;--ty:-.297"><span class="mp-logo__bob"><img class="mp-logo__img" src="assets/logos/Snapchat.png" alt="Snapchat" onerror="this.remove()"><span class="mp-logo__txt">Snapchat</span></span></span>
+                <span class="mp-logo mp-logo--sm" style="--i:15;--tx:-.176;--ty:-.388"><span class="mp-logo__bob"><img class="mp-logo__img" src="assets/logos/jobsintown.de.png" alt="jobsintown.de" onerror="this.remove()"><span class="mp-logo__txt">jobsintown<i>.de</i></span></span></span>
+              </div>
+
+              <!-- Szene 4: Bewerbungen als Umschläge mit schlagenden Flügeln -->
+              <div class="mp-mails">
+                <span class="mp-mail" style="--i:0;--fx:-.62;--fy:-.30;--drift:-18px">
+                  <span class="mp-env">
+                    <span class="mp-env__doc"><b></b><b></b><b></b></span>
+                    <span class="mp-env__pocket"></span>
+                    <span class="mp-env__flap"></span>
+                  </span>
+                </span>
+                <span class="mp-mail" style="--i:1;--fx:.64;--fy:-.22;--drift:14px">
+                  <span class="mp-env">
+                    <span class="mp-env__doc"><b></b><b></b><b></b></span>
+                    <span class="mp-env__pocket"></span>
+                    <span class="mp-env__flap"></span>
+                  </span>
+                </span>
+                <span class="mp-mail" style="--i:2;--fx:-.55;--fy:.26;--drift:20px">
+                  <span class="mp-env">
+                    <span class="mp-env__doc"><b></b><b></b><b></b></span>
+                    <span class="mp-env__pocket"></span>
+                    <span class="mp-env__flap"></span>
+                  </span>
+                </span>
+                <span class="mp-mail" style="--i:3;--fx:.58;--fy:.30;--drift:-16px">
+                  <span class="mp-env">
+                    <span class="mp-env__doc"><b></b><b></b><b></b></span>
+                    <span class="mp-env__pocket"></span>
+                    <span class="mp-env__flap"></span>
+                  </span>
+                </span>
+                <span class="mp-mail" style="--i:4;--fx:.00;--fy:-.66;--drift:12px">
+                  <span class="mp-env">
+                    <span class="mp-env__doc"><b></b><b></b><b></b></span>
+                    <span class="mp-env__pocket"></span>
+                    <span class="mp-env__flap"></span>
+                  </span>
+                </span>
+              </div>
+
+              <!-- Bildschirm-Inhalt (Overlay exakt auf dem Laptop-Display) -->
+              <div class="mp-screen">
+                <!-- Szene 1: Tippen — als Word-Dokument -->
+                <div class="mp-doc">
+                  <div class="mp-doc__bar">
+                    <span class="mp-doc__dots"><i></i><i></i><i></i></span>
+                    <span class="mp-doc__file">Ihre Stellenanzeige</span>
+                  </div>
+                  <div class="mp-doc__page">
+                    <span class="mp-doc__title">Ihre Stellenanzeige</span>
+                    <span class="mp-doc__line" style="--w:12">Wir&nbsp;suchen…</span>
+                    <span class="mp-doc__line" style="--w:11">Ihr&nbsp;Profil…</span>
+                    <span class="mp-doc__line" style="--w:11">Wir&nbsp;bieten…</span>
+                    <span class="mp-caret"></span>
+                  </div>
+                </div>
+                <!-- Szene 2: fertige, formatierte Anzeige -->
+                <div class="mp-ad">
+                  <div class="mp-ad__head">
+                    <span class="mp-ad__brand">personalwerk<em>.</em></span>
+                    <span class="mp-ad__loc">Karben · Recruiting</span>
+                  </div>
+                  <span class="mp-ad__eyebrow"><i></i>Karriere bei Personalwerk</span>
+                  <span class="mp-ad__h">Ihre Stellenanzeige</span>
+                  <div class="mp-ad__meta"><span>Vollzeit</span><span>Unbefristet</span><span>Hybrid</span></div>
+                  <span class="mp-ad__bars"><i></i><i></i></span>
+                  <span class="mp-ad__btn">Jetzt bewerben →</span>
+                </div>
+                <!-- Szene 5: eingehende CVs poppen auf und stapeln sich -->
+                <div class="mp-cvs">
+                  <span class="mp-cv" style="--i:0;--cx:0;--cy:.012;--cr:-5deg"><span class="mp-cv__top"><i class="mp-cv__ph"></i><i class="mp-cv__name"></i></span><b></b><b></b><b></b></span>
+                  <span class="mp-cv" style="--i:1;--cx:.03;--cy:-.014;--cr:4deg"><span class="mp-cv__top"><i class="mp-cv__ph"></i><i class="mp-cv__name"></i></span><b></b><b></b><b></b></span>
+                  <span class="mp-cv" style="--i:2;--cx:-.032;--cy:.006;--cr:-6deg"><span class="mp-cv__top"><i class="mp-cv__ph"></i><i class="mp-cv__name"></i></span><b></b><b></b><b></b></span>
+                  <span class="mp-cv" style="--i:3;--cx:.02;--cy:.02;--cr:7deg"><span class="mp-cv__top"><i class="mp-cv__ph"></i><i class="mp-cv__name"></i></span><b></b><b></b><b></b></span>
+                  <span class="mp-cv" style="--i:4;--cx:-.022;--cy:-.018;--cr:-3deg"><span class="mp-cv__top"><i class="mp-cv__ph"></i><i class="mp-cv__name"></i></span><b></b><b></b><b></b></span>
+                  <span class="mp-cv" style="--i:5;--cx:.036;--cy:.012;--cr:5deg"><span class="mp-cv__top"><i class="mp-cv__ph"></i><i class="mp-cv__name"></i></span><b></b><b></b><b></b></span>
+                </div>
+                <!-- Szene 6: Match — Personaler & Bewerber per Handschlag -->
+                <div class="mp-hire">
+                  <img class="mp-hire__img" src="assets/handshake.jpg" alt="Personaler und Bewerber beim Handschlag">
+                </div>
+                <!-- Szene 7: Abschluss-Einblendung -->
+                <div class="mp-outro">
+                  <span class="mp-outro__title">Multiposting</span>
+                  <span class="mp-outro__by">von personalwerk<em>.</em></span>
+                </div>
+                <span class="mp-screen__glare"></span>
+              </div>
+            </div>
+          </div>
+          <!-- grüner Haken über das komplette Bild (außerhalb des Displays) -->
+          <span class="mp-check" aria-hidden="true">
+            <svg viewBox="0 0 100 100"><path d="M20 54 L43 76 L82 26"/></svg>
+          </span>
+          <span class="mp-tag"><i></i>Live-Multiposting</span>
+          <div class="mp-flash"></div>
+          <span class="media-ai-note">Animation mit KI erstellt</span>
+        </div>
+        <span class="panel__num">01</span>
+      </div>
+      <div class="panel__body">
+        <p class="panel__kicker reveal" data-reveal>Reichweite</p>
+        <h3 class="panel__title reveal" data-reveal>Multiposting</h3>
+        <p class="panel__text reveal" data-reveal>
+          Eine Anzeige, hunderte Kanäle. Wir schalten Ihre Stellen dort, wo Ihre
+          Talente wirklich sind — von den großen Jobbörsen bis zu Social&nbsp;Media,
+          zentral gesteuert und in Echtzeit ausgewertet.
+        </p>
+        <ul class="panel__list reveal" data-reveal>
+          <li>1.500+ Portale &amp; Kanäle</li>
+          <li>Automatisierte Ausspielung</li>
+          <li>Live-Performance-Tracking</li>
+        </ul>
+        <a href="#kontakt" class="arrowlink reveal" data-reveal>Mehr erfahren <i>→</i></a>
+      </div>
+    </article>
+
+    <!-- Panel 02 -->
+    <article class="panel panel--rev" data-panel>
+      <div class="panel__media" data-parallax="0.18">
+        <!-- Employer-Branding-Video (Loop mit Abschluss-Einblendung) -->
+        <div class="eb-scene" data-eb-scene>
+          <video class="eb-video" data-eb-video playsinline preload="auto">
+            <source src="assets/eb-video.mp4" type="video/mp4">
+          </video>
+          <button class="eb-play" data-eb-play type="button" aria-label="Video abspielen">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <button class="eb-sound" data-eb-sound type="button" aria-label="Ton ausschalten">
+            <svg class="eb-sound__on" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10v4h4l5 5V5L7 10H3zm13.5 2a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zm-2.5-9v2.06a7 7 0 0 1 0 13.88V21a9 9 0 0 0 0-18z"/></svg>
+            <svg class="eb-sound__off" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10v4h4l5 5V5L7 10H3zm18.4 2 2.1-2.1-1.4-1.4-2.1 2.1-2.1-2.1-1.4 1.4 2.1 2.1-2.1 2.1 1.4 1.4 2.1-2.1 2.1 2.1 1.4-1.4z"/></svg>
+          </button>
+          <div class="eb-outro">
+            <span class="eb-outro__title">Employer&nbsp;Branding</span>
+            <span class="eb-outro__by">von personalwerk<em>.</em></span>
+          </div>
+          <span class="media-ai-note">Animation mit KI erstellt</span>
+        </div>
+        <span class="panel__num">02</span>
+      </div>
+      <div class="panel__body">
+        <p class="panel__kicker reveal" data-reveal>Identität</p>
+        <h3 class="panel__title reveal" data-reveal>Employer&nbsp;Branding</h3>
+        <p class="panel__text reveal" data-reveal>
+          Warum bei Ihnen arbeiten? Wir formen die Antwort. Von der Arbeitgeber­marke
+          über Kampagne und Karrierewelt bis zur Mediastrategie — konsequent,
+          kreativ und wiedererkennbar.
+        </p>
+        <ul class="panel__list reveal" data-reveal>
+          <li>Positionierung &amp; EVP</li>
+          <li>Kreation &amp; Kampagne</li>
+          <li>Mediaplanung &amp; Strategie</li>
+        </ul>
+        <a href="#kontakt" class="arrowlink reveal" data-reveal>Mehr erfahren <i>→</i></a>
+      </div>
+    </article>
+
+    <!-- Panel 03 -->
+    <article class="panel" data-panel>
+      <div class="panel__media" data-parallax="0.18">
+        <!-- Personalberatung — Loop-Animation: verdeckter Markt → Zugang → Diskretion → drei Zusagen → beide zufrieden -->
+        <div class="pb-scene" data-pb-scene aria-hidden="true">
+
+          <!-- Talentpool: echt wirkende Kandidaten-Porträts -->
+          <div class="pb-pool">
+            <span class="pb-cand" style="--i:0"><img src="assets/pb-cand1.jpg" alt=""><i class="pb-cand__lock"></i></span>
+            <span class="pb-cand pb-cand--hit pb-cand--match" style="--i:1;--hd:.55s"><img src="assets/pb-cand2.jpg" alt=""><b class="pb-cand__ok">erreichbar</b></span>
+            <span class="pb-cand" style="--i:2"><img src="assets/pb-cand3.jpg" alt=""><i class="pb-cand__lock"></i></span>
+            <span class="pb-cand pb-cand--hit" style="--i:3;--hd:.2s"><img src="assets/pb-cand4.jpg" alt=""><b class="pb-cand__ok">erreichbar</b></span>
+            <span class="pb-cand" style="--i:4"><img src="assets/pb-cand5.jpg" alt=""><i class="pb-cand__lock"></i></span>
+            <span class="pb-cand pb-cand--hit" style="--i:5;--hd:.9s"><img src="assets/pb-cand6.jpg" alt=""><b class="pb-cand__ok">erreichbar</b></span>
+          </div>
+
+          <!-- Such-Sweep über den Pool -->
+          <div class="pb-scan"></div>
+
+          <!-- Diskretion: Vertraulich-Badge -->
+          <span class="pb-conf">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5zm3 8H9V6a3 3 0 0 1 6 0v3z"/></svg>
+            Vertraulich
+          </span>
+
+          <!-- wechselnde Bildunterschrift -->
+          <div class="pb-cap">
+            <span class="pb-cap__t pb-cap--relief">Entlastung, wenn Ihre HR am Limit ist.</span>
+            <span class="pb-cap__t pb-cap--find">Zugang zu Talenten, die Sie selbst nicht erreichen.</span>
+            <span class="pb-cap__t pb-cap--disc">Diskret bei heiklen Vakanzen — mit Marktkenntnis.</span>
+          </div>
+
+          <!-- Die drei Zusagen (die eigentliche Differenzierung) -->
+          <div class="pb-panel">
+            <img class="pb-panel__logo" src="assets/logos/KraftVonWantoch_weiss.png" alt="Kraft von Wantoch">
+            <p class="pb-panel__eyebrow"><span></span>Was uns unterscheidet</p>
+            <ul class="pb-panel__list">
+              <li class="pb-promise" style="--p:0"><span class="pb-promise__check"></span>Honorar — nachvollziehbar</li>
+              <li class="pb-promise" style="--p:1"><span class="pb-promise__check"></span>Ein fester Ansprechpartner</li>
+              <li class="pb-promise" style="--p:2"><span class="pb-promise__check"></span>Verbindlich gegenüber Kandidat:innen</li>
+            </ul>
+          </div>
+
+          <!-- Finale: beide zufrieden -->
+          <div class="pb-match">
+            <img class="pb-match__img" src="assets/pb-match.jpg" alt="Personaler und neuer Mitarbeiter besiegeln den Einstellungsvertrag per Handschlag">
+            <span class="pb-match__cap">Auftraggeber &amp; Kandidat zufrieden — dann sind wir es auch.</span>
+          </div>
+
+          <!-- grüner Haken -->
+          <span class="pb-check" aria-hidden="true">
+            <svg viewBox="0 0 100 100"><path d="M20 54 L43 76 L82 26"/></svg>
+          </span>
+
+          <!-- Abschluss-Einblendung -->
+          <div class="pb-outro">
+            <span class="pb-outro__title">Personalberatung</span>
+            <span class="pb-outro__by">von personalwerk<em>.</em></span>
+          </div>
+
+          <span class="mp-tag"><i></i>Direktansprache</span>
+          <span class="media-ai-note">Animation mit KI erstellt</span>
+        </div>
+        <span class="panel__num">03</span>
+      </div>
+      <div class="panel__body">
+        <p class="panel__kicker reveal" data-reveal>Präzision</p>
+        <h3 class="panel__title reveal" data-reveal>Personalberatung</h3>
+        <p class="panel__text reveal" data-reveal>
+          Wenn die Anzeige nicht reicht, gehen wir direkt zur Quelle. Active Sourcing,
+          Direktansprache und anonyme Suche — diskret, zielgerichtet und mit
+          vorselektierten Kandidat:innen.
+        </p>
+        <ul class="panel__list reveal" data-reveal>
+          <li>Active Sourcing &amp; Direct Search</li>
+          <li>Anonyme Stellenanzeigen</li>
+          <li>Kandidaten-Vorauswahl</li>
+        </ul>
+        <a href="#kontakt" class="arrowlink reveal" data-reveal>Mehr erfahren <i>→</i></a>
+      </div>
+    </article>
+
+    <!-- Panel 04 -->
+    <article class="panel panel--rev" data-panel>
+      <div class="panel__media" data-parallax="0.18">
+        <!-- E-Recruiting — Crossfade-Loop: Karriereseite → ATS-Pipeline → Storytelling bis zur Unterschrift -->
+        <div class="er-scene" data-er-scene aria-hidden="true">
+          <div class="er-slide" style="--d:0"><img src="assets/er-scene1.jpg" alt=""><span class="er-slide__cap">Karriereseiten &amp; Landingpages</span></div>
+          <div class="er-slide" style="--d:1"><img src="assets/er-scene2.jpg" alt=""><span class="er-slide__cap">Bewerbermanagement (ATS)</span></div>
+          <div class="er-slide" style="--d:2"><img src="assets/er-scene3.jpg" alt=""><span class="er-slide__cap">Digital Storytelling</span></div>
+          <span class="mp-tag"><i></i>E-Recruiting</span>
+          <span class="media-ai-note">Mit KI erstellt</span>
+        </div>
+        <span class="panel__num">04</span>
+      </div>
+      <div class="panel__body">
+        <p class="panel__kicker reveal" data-reveal>Technologie</p>
+        <h3 class="panel__title reveal" data-reveal>E-Recruiting</h3>
+        <p class="panel__text reveal" data-reveal>
+          Der digitale Kern: Karriereseiten, die konvertieren, Jobbörsen mit System
+          und ein Bewerbermanagement, das nichts verliert. Digital Storytelling
+          von der ersten Impression bis zur Unterschrift.
+        </p>
+        <ul class="panel__list reveal" data-reveal>
+          <li>Karriereseiten &amp; Landingpages</li>
+          <li>Bewerbermanagement (ATS)</li>
+          <li>Digital Storytelling</li>
+        </ul>
+        <a href="#kontakt" class="arrowlink reveal" data-reveal>Mehr erfahren <i>→</i></a>
+      </div>
+    </article>
+  </section>
+
+  <!-- ══════════════════ ERGEBNISSE — SCROLLYTELLING ══════════════════ -->
+  <section class="perf" id="ergebnisse">
+    <div class="perf__sticky">
+      <div class="perf__visual">
+        <div class="perf__dial" id="perfDial">
+          <div class="perf__ring perf__ring--1"></div>
+          <div class="perf__ring perf__ring--2"></div>
+          <div class="perf__ring perf__ring--3"></div>
+          <div class="perf__hand" id="perfHand"></div>
+          <div class="perf__core">
+            <span class="perf__coreNum" id="perfCoreNum">87</span>
+            <span class="perf__coreSuffix" id="perfCoreSuffix">%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="perf__panel">
+        <p class="sec-eyebrow"><span class="dot"></span> Ergebnisse</p>
+        <h2 class="perf__headline">Ergebnisse sagen<br>mehr als tausend Worte.</h2>
+        <ol class="perf__steps" id="perfSteps">
+          <li class="perf__step is-active" data-num="87" data-suffix="%">
+            <b>87&nbsp;%</b>
+            <p>schneller besetzen Sie Ihre Stellen mit dem Media- und Kampagnen-Setup von Personalwerk.</p>
+          </li>
+          <li class="perf__step" data-num="45" data-suffix="%">
+            <b>45&nbsp;%</b>
+            <p>sparen Sie im Schnitt an Recruiting-Kosten durch treffsichere Aussteuerung.</p>
+          </li>
+          <li class="perf__step" data-num="2000" data-suffix="+">
+            <b>2.000&nbsp;+</b>
+            <p>Kampagnen jährlich — Erfahrung, die in jeder Anzeige mitarbeitet.</p>
+          </li>
+          <li class="perf__step" data-num="98" data-suffix="%">
+            <b>98&nbsp;%</b>
+            <p>unserer Kund:innen empfehlen uns weiter. Partnerschaft statt Projektgeschäft.</p>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ KOLLEKTION — GRID ══════════════════ -->
+  <section class="coll" id="kollektion">
+    <header class="coll__head">
+      <div>
+        <p class="sec-eyebrow reveal" data-reveal><span class="dot"></span> Kollektion</p>
+        <h2 class="sec-title reveal" data-reveal>Lösungen, die zünden.</h2>
+      </div>
+      <p class="coll__lead reveal" data-reveal>
+        Modular kombinierbar — vom Einzelinstrument bis zur kompletten Recruiting-Maschine.
+      </p>
+    </header>
+
+    <div class="coll__grid">
+      <!-- card -->
+      <article class="card reveal" data-reveal data-tilt>
+        <span class="card__badge">Bestseller</span>
+        <div class="card__media"><div class="card__img" data-img="c1"></div></div>
+        <div class="card__row">
+          <div>
+            <h3>Stellenanzeigen-Paket</h3>
+            <p>Reichweite &amp; Design in einem</p>
+          </div>
+          <span class="card__arrow">→</span>
+        </div>
+      </article>
+
+      <article class="card reveal" data-reveal data-tilt>
+        <span class="card__badge card__badge--new">Neu</span>
+        <div class="card__media"><div class="card__img" data-img="c2"></div></div>
+        <div class="card__row">
+          <div>
+            <h3>Karriere­seiten</h3>
+            <p>Conversion-optimiert &amp; mobil</p>
+          </div>
+          <span class="card__arrow">→</span>
+        </div>
+      </article>
+
+      <article class="card reveal" data-reveal data-tilt>
+        <div class="card__media"><div class="card__img" data-img="c3"></div></div>
+        <div class="card__row">
+          <div>
+            <h3>Employer-Branding-Kampagne</h3>
+            <p>Von Idee bis Ausspielung</p>
+          </div>
+          <span class="card__arrow">→</span>
+        </div>
+      </article>
+
+      <article class="card reveal" data-reveal data-tilt>
+        <div class="card__media"><div class="card__img" data-img="c4"></div></div>
+        <div class="card__row">
+          <div>
+            <h3>Active Sourcing</h3>
+            <p>Direktansprache mit System</p>
+          </div>
+          <span class="card__arrow">→</span>
+        </div>
+      </article>
+
+      <article class="card reveal" data-reveal data-tilt>
+        <div class="card__media"><div class="card__img" data-img="c5"></div></div>
+        <div class="card__row">
+          <div>
+            <h3>Media­planung</h3>
+            <p>Datengetrieben &amp; effizient</p>
+          </div>
+          <span class="card__arrow">→</span>
+        </div>
+      </article>
+
+      <article class="card reveal" data-reveal data-tilt>
+        <span class="card__badge card__badge--new">Neu</span>
+        <div class="card__media"><div class="card__img" data-img="c6"></div></div>
+        <div class="card__row">
+          <div>
+            <h3>Bewerber­management</h3>
+            <p>Kein Talent geht verloren</p>
+          </div>
+          <span class="card__arrow">→</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ══════════════════ REFERENZEN — CAROUSEL ══════════════════ -->
+  <section class="cases" id="referenzen">
+    <header class="cases__head">
+      <div>
+        <p class="sec-eyebrow reveal" data-reveal><span class="dot"></span> Referenzen</p>
+        <h2 class="sec-title reveal" data-reveal>Kampagnen, die wirken.</h2>
+      </div>
+      <div class="cases__ctrl" aria-hidden="true">
+        <button class="cases__btn" data-carousel="prev" aria-label="Zurück">←</button>
+        <button class="cases__btn" data-carousel="next" aria-label="Weiter">→</button>
+      </div>
+    </header>
+
+    <div class="cases__viewport" data-carousel-viewport>
+      <div class="cases__track" data-carousel-track>
+        <article class="case"><div class="case__img" data-img="k1"></div>
+          <div class="case__meta"><span>Gesundheit</span><h3>+ 340 % Bewerbungen für Pflegekräfte</h3></div></article>
+        <article class="case"><div class="case__img" data-img="k2"></div>
+          <div class="case__meta"><span>Industrie</span><h3>Fachkräfte-Pipeline in 6 Wochen</h3></div></article>
+        <article class="case"><div class="case__img" data-img="k3"></div>
+          <div class="case__meta"><span>Handel</span><h3>Neue Arbeitgeber­marke, 5-mal Reichweite</h3></div></article>
+        <article class="case"><div class="case__img" data-img="k4"></div>
+          <div class="case__meta"><span>IT &amp; Tech</span><h3>Developer-Kampagne, 60 % weniger CPA</h3></div></article>
+        <article class="case"><div class="case__img" data-img="k5"></div>
+          <div class="case__meta"><span>Öffentlicher Dienst</span><h3>Ausbildungs­plätze voll besetzt</h3></div></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ QUOTE ══════════════════ -->
+  <section class="quote">
+    <blockquote class="quote__text" data-splitwords>
+      „Personalwerk denkt Recruiting wie ein Uhrwerk — jedes Teil greift ins nächste.
+      Wir besetzen heute schneller, günstiger und mit besseren Menschen.“
+    </blockquote>
+    <footer class="quote__by reveal" data-reveal>
+      <span class="quote__avatar"></span>
+      <span><b>Head of HR</b> · Mittelständischer Klinikverbund</span>
+    </footer>
+  </section>
+
+  <!-- ══════════════════ CTA BAND ══════════════════ -->
+  <section class="ctaband" id="kontakt" data-parallax-scope>
+    <div class="ctaband__bg" data-parallax="0.2"><div class="ctaband__img" data-img="cta"></div></div>
+    <div class="ctaband__inner">
+      <p class="sec-eyebrow reveal" data-reveal><span class="dot"></span> Jetzt starten</p>
+      <h2 class="ctaband__title" data-splitwords>Bereit, Ihre Stellen schneller zu besetzen?</h2>
+      <p class="ctaband__sub reveal" data-reveal>
+        Erzählen Sie uns von Ihrer Vakanz. In einem kostenlosen Erstgespräch zeigen wir,
+        wie präzise Personalmarketing sein kann.
+      </p>
+      <div class="ctaband__actions reveal" data-reveal>
+        <a href="mailto:info@personalwerk.de" class="btn btn--solid" data-magnetic>Beratung anfragen</a>
+        <a href="tel:+49603993450" class="btn btn--ghost btn--light" data-magnetic>+49 6039 9345-0</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ NEWSLETTER ══════════════════ -->
+  <section class="news">
+    <div class="news__inner">
+      <div class="news__head reveal" data-reveal>
+        <h2>Der EDGE Newsletter</h2>
+        <p>HR-Trends, Recruiting-Benchmarks und Kampagnen-Insights — einmal im Monat, ohne Ballast.</p>
+      </div>
+      <form class="news__form reveal" data-reveal onsubmit="return false">
+        <input type="email" placeholder="Ihre E-Mail-Adresse" aria-label="E-Mail-Adresse" required />
+        <button type="submit" class="btn btn--solid" data-magnetic>Abonnieren</button>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<!-- ══════════════════ FOOTER ══════════════════ -->
+<footer class="footer">
+  <div class="footer__top">
+    <a href="#top" class="footer__logo">personal<em>werk</em></a>
+    <p class="footer__claim">Personalmarketing für die Zukunft.</p>
+  </div>
+
+  <div class="footer__cols">
+    <div class="footer__col">
+      <h4>Leistungen</h4>
+      <a href="#leistungen">Multiposting</a>
+      <a href="#leistungen">Employer Branding</a>
+      <a href="#leistungen">Personalberatung</a>
+      <a href="#leistungen">E-Recruiting</a>
+    </div>
+    <div class="footer__col">
+      <h4>Unternehmen</h4>
+      <a href="#">Über uns</a>
+      <a href="#">Karriere</a>
+      <a href="#">Power People Group</a>
+      <a href="#">Presse</a>
+    </div>
+    <div class="footer__col">
+      <h4>Wissen</h4>
+      <a href="#">HR-Wissen</a>
+      <a href="#">Studien &amp; Reports</a>
+      <a href="#">Webinare</a>
+      <a href="#">Gehaltsreport</a>
+    </div>
+    <div class="footer__col">
+      <h4>Kontakt</h4>
+      <a href="mailto:info@personalwerk.de">info@personalwerk.de</a>
+      <a href="tel:+49603993450">+49 6039 9345-0</a>
+      <a href="#">Dieselstraße 22, 61184 Karben</a>
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="footer__socials">
+      <a href="#" aria-label="LinkedIn">in</a>
+      <a href="#" aria-label="Instagram">ig</a>
+      <a href="#" aria-label="YouTube">yt</a>
+      <a href="#" aria-label="Xing">xg</a>
+    </div>
+    <p class="footer__legal">© 2001—2026 Personalwerk GmbH · Ein Unternehmen der Power People Group</p>
+    <div class="footer__legalinks">
+      <a href="#">Impressum</a><a href="#">Datenschutz</a><a href="#">AGB</a>
+    </div>
+  </div>
+</footer>
+
+<button class="totop" id="totop" aria-label="Nach oben" data-magnetic>↑</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="dotted-surface.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
