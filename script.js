@@ -575,3 +575,32 @@
     else if (scene.getBoundingClientRect().top < window.innerHeight && scene.getBoundingClientRect().bottom > 0) start();
   });
 })();
+
+/* =========================================================================
+   STÖRER — schließen / wieder anzeigen (Session-übergreifend gemerkt)
+   ========================================================================= */
+(function () {
+  "use strict";
+  const root = document.querySelector("[data-stoerer]");
+  if (!root) return;
+
+  const KEY = "pw-stoerer-closed";
+  let store = null;
+  try { store = window.sessionStorage; } catch (_) { store = null; }
+
+  const setClosed = (closed) => {
+    root.classList.toggle("is-closed", closed);
+    try { store && store.setItem(KEY, closed ? "1" : "0"); } catch (_) {}
+  };
+
+  if (store && store.getItem(KEY) === "1") root.classList.add("is-closed");
+
+  const close = root.querySelector("[data-stoerer-close]");
+  const open = root.querySelector("[data-stoerer-open]");
+  const cta = root.querySelector("[data-stoerer-cta]");
+
+  close && close.addEventListener("click", () => setClosed(true));
+  open && open.addEventListener("click", () => setClosed(false));
+  /* Nach Klick auf den CTA einklappen — der Nutzer ist beim Kontaktformular. */
+  cta && cta.addEventListener("click", () => setClosed(true));
+})();

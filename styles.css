@@ -1452,3 +1452,191 @@ ul,ol{list-style:none}
   .faq__inner{grid-template-columns:1fr;gap:1.6rem}
   .faq__head{position:static}
 }
+
+/* =========================================================================
+   STÖRER — „Stellenanzeigen schalten" (dominanter, animierter Eyecatcher)
+   Fixiert oben rechts. Starburst + Shine + Puls + Logo-Karussell.
+   ========================================================================= */
+.stoerer{
+  position:fixed;top:148px;right:clamp(.9rem,2vw,1.6rem);z-index:1200;
+  width:clamp(260px,25vw,320px);pointer-events:none;
+  font-family:var(--ff-body);
+}
+.stoerer__card{
+  position:relative;pointer-events:auto;isolation:isolate;overflow:hidden;
+  border-radius:20px;padding:1.15rem 1.15rem 1.25rem;
+  background:linear-gradient(155deg,var(--accent-2) 0%,var(--accent) 46%,var(--accent-deep) 100%);
+  color:#fff;
+  box-shadow:0 24px 60px -18px rgba(179,15,52,.7),0 4px 16px rgba(3,25,46,.35),
+             inset 0 1px 0 rgba(255,255,255,.28);
+  transform-origin:top right;
+  animation:stoerer-in .8s var(--ease) both, stoerer-wobble 6s ease-in-out 1.4s infinite;
+}
+@keyframes stoerer-in{
+  0%{opacity:0;transform:translateY(-14px) scale(.82) rotate(-4deg)}
+  60%{opacity:1;transform:translateY(0) scale(1.04) rotate(1.5deg)}
+  100%{opacity:1;transform:translateY(0) scale(1) rotate(0)}
+}
+@keyframes stoerer-wobble{
+  0%,100%{transform:rotate(0)}
+  25%{transform:rotate(-1.1deg)}
+  50%{transform:rotate(0)}
+  75%{transform:rotate(1.1deg)}
+}
+
+/* aggressiver Starburst hinter der Karte */
+.stoerer__burst{
+  position:absolute;inset:-42% -46%;z-index:-1;pointer-events:none;
+  background:
+    repeating-conic-gradient(from 0deg,
+      rgba(255,255,255,.16) 0deg 6deg,
+      rgba(255,255,255,0) 6deg 12deg);
+  filter:blur(.3px);
+  animation:stoerer-spin 26s linear infinite;
+}
+@keyframes stoerer-spin{to{transform:rotate(360deg)}}
+
+/* diagonaler Glanz, der wiederkehrend durchläuft */
+.stoerer__shine{
+  position:absolute;top:0;bottom:0;left:-60%;width:45%;z-index:1;pointer-events:none;
+  background:linear-gradient(105deg,transparent,rgba(255,255,255,.55),transparent);
+  transform:skewX(-16deg);
+  animation:stoerer-shine 4.6s ease-in-out 1.6s infinite;
+}
+@keyframes stoerer-shine{
+  0%{left:-60%}
+  38%,100%{left:130%}
+}
+
+.stoerer__body{position:relative;z-index:2}
+
+/* Rotierendes „sparen"-Siegel (nano-banana-Burst als echtes PNG) */
+.stoerer__seal{
+  position:absolute;top:-30px;left:-30px;z-index:5;pointer-events:none;
+  width:92px;height:92px;display:grid;place-items:center;text-align:center;line-height:1;
+  filter:drop-shadow(0 7px 14px rgba(3,25,46,.45));
+}
+.stoerer__seal::before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:url("assets/stoerer-burst.png") center/contain no-repeat;
+  animation:stoerer-spin 14s linear infinite;
+}
+.stoerer__seal-top,.stoerer__seal-bot{
+  font-family:var(--ff-display);font-weight:700;font-size:.56rem;letter-spacing:.14em;
+  text-transform:uppercase;color:#fff;text-shadow:0 1px 2px rgba(3,25,46,.55)}
+.stoerer__seal-big{
+  font-family:var(--ff-display);font-weight:700;font-size:1.55rem;color:#fff;margin:.02em 0;
+  text-shadow:0 1px 3px rgba(3,25,46,.6)}
+
+.stoerer__close{
+  position:absolute;top:.55rem;right:.55rem;z-index:4;pointer-events:auto;
+  width:26px;height:26px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(3,25,46,.22);color:#fff;transition:background .2s,transform .2s;
+}
+.stoerer__close svg{width:14px;height:14px;stroke:currentColor;stroke-width:2.2;fill:none;stroke-linecap:round}
+.stoerer__close:hover{background:rgba(3,25,46,.5);transform:rotate(90deg)}
+
+.stoerer__flag{
+  display:inline-flex;align-items:center;gap:.5em;
+  font-family:var(--ff-display);font-weight:700;font-size:.68rem;letter-spacing:.14em;
+  text-transform:uppercase;padding:.32em .7em;border-radius:100px;
+  background:rgba(3,25,46,.9);color:#fff;
+}
+.stoerer__dot{
+  width:.5em;height:.5em;border-radius:50%;background:#3ddc84;flex:0 0 auto;
+  box-shadow:0 0 0 0 rgba(61,220,132,.7);animation:stoerer-pulse 1.5s ease-out infinite;
+}
+@keyframes stoerer-pulse{
+  0%{box-shadow:0 0 0 0 rgba(61,220,132,.7)}
+  70%{box-shadow:0 0 0 7px rgba(61,220,132,0)}
+  100%{box-shadow:0 0 0 0 rgba(61,220,132,0)}
+}
+
+.stoerer__title{
+  font-family:var(--ff-display);font-weight:700;line-height:.98;letter-spacing:-.01em;
+  font-size:clamp(1.5rem,2.4vw,1.85rem);margin:.55rem 0 .35rem;
+}
+.stoerer__title em{font-style:normal;color:var(--black);
+  text-shadow:0 1px 0 rgba(255,255,255,.25)}
+
+.stoerer__claim{font-size:.86rem;line-height:1.35;color:rgba(255,255,255,.94)}
+.stoerer__claim b{color:#fff;background:rgba(3,25,46,.85);padding:.02em .38em;border-radius:5px;font-weight:700}
+
+.stoerer__opts{display:flex;flex-direction:column;gap:.5rem;margin:.85rem 0 .8rem}
+.stoerer__opt{
+  position:relative;padding:.5rem .7rem .5rem 1.55rem;border-radius:11px;
+  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);
+  backdrop-filter:blur(2px);
+}
+.stoerer__opt::before{
+  content:"";position:absolute;left:.7rem;top:.78rem;
+  width:.42rem;height:.42rem;border-radius:50%;background:#fff;
+  box-shadow:0 0 0 3px rgba(255,255,255,.22);
+}
+.stoerer__opt b{display:block;font-family:var(--ff-display);font-weight:700;font-size:.83rem;letter-spacing:.01em}
+.stoerer__opt span{display:block;font-size:.72rem;line-height:1.28;color:rgba(255,255,255,.85);margin-top:.08rem}
+
+/* Logo-Karussell */
+.stoerer__logos{
+  position:relative;overflow:hidden;margin:.2rem -.35rem .95rem;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);
+          mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);
+}
+.stoerer__logotrack{
+  display:flex;align-items:center;gap:.4rem;width:max-content;
+  animation:stoerer-marq 18s linear infinite;
+}
+.stoerer:hover .stoerer__logotrack{animation-play-state:paused}
+@keyframes stoerer-marq{to{transform:translateX(-50%)}}
+.stoerer__chip{
+  flex:0 0 auto;width:52px;height:32px;border-radius:8px;
+  background:#fff;display:grid;place-items:center;padding:5px 7px;
+  box-shadow:0 3px 8px rgba(3,25,46,.22);
+}
+.stoerer__chip img{max-width:100%;max-height:100%;object-fit:contain;width:auto;height:auto}
+
+.stoerer__cta{
+  pointer-events:auto;display:flex;align-items:center;justify-content:center;gap:.5em;
+  width:100%;padding:.8rem 1rem;border-radius:12px;
+  background:var(--black);color:#fff;
+  font-family:var(--ff-display);font-weight:700;font-size:.92rem;letter-spacing:.01em;
+  box-shadow:0 8px 20px -6px rgba(3,25,46,.6),inset 0 1px 0 rgba(255,255,255,.14);
+  transition:transform .2s var(--ease),background .2s;
+}
+.stoerer__cta i{font-style:normal;transition:transform .2s var(--ease)}
+.stoerer__cta:hover{background:var(--ink-2);transform:translateY(-2px)}
+.stoerer__cta:hover i{transform:translateX(4px)}
+
+/* geschlossener Zustand → Mini-Reopen-Pille */
+.stoerer__reopen{
+  pointer-events:auto;display:none;align-items:center;gap:.5em;margin-left:auto;
+  padding:.6rem .95rem;border-radius:100px;
+  background:linear-gradient(155deg,var(--accent-2),var(--accent-deep));color:#fff;
+  font-family:var(--ff-display);font-weight:700;font-size:.8rem;letter-spacing:.02em;
+  box-shadow:0 12px 30px -10px rgba(179,15,52,.7),inset 0 1px 0 rgba(255,255,255,.28);
+  animation:stoerer-bob 2.4s ease-in-out infinite;
+}
+.stoerer__reopen-dot{
+  width:.5em;height:.5em;border-radius:50%;background:#fff;flex:0 0 auto;
+  box-shadow:0 0 0 0 rgba(255,255,255,.7);animation:stoerer-pulse 1.5s ease-out infinite;
+}
+@keyframes stoerer-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+
+.stoerer.is-closed{width:auto}
+.stoerer.is-closed .stoerer__card{display:none}
+.stoerer.is-closed .stoerer__seal{display:none}
+.stoerer.is-closed .stoerer__reopen{display:inline-flex}
+
+@media (max-width:1080px){
+  .stoerer{width:clamp(240px,42vw,288px)}
+}
+@media (max-width:640px){
+  .stoerer{top:144px;right:.6rem;width:min(78vw,268px)}
+  .stoerer__title{font-size:1.4rem}
+}
+@media (prefers-reduced-motion:reduce){
+  .stoerer__card{animation:none}
+  .stoerer__burst,.stoerer__shine,.stoerer__dot,.stoerer__logotrack,
+  .stoerer__reopen,.stoerer__reopen-dot,.stoerer__seal::before{animation:none}
+  .stoerer__shine{display:none}
+}
