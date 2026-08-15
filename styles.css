@@ -398,7 +398,7 @@ ul,ol{list-style:none}
 .perf__core{position:relative;z-index:2;display:flex;align-items:baseline;
   font-family:var(--ff-display);font-weight:700;letter-spacing:-.03em}
 .perf__coreNum{font-size:clamp(3rem,8vw,6.5rem);line-height:1;transition:font-size .5s var(--ease)}
-.perf__coreNum.is-big{font-size:clamp(6rem,16vw,13rem);color:#16c65f}
+.perf__coreNum.is-big{font-size:clamp(6rem,16vw,13rem);color:var(--accent)}
 .perf__coreSuffix{font-size:clamp(1.4rem,3vw,2.4rem);color:var(--accent);margin-left:.1em}
 .perf__panel{padding:6rem 0}
 .perf__headline{font-family:var(--ff-display);font-weight:600;
@@ -1496,25 +1496,29 @@ ul,ol{list-style:none}
    Fixiert oben rechts. Starburst + Shine + Puls + Logo-Karussell.
    ========================================================================= */
 .stoerer{
-  position:absolute;top:220px;right:clamp(5.5rem,12vw,10rem);z-index:1200;
-  width:clamp(300px,27vw,360px);pointer-events:none;
-  transform:scale(1.38);transform-origin:top right;
+  position:absolute;top:0;bottom:0;right:0;z-index:1200;
+  width:clamp(432px,38vw,515px);pointer-events:none;
+  display:flex;flex-direction:column;padding-top:220px;
   font-family:var(--ff-body);
 }
 .stoerer__card{
   position:relative;pointer-events:auto;isolation:isolate;overflow:hidden;
-  border-radius:12px;padding:1.15rem 1.15rem 1.4rem;
-  border:3px solid var(--black);
+  flex:0 0 auto;
+  border-radius:0;padding:1.15rem 1.15rem 1.4rem 2.2rem;
+  border:none;
   background:linear-gradient(155deg,var(--accent-2) 0%,var(--accent) 46%,var(--accent-deep) 100%);
   color:#fff;
   box-shadow:0 24px 60px -18px rgba(179,15,52,.7),0 4px 16px rgba(3,25,46,.35),
              inset 0 1px 0 rgba(255,255,255,.28);
   transform-origin:top right;
-  animation:stoerer-in .5s var(--ease) both;
+  animation:stoerer-in 2.25s var(--ease) both;
+  animation-play-state:paused;
 }
+body.is-ready .stoerer__card{animation-play-state:running}
 @keyframes stoerer-in{
-  0%{opacity:0;transform:translateY(-10px) scale(.94) rotate(0deg)}
-  100%{opacity:1;transform:translateY(0) scale(1) rotate(5deg)}
+  0%{opacity:0;transform:translateX(130%)}
+  60%{opacity:1}
+  100%{opacity:1;transform:translateX(0)}
 }
 
 /* Starburst hinter der Karte (statisch) */
@@ -1535,8 +1539,8 @@ ul,ol{list-style:none}
 
 /* ── Fotorealistische Kollegin mit Megafon, bricht von rechts ins Bild ── */
 .stoerer__frau{
-  position:absolute;top:-14px;right:0;z-index:1;pointer-events:none;
-  width:62%;height:400px;overflow:hidden;
+  position:absolute;top:-54px;right:0;z-index:1;pointer-events:none;
+  width:62%;height:552px;overflow:hidden;
   -webkit-mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.5) 12%,#000 34%,#000 100%);
           mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.5) 12%,#000 34%,#000 100%);
 }
@@ -1581,41 +1585,59 @@ ul,ol{list-style:none}
 
 .stoerer__title{
   font-family:var(--ff-display);font-weight:700;line-height:.98;letter-spacing:-.01em;
-  font-size:clamp(1.1rem,1.8vw,1.35rem);margin:.55rem 0 .35rem;
+  font-size:clamp(1.21rem,1.98vw,1.49rem);margin:.55rem 0 .35rem;
   white-space:nowrap;-webkit-text-stroke:.5px currentColor;
 }
 .stoerer__title em{font-style:normal;color:var(--black);
   text-shadow:0 1px 0 rgba(255,255,255,.25)}
 
-.stoerer__claim{font-size:.86rem;line-height:1.35;color:rgba(255,255,255,.94)}
+.stoerer__claim{font-size:.95rem;line-height:1.35;color:rgba(255,255,255,.94)}
 .stoerer__claim b{color:#fff;background:rgba(3,25,46,.85);padding:.02em .38em;border-radius:5px;font-weight:700}
-.stoerer__claim b.stoerer__claim-big{font-size:1.02em;background:var(--ink-2);padding:.22em;white-space:nowrap;vertical-align:-0.32em;margin-top:.35em;margin-left:-.3em;display:inline-block}
+.stoerer__claim b.stoerer__claim-big{font-size:1.02em;background:var(--ink-2);padding:.22em;white-space:nowrap;vertical-align:-0.32em;margin-top:.35em;margin-left:0;display:inline-block}
 
-.stoerer__opts{display:flex;flex-direction:column;gap:.5rem;margin:.85rem 0 .8rem}
+.stoerer__opts{display:flex;flex-direction:column;align-items:flex-start;gap:.5rem;margin:.85rem 0 .8rem;max-width:66%}
 .stoerer__opt{
-  position:relative;padding:.55rem .6rem .55rem 1.4rem;border-radius:7px;
+  position:relative;padding:.55rem .7rem;border-radius:7px;
   background:rgba(255,255,255,.96);border:1px solid rgba(255,255,255,.6);
   box-shadow:0 6px 16px -8px rgba(3,25,46,.55);
 }
-.stoerer__opt::before{
-  content:"";position:absolute;left:.7rem;top:.78rem;
+.stoerer__opt b{display:flex;align-items:center;gap:.5em;font-family:var(--ff-display);font-weight:700;font-size:.83rem;letter-spacing:.01em;color:var(--black)}
+.stoerer__opt b::before{
+  content:"";flex:0 0 auto;
   width:.42rem;height:.42rem;border-radius:50%;background:var(--accent);
   box-shadow:0 0 0 3px rgba(229,23,71,.22);
 }
-.stoerer__opt b{display:block;font-family:var(--ff-display);font-weight:700;font-size:.83rem;letter-spacing:.01em;color:var(--black)}
 .stoerer__opt span{display:block;font-size:.72rem;line-height:1.28;color:var(--grey-2);margin-top:.08rem}
 
+/* ---------- 3D-Button mit Text-Swap + Splash (Personalwerk-Blau) ---------- */
 .stoerer__cta{
-  pointer-events:auto;display:flex;align-items:center;justify-content:center;gap:.5em;
-  width:100%;padding:.8rem 1rem;border-radius:8px;
-  background:var(--ink-2);color:#fff;
-  font-family:var(--ff-display);font-weight:700;font-size:.92rem;letter-spacing:.01em;
-  box-shadow:0 8px 20px -6px rgba(3,25,46,.6),inset 0 1px 0 rgba(255,255,255,.14);
-  transition:transform .2s var(--ease),background .2s;
+  position:relative;pointer-events:auto;isolation:isolate;
+  display:inline-flex;align-items:center;justify-content:center;
+  align-self:flex-start;border-radius:999px;color:#fff;
+  text-decoration:none;
 }
-.stoerer__cta i{font-style:normal;transition:transform .2s var(--ease)}
-.stoerer__cta:hover{background:var(--black);transform:translateY(-2px)}
-.stoerer__cta:hover i{transform:translateX(4px)}
+.stoerer__cta-bg{
+  position:absolute;inset:0;border-radius:inherit;z-index:0;
+  background:linear-gradient(155deg,var(--ink-2),var(--black));
+  box-shadow:0 10px 24px -8px rgba(3,25,46,.65),inset 0 1px 0 rgba(255,255,255,.16);
+}
+.stoerer__cta-splash{display:none}
+.stoerer__cta-wrap{position:relative;z-index:2;display:flex;align-items:center;border-radius:inherit;overflow:hidden}
+.stoerer__cta-path{display:none}
+.stoerer__cta-outline{
+  position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  border:1px solid rgba(255,255,255,.22);
+}
+.stoerer__cta-content{
+  position:relative;z-index:2;display:flex;align-items:center;gap:.55em;
+  padding:.85rem 1.5rem;white-space:nowrap;
+  font-family:var(--ff-display);font-weight:700;font-size:.9rem;letter-spacing:.01em;
+}
+.stoerer__cta-char{display:inline-flex;overflow:hidden}
+.stoerer__cta-char.state-1{max-width:230px}
+.stoerer__cta-char.state-2{display:none}
+.stoerer__cta-char span{display:inline-block}
+.stoerer__cta-icon{display:none}
 
 /* geschlossener Zustand → Mini-Reopen-Pille */
 .stoerer__reopen{
@@ -1635,11 +1657,11 @@ ul,ol{list-style:none}
 .stoerer.is-closed .stoerer__reopen{display:inline-flex}
 
 @media (max-width:1080px){
-  .stoerer{right:clamp(1.5rem,4vw,3rem);width:clamp(230px,36vw,280px)}
+  .stoerer{top:220px;bottom:auto;right:clamp(1.5rem,4vw,3rem);width:clamp(317px,50vw,386px);padding-top:0}
   .stoerer__frau{width:56%;height:320px}
 }
 @media (max-width:640px){
-  .stoerer{top:144px;right:.6rem;width:min(68vw,250px)}
+  .stoerer{top:144px;bottom:auto;right:.6rem;width:min(94vw,345px);padding-top:0}
   .stoerer__title{font-size:1rem}
   .stoerer__frau{width:52%;height:270px;top:-6px}
 
@@ -1660,4 +1682,6 @@ ul,ol{list-style:none}
   .stoerer__reopen,.stoerer__reopen-dot,
   .stoerer__frau img{animation:none}
   .stoerer__shine{display:none}
+  .stoerer__cta-splash{animation:none !important;display:none}
+  .stoerer__cta-char,.stoerer__cta-char span,.stoerer__cta-path path,.stoerer__cta-icon{transition:none}
 }
