@@ -202,11 +202,10 @@
     const coreNum = $("#perfCoreNum");
     const coreSuffix = $("#perfCoreSuffix");
     const hand = $("#perfHand");
+    const isMobile = () => window.matchMedia("(max-width:1080px)").matches;
     let current = -1;
 
-    const setActive = (i) => {
-      if (i === current) return; current = i;
-      steps.forEach((s, k) => s.classList.toggle("is-active", k === i));
+    const setDial = (i) => {
       const s = steps[i];
       if (!s) return;
       const num = parseFloat(s.dataset.num);
@@ -230,13 +229,27 @@
       requestAnimationFrame(step);
     };
 
+    // Auf Mobil bleibt die Uhr/der Drehzahlmesser statisch stehen, bis alle
+    // Felder darunter durchgelaufen sind — erst dann springt sie auf den Endwert.
+    let dialRevealed = false;
+    const setActive = (i) => {
+      if (i === current) return; current = i;
+      steps.forEach((s, k) => s.classList.toggle("is-active", k === i));
+      if (!isMobile()) setDial(i);
+    };
+
     let ticking = false;
     const onScroll = () => {
       const r = section.getBoundingClientRect();
       const vh = window.innerHeight;
       const total = section.offsetHeight - vh;
-      const prog = clamp((-r.top) / total, 0, 0.999);
+      const rawProg = total > 0 ? (-r.top) / total : 0;
+      const prog = clamp(rawProg, 0, 0.999);
       setActive(Math.floor(prog * steps.length));
+      if (isMobile() && !dialRevealed && rawProg >= 1) {
+        dialRevealed = true;
+        setDial(steps.length - 1);
+      }
       ticking = false;
     };
     // Kurze Scroll-Länge: pro Punkt reicht ~ein Mausrad-Schritt (statt mehrfach scrollen).
@@ -301,6 +314,21 @@
     vp.addEventListener("wheel", (e) => {
       if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) { e.preventDefault(); go(e.deltaX); }
     }, { passive: false });
+  }
+
+  /* ------------------------------------------- CASE STORYBOARDS ------- */
+  function caseStories() {
+    const cases = $$("[data-case-story]");
+    if (!cases.length) return;
+    cases.forEach((card) => {
+      card.addEventListener("click", (e) => {
+        if (!window.matchMedia("(hover: hover)").matches) e.stopPropagation();
+        const willOpen = !card.classList.contains("is-open");
+        cases.forEach((c) => c.classList.remove("is-open"));
+        if (willOpen) card.classList.add("is-open");
+      });
+    });
+    document.addEventListener("click", () => cases.forEach((c) => c.classList.remove("is-open")));
   }
 
   /* -------------------------------------------------- MAGNETIC ------- */
@@ -380,6 +408,7 @@
     perfScrolly();
     cardTilt();
     carousel();
+    caseStories();
     magnetic();
     mobileMenu();
     anchors();
@@ -593,6 +622,7 @@
     try { store && store.setItem(KEY, closed ? "1" : "0"); } catch (_) {}
   };
 
+  /* Standard: aufgeklappt (Karte sichtbar). Nur einklappen, wenn der Nutzer es in dieser Session selbst getan hat. */
   if (store && store.getItem(KEY) === "1") root.classList.add("is-closed");
 
   const close = root.querySelector("[data-stoerer-close]");
