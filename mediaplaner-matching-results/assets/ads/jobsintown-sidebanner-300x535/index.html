@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="ad.size" content="width=300,height=535">
+<title>jobsintown.de &ndash; "Der Richtige zaehlt" 300x535</title>
+<!--
+  Neues Kampagnenkonzept, Zielgruppe ARBEITGEBER (nicht Bewerber!):
+  "Ein falscher Kandidat kostet Zeit, Geld, Nerven. Das Leben ist zu kurz
+  fuer den falschen Kandidaten. jobsintown.de hilft, den Richtigen zu finden."
+  Custom-Format 300x535px, kein IAB-Standardformat, da speziell fuer diese
+  eine Platzierung gebaut (Spalte 4 der Empfehlungsliste, Hoehe = Anfang
+  Basic-Box bis Ende Comfort-Box in der Paket-Spalte).
+
+  ASSET-SPEZIFIKATION (Platzhalter, siehe img/-Ordner)
+  ------------------------------------------------------------
+  img/frame1-demotiviert.webp / .jpg   600x1070px (Retina 2x), Motiv "demotivierter Mitarbeiter vs. arbeitendes Team"
+  img/frame3-stop.webp / .jpg          600x1070px (Retina 2x), Motiv "Person mit klarer STOP-Handgeste" (statt einfarbigem Hintergrund), zeigt jetzt als Frame 2
+  img/logo-jobsintown.png              253x56px, jobsintown.de-Wortmarke (PNG, verlustfrei)
+  Alle Fotomotive sind KI-generierte Platzhalter (Nano Banana) und vor Livegang
+  durch freigegebenes Kampagnenmaterial im gleichen Seitenverhaeltnis (600:1070) zu ersetzen.
+  Hinweis: das fruehere Frame 2 ("gestresste HR-Person mit Bewerbungsstapel" /
+  Headline "Verlieren Sie kein Geld&hellip;") wurde auf Wunsch entfernt; das
+  ehemalige Frame 3 ("stop") ruckt auf Position 2, der Endcard-Frame auf Position 3.
+
+  STATISCHES BACKUP-IMAGE (separat bereitzustellen, kein HTML)
+  ------------------------------------------------------------
+  Dateiname:  jobsintown-sidebanner-300x535-backup.jpg
+  Masse:      300x535px (1x)
+  Motiv:      = Endframe (Frame 3): einfarbige Markenflaeche Rot #B40000,
+              Headline "jobsintown.de hilft, den Richtigen zu finden.",
+              CTA-Button "Jetzt Stellenanzeige schalten -&gt;".
+  Format:     JPG, sRGB, ohne Transparenz.
+
+  TECHNISCHE HINWEISE
+  ------------------------------------------------------------
+  - clickTag: window.clickTag wird von Ad-Server/Trafficking vor dem Laden
+    gesetzt bzw. per Querystring injiziert. Ohne gesetzten clickTag bleibt
+    das Creative unverlinkt (Fallback-Href leer).
+  - Animation laeuft 2x (2 x 18s = 36s) und friert danach auf dem Endframe
+    (Frame 3, CTA) ein. Kein Endlos-Loop (Standard-Policy-konformes
+    Verhalten, da fuer dieses Creative kein anderslautender Wunsch vorlag).
+  - Keine externen Requests (keine Google Fonts, keine CDN-Assets).
+-->
+<script>
+  window.clickTag = window.clickTag || "";
+</script>
+<style>
+  html,body{ margin:0; padding:0; }
+  *{ box-sizing:border-box; }
+  body{
+    font-family:Calibri, "Segoe UI", -apple-system, Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  .ad{
+    position:relative;
+    width:300px;
+    height:535px;
+    overflow:hidden;
+    border:1px solid #D9D9D9;
+    background:#000000;
+  }
+  a.click-layer{
+    display:block;
+    position:relative;
+    width:100%;
+    height:100%;
+    text-decoration:none;
+    color:inherit;
+    cursor:pointer;
+  }
+
+  /* ---- Background frames (12s master cycle, 2 iterations = 24s, then freeze) ---- */
+  .bg-layer{ position:absolute; inset:0; z-index:0; overflow:hidden; }
+  .bg-layer img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .frame1{ animation:frame1Opacity 18s ease-in-out 2 forwards; }
+  .frame1 img{ animation:kenBurns 18s ease-in-out 2 forwards; transform-origin:50% 30%; }
+  .frame2{ opacity:0; animation:frame2Opacity 18s ease-in-out 2 forwards; }
+  .frame2 img{ animation:kenBurns2 18s ease-in-out 2 forwards; transform-origin:50% 50%; }
+  .frame3{ opacity:0; background:#B40000; animation:frame3Opacity 18s ease-in-out 2 forwards; }
+
+  .scrim{
+    position:absolute; left:0; right:0; bottom:0; height:46%; z-index:1;
+    background:linear-gradient(to top, rgba(0,0,0,.85), rgba(0,0,0,0));
+    pointer-events:none;
+  }
+  .scrim-top{
+    position:absolute; left:0; right:0; top:0; height:30%; z-index:1;
+    background:linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,0));
+    pointer-events:none;
+  }
+
+  /* ---- AI-disclosure badge, bottom-right, only on frames with a generated photo ---- */
+  .ai-badge{
+    position:absolute; right:10px; bottom:10px; z-index:2;
+    background:rgba(255,255,255,.65); color:#000000;
+    font-size:9px; font-weight:600; letter-spacing:.02em;
+    padding:2px 6px; border-radius:3px; pointer-events:none;
+  }
+
+  /* ---- Copy blocks ---- */
+  .copy{ position:absolute; left:20px; right:20px; z-index:2; text-align:left; }
+  .copy-1{ top:24px; text-align:center; opacity:0; animation:copyFadeUp 18s ease-in-out 2 forwards; }
+  .copy-2{ top:24px; text-align:center; opacity:0; animation:copy2Fade 18s ease-in-out 2 forwards; }
+  .copy-3{ top:0; bottom:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; opacity:0; animation:copy3Fade 18s ease-in-out 2 forwards; }
+
+  .tag{
+    display:inline-block; margin-bottom:10px; padding:4px 10px;
+    background:#FF6A00; color:#000000; font-size:10.5px; font-weight:800;
+    text-transform:uppercase; letter-spacing:.05em; border-radius:3px;
+  }
+  .headline{
+    margin:0; color:#FFFFFF; font-weight:800; font-size:24px; line-height:1.22;
+    text-shadow:0 2px 6px rgba(0,0,0,.6);
+  }
+  .headline-2{ font-size:24px; }
+  .headline-3{ margin:0; font-weight:800; font-size:24px; line-height:1.28; }
+  .headline-3 .line-a{ display:block; color:#FFFFFF; text-shadow:0 2px 8px rgba(0,0,0,.7); }
+  .headline-3 .line-b{ display:block; color:#FFFFFF; text-shadow:0 2px 8px rgba(0,0,0,.7); }
+  .headline-4{ margin:0 0 22px; color:#FFFFFF; font-weight:800; font-size:23px; line-height:1.28; }
+
+  /* ---- Persistent logo, bottom-center, fades out once Frame 4 (end card, own bigger logo) starts ---- */
+  .logo{ position:absolute; left:50%; bottom:22px; height:26px; z-index:5; transform:translateX(-50%); animation:logoOpacity 18s ease-in-out 2 forwards; }
+  .logo img{ height:26px; width:auto; display:block; border-radius:3px; }
+
+  /* ---- Bigger end-card logo, Frame 4 only, above the headline ---- */
+  .logo-big{ height:44px; width:auto; display:block; margin-bottom:16px; border-radius:5px; }
+
+  /* ---- Warenkorb-Icon, oben rechts neben kleinem Logo, nur im Endframe
+     (Frame 3) eingeblendet. Liegt als Geschwister-Element AUSSERHALB von
+     a.click-layer, damit der Klick nicht die Anzeigen-Navigation ausloest,
+     sondern per postMessage den Warenkorb der Elternseite oeffnet. ---- */
+  .banner-cart{
+    position:absolute;
+    top:14px;
+    right:14px;
+    z-index:10;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    opacity:0;
+    pointer-events:none;
+    animation:bannerCartFade 18s ease-in-out 2 forwards;
+  }
+  .banner-cart-logo{ height:16px; width:auto; display:block; border-radius:2px; }
+  .banner-cart-btn{
+    position:relative;
+    appearance:none;
+    border:none;
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    background:#FFFFFF;
+    color:#03192E;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    box-shadow:0 2px 6px rgba(0,0,0,.35);
+    padding:0;
+  }
+  .banner-cart-btn svg{ width:16px; height:16px; }
+  .banner-cart-count{
+    position:absolute;
+    top:-4px;
+    right:-4px;
+    background:#E51747;
+    color:#FFFFFF;
+    font-size:9px;
+    font-weight:700;
+    line-height:1;
+    padding:2px 4px;
+    border-radius:20px;
+    min-width:14px;
+    text-align:center;
+  }
+  .banner-cart-count[hidden]{ display:none; }
+
+  /* ---- CTA, appears only in Frame 3 ---- */
+  .cta{
+    display:flex; align-items:center; justify-content:center;
+    height:38px; padding:0 20px;
+    border-radius:19px;
+    background:#FFFFFF;
+    color:#000000;
+    font-size:14px;
+    font-weight:800;
+    white-space:nowrap;
+    box-shadow:0 3px 10px rgba(0,0,0,.35);
+    opacity:0;
+    animation:copy3Fade 18s ease-in-out 2 forwards, ctaPulse 1.3s ease-in-out 2s 9 both;
+  }
+
+  /* ---- Keyframes: 18s master cycle = 3 frames, 2 iterations, then freeze ---- */
+  @keyframes kenBurns{
+    0%{ transform:scale(1); } 25%{ transform:scale(1.07); } 100%{ transform:scale(1.07); }
+  }
+  @keyframes kenBurns2{
+    0%{ transform:translateY(4%) scale(1.1); }
+    25%{ transform:translateY(4%) scale(1.16); }
+    100%{ transform:translateY(4%) scale(1.16); }
+  }
+  @keyframes frame1Opacity{
+    0%{ opacity:1; } 31%{ opacity:1; } 33%{ opacity:0; } 100%{ opacity:0; }
+  }
+  @keyframes frame2Opacity{
+    0%{ opacity:0; } 31%{ opacity:0; } 33%{ opacity:1; } 64%{ opacity:1; } 66%{ opacity:0; } 100%{ opacity:0; }
+  }
+  @keyframes frame3Opacity{
+    0%{ opacity:0; } 64%{ opacity:0; } 66%{ opacity:1; } 100%{ opacity:1; }
+  }
+  @keyframes logoOpacity{
+    0%{ opacity:1; } 64%{ opacity:1; } 66%{ opacity:0; } 100%{ opacity:0; }
+  }
+
+  @keyframes copyFadeUp{
+    0%{ opacity:0; transform:translateY(10px); }
+    4%{ opacity:0; transform:translateY(10px); }
+    9%{ opacity:1; transform:translateY(0); }
+    31%{ opacity:1; transform:translateY(0); }
+    33%{ opacity:0; transform:translateY(0); }
+    100%{ opacity:0; }
+  }
+  @keyframes copy2Fade{
+    33%{ opacity:0; transform:scale(.88); }
+    37%{ opacity:1; transform:scale(1.02); }
+    39%{ opacity:1; transform:scale(1); }
+    64%{ opacity:1; transform:scale(1); }
+    66%{ opacity:0; transform:scale(1); }
+    100%{ opacity:0; }
+  }
+  @keyframes copy3Fade{
+    66%{ opacity:0; transform:translateY(8px); }
+    71%{ opacity:1; transform:translateY(0); }
+    100%{ opacity:1; transform:translateY(0); }
+  }
+  @keyframes bannerCartFade{
+    0%{ opacity:0; pointer-events:none; }
+    66%{ opacity:0; pointer-events:none; }
+    71%{ opacity:1; pointer-events:auto; }
+    100%{ opacity:1; pointer-events:auto; }
+  }
+  @keyframes ctaPulse{
+    0%,100%{ transform:scale(1); } 50%{ transform:scale(1.06); }
+  }
+</style>
+</head>
+<body>
+  <div class="ad">
+    <a class="click-layer" id="adClick" target="_blank" rel="noopener noreferrer" aria-label="Zur Anzeige von jobsintown.de">
+
+      <div class="bg-layer frame1">
+        <picture>
+          <source srcset="img/frame1-demotiviert.webp" type="image/webp">
+          <img src="img/frame1-demotiviert.jpg" alt="">
+        </picture>
+        <span class="ai-badge">Mit KI erstellt</span>
+      </div>
+      <div class="bg-layer frame2">
+        <picture>
+          <source srcset="img/frame3-stop.webp" type="image/webp">
+          <img src="img/frame3-stop.jpg" alt="">
+        </picture>
+        <span class="ai-badge">Mit KI erstellt</span>
+      </div>
+      <div class="bg-layer frame3"></div>
+
+      <div class="scrim-top"></div>
+      <div class="scrim"></div>
+
+      <div class="copy copy-1">
+        <p class="headline">Ein falscher Kandidat<br>bremst Ihr ganzes Team.</p>
+      </div>
+
+      <div class="copy copy-2">
+        <p class="headline-3">
+          <span class="line-a">Das Leben ist zu kurz</span>
+          <span class="line-b">f&uuml;r den falschen Kandidaten.</span>
+        </p>
+      </div>
+
+      <div class="copy copy-3">
+        <img class="logo-big" src="img/logo-jobsintown.png" alt="jobsintown.de">
+        <p class="headline-4">jobsintown.de hilft<br>den Richtigen zu finden.</p>
+        <span class="cta">Jetzt Stellenanzeige schalten &rarr;</span>
+      </div>
+
+      <div class="logo"><img src="img/logo-jobsintown.png" alt="jobsintown.de"></div>
+
+    </a>
+
+    <div class="banner-cart">
+      <img class="banner-cart-logo" src="img/logo-jobsintown.png" alt="jobsintown.de">
+      <button type="button" class="banner-cart-btn" aria-label="Einkaufskorb &ouml;ffnen">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 4h2l2.2 11.4a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L20.5 8H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="10" cy="21" r="1.4" fill="currentColor"/>
+          <circle cx="17" cy="21" r="1.4" fill="currentColor"/>
+        </svg>
+        <span class="banner-cart-count" hidden>0</span>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      var link = document.getElementById('adClick');
+      if (window.clickTag) {
+        link.setAttribute('href', window.clickTag);
+      } else {
+        link.removeAttribute('href');
+      }
+      // Mockup-Bruecke: Klick auf den CTA legt jobsintown.de in den
+      // Einkaufskorb der einbettenden Empfehlungsliste-Seite (via postMessage,
+      // da das Ad-Creative als eigenstaendiges Dokument im iframe laeuft).
+      link.addEventListener('click', function(){
+        try{
+          if (window.parent && window.parent !== window) {
+            window.parent.postMessage({ type: 'personalwerk:add-to-cart', boardId: 'jobsintown', name: 'jobsintown.de' }, '*');
+          }
+        }catch(e){}
+      });
+
+      // Warenkorb-Icon oben rechts (nur im Endframe sichtbar): oeffnet/schliesst
+      // den Warenkorb-Dropdown der Elternseite, ohne die Anzeigen-Navigation
+      // auszuloesen (liegt bewusst ausserhalb von a.click-layer).
+      var bannerCartBtn = document.querySelector('.banner-cart-btn');
+      var bannerCartCount = document.querySelector('.banner-cart-count');
+      if (bannerCartBtn) {
+        bannerCartBtn.addEventListener('click', function(e){
+          e.preventDefault();
+          e.stopPropagation();
+          try{
+            if (window.parent && window.parent !== window) {
+              window.parent.postMessage({ type: 'personalwerk:toggle-cart' }, '*');
+            }
+          }catch(err){}
+        });
+      }
+      window.addEventListener('message', function(e){
+        var data = e.data;
+        if (!data || data.type !== 'personalwerk:cart-count' || !bannerCartCount) { return; }
+        bannerCartCount.textContent = String(data.count || 0);
+        bannerCartCount.hidden = !data.count;
+      });
+    })();
+  </script>
+</body>
+</html>

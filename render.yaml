@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: personalwerk-mediaplaner-backend
+    runtime: node
+    rootDir: backend
+    plan: free
+    buildCommand: npm install
+    startCommand: npm run serve
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false

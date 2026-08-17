@@ -1,0 +1,2505 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mediaplaner · Empfehlungsliste</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Personalwerk brand tokens, matched to stefankraft22.github.io/Personalwerk-Website */
+    --bg:#03192e;
+    --surface:#072944;
+    --surface-2:#0a3358;
+    --text:#eef3f8;
+    --text-soft:#8ba3ba;
+    --text-faint:#5a7186;
+    --line:rgba(174,200,224,.16);
+    --line-strong:rgba(174,200,224,.32);
+
+    --accent:#e51747;
+    --accent-2:#ff3d63;
+    --accent-soft:rgba(229,23,71,.14);
+
+    --logo-chip:#ffffff;
+
+    --ff-display:"Roboto", system-ui, sans-serif;
+    --ff-body:"Roboto", system-ui, sans-serif;
+
+    --role-praezision:#2dd4bf;
+    --role-praezision-bg:rgba(45,212,191,.14);
+    --role-regional:#4ade80;
+    --role-regional-bg:rgba(74,222,128,.14);
+    --role-reichweite:#fbbf24;
+    --role-reichweite-bg:rgba(251,191,36,.14);
+    --role-branding:#c4b5fd;
+    --role-branding-bg:rgba(196,181,253,.14);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--surface);
+    color:var(--text);
+    font-family:var(--ff-body);
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+  ::selection{ background:var(--accent); color:#fff; }
+  ::-webkit-scrollbar{ width:11px; }
+  ::-webkit-scrollbar-track{ background:var(--surface); }
+  ::-webkit-scrollbar-thumb{ background:var(--surface-2); border-radius:20px; border:2px solid var(--surface); }
+  .mono{
+    font-family:var(--ff-display);
+    font-feature-settings:"tnum";
+    font-variant-numeric:tabular-nums;
+  }
+
+  .layout{
+    max-width:2188px;
+    margin:0 auto;
+    padding:0 24px 96px;
+    margin-top:24px;
+    display:flex;
+    align-items:flex-start;
+    gap:28px;
+  }
+  .shell{
+    flex:1;
+    min-width:0;
+    max-width:1011px;
+    --surface:#ffffff;
+    --surface-2:#d9e9f9;
+    --text:#03192e;
+    --text-soft:#3d5265;
+    --line:rgba(3,25,46,.12);
+    --line-strong:rgba(3,25,46,.24);
+    color:var(--text);
+    background:var(--surface-2);
+    border-radius:10px;
+    padding:28px 32px 40px;
+    transform:translateX(-1cm);
+  }
+  .shell .fit-bar{ background:rgba(3,25,46,.08); }
+  .shell .rating-stars{ color:#5f7488; }
+  .shell .rating-stars[aria-expanded="true"]{ color:#3d5265; }
+
+  /* ---- Sidebar: filters (Amazon-style facets) ---- */
+  .sidebar-filters{
+    width:200px;
+    flex-shrink:0;
+    margin-right:100px;
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+    position:sticky;
+    top:24px;
+  }
+  .sidebar-filters .sidebar-title{
+    margin-top:0;
+    margin-bottom:-4px;
+  }
+
+  /* ---- Sidebar: selected packages ---- */
+  .sidebar-packages{
+    width:343px;
+    flex-shrink:0;
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+    position:sticky;
+    top:24px;
+  }
+  .sidebar-title{
+    font-family:var(--ff-display);
+    font-size:12.5px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--text-soft);
+    margin:0 0 -4px;
+  }
+  .package-card{
+    position:relative;
+    background:#1d5787;
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    gap:3.5px;
+  }
+  .package-card.featured{
+    background:var(--surface);
+    border-width:2px;
+    border-color:var(--accent-2);
+    box-shadow:0 12px 32px rgba(229,23,71,.18);
+  }
+  @property --beam-angle{
+    syntax:"<angle>";
+    inherits:false;
+    initial-value:0deg;
+  }
+  .package-card:not(.featured)::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:3;
+    border-radius:inherit;
+    padding:2px;
+    pointer-events:none;
+    background:conic-gradient(from var(--beam-angle),
+      transparent 0deg 226deg,
+      rgba(229,23,71,.20) 264deg,
+      var(--accent) 300deg,
+      #ffe1e8 322deg,
+      #ffffff 330deg,
+      #ffe1e8 338deg,
+      var(--accent) 356deg,
+      transparent 360deg);
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+    filter:drop-shadow(0 0 7px rgba(229,23,71,.8));
+    animation:packageBeam 9s linear infinite;
+  }
+  @keyframes packageBeam{ to{ --beam-angle:360deg; } }
+  .package-badge{
+    position:absolute;
+    top:-11px;
+    left:20px;
+    background:var(--accent);
+    color:#fff;
+    font-size:10.5px;
+    font-weight:600;
+    padding:3px 10px;
+    border-radius:20px;
+    letter-spacing:0.02em;
+  }
+  .package-name{
+    font-family:var(--ff-display);
+    font-size:24px;
+    font-weight:600;
+    color:var(--text);
+    margin-bottom:-1.75px;
+  }
+  .package-desc{
+    font-size:12px;
+    line-height:1.5;
+    color:var(--text-soft);
+    margin:0;
+  }
+  .package-price{
+    display:flex;
+    align-items:baseline;
+    gap:6px;
+  }
+  .package-price-num{
+    font-size:24px;
+    font-weight:700;
+    color:var(--text);
+  }
+  .package-price-unit{
+    font-size:11.5px;
+    color:var(--text-faint);
+  }
+  .package-price-from{
+    font-size:12.5px;
+    font-weight:400;
+    color:var(--text-faint);
+  }
+  .package-features{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:2.5px;
+  }
+  .package-features li{
+    display:flex;
+    align-items:flex-start;
+    gap:8px;
+  }
+  .package-features svg{
+    width:14px;
+    height:14px;
+    margin-top:2px;
+    flex-shrink:0;
+    color:var(--role-praezision);
+  }
+  .package-features strong{
+    display:block;
+    font-size:12px;
+    font-weight:600;
+    color:var(--text);
+  }
+  .package-features span{
+    font-size:11px;
+    color:var(--text-faint);
+    line-height:1.4;
+  }
+  .package-cta{
+    appearance:none;
+    border:1px solid var(--line-strong);
+    border-radius:6px;
+    padding:9px 14px;
+    font-family:var(--ff-body);
+    font-size:12.5px;
+    font-weight:600;
+    background:transparent;
+    color:var(--text);
+    cursor:pointer;
+    text-align:center;
+    transition:border-color .15s ease, background .15s ease;
+    margin-top:18px;
+  }
+  .package-cta:hover{ border-color:var(--accent-2); }
+  .package-cta.solid{
+    background:var(--accent);
+    border-color:var(--accent);
+    color:#fff;
+  }
+  .package-cta.solid:hover{ background:var(--accent-2); border-color:var(--accent-2); }
+
+  /* ---- Sidebar: ad banner ---- */
+  .sidebar-ad{
+    width:300px;
+    flex-shrink:0;
+    position:sticky;
+    top:24px;
+  }
+  .ad-banner{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:6px;
+  }
+  .ad-label{
+    font-family:var(--ff-display);
+    font-size:9px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--text-faint);
+  }
+  .ad-frame{
+    width:300px;
+    height:535px;
+    margin-top:18px;
+    border:0;
+    display:block;
+    border-radius:4px;
+  }
+
+  /* ---- Sidebar: filters (Amazon-style facets) ---- */
+  .filter-group{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+  }
+  .filter-group[hidden]{ display:none; }
+  .filter-heading{
+    font-family:var(--ff-display);
+    font-size:13px;
+    font-weight:600;
+    color:var(--text);
+    margin:0;
+  }
+  .filter-checkbox{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:12.5px;
+    color:var(--text-soft);
+    cursor:pointer;
+  }
+  .filter-checkbox input{
+    width:15px;
+    height:15px;
+    accent-color:var(--accent-2);
+    cursor:pointer;
+  }
+  .filter-stars{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+  }
+  .filter-star-row{
+    appearance:none;
+    background:none;
+    border:1px solid transparent;
+    border-radius:6px;
+    padding:4px 6px;
+    margin:0 -6px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    cursor:pointer;
+    font-size:12.5px;
+    color:var(--role-reichweite);
+    letter-spacing:1px;
+    text-align:left;
+  }
+  .filter-star-row .filter-star-empty{ color:#3a5068; }
+  .filter-star-row .filter-star-label{
+    font-size:12.5px;
+    color:var(--text-soft);
+    letter-spacing:0;
+    margin-left:2px;
+  }
+  .filter-star-row:hover{ background:var(--surface-2); }
+  .filter-star-row.active{ border-color:var(--accent-2); background:var(--accent-soft); }
+
+  .filter-country-select{
+    width:100%;
+    padding:8px 10px;
+    border-radius:6px;
+    border:1px solid var(--line);
+    background:var(--surface);
+    color:var(--text);
+    font-family:var(--ff-body);
+    font-size:12.5px;
+    cursor:pointer;
+  }
+  .filter-country-select:focus{ outline:none; border-color:var(--accent-2); }
+
+  .filter-reset{
+    appearance:none;
+    background:none;
+    border:1px solid var(--line-strong);
+    border-radius:6px;
+    padding:8px 12px;
+    font-size:12px;
+    font-weight:600;
+    color:var(--text-soft);
+    cursor:pointer;
+    align-self:flex-start;
+  }
+  .filter-reset:hover{ border-color:var(--accent-2); color:var(--text); }
+
+  @media (max-width:1080px){
+    .layout{ flex-direction:column; }
+    .sidebar-packages, .sidebar-filters, .sidebar-ad{
+      width:100%;
+      position:static;
+      flex-direction:row;
+      flex-wrap:wrap;
+    }
+    .sidebar-packages .package-card{ flex:1; min-width:220px; }
+    .shell{ max-width:none; }
+  }
+
+  /* ---- Top bar ---- */
+  header.topbar{
+    position:relative;
+    z-index:50;
+    width:100%;
+    background:
+      radial-gradient(ellipse 60% 100% at 15% 30%, rgba(255,255,255,.07), transparent 60%),
+      radial-gradient(ellipse 50% 90% at 85% 75%, rgba(229,23,71,.14), transparent 60%),
+      var(--bg);
+    border-bottom:1px solid var(--line);
+    margin-bottom:48px;
+  }
+  .topbar-inner{
+    max-width:2188px;
+    margin:0 auto;
+    padding:28px 24px;
+    display:flex;
+    align-items:center;
+    gap:40px;
+    position:relative;
+  }
+  .wordmark{
+    display:flex;
+    align-items:baseline;
+    gap:20px;
+    text-decoration:none;
+    cursor:pointer;
+  }
+  .wordmark .brand{
+    font-family:var(--ff-display);
+    font-weight:700;
+    font-size:36px;
+    letter-spacing:-0.01em;
+    color:var(--text);
+  }
+  .wordmark .product{
+    font-size:28px;
+    color:var(--text-soft);
+  }
+  .wordmark .dot{
+    color:var(--accent);
+  }
+
+  /* ---- Search bar (Amazon-style: category + input + submit) ---- */
+  .search-bar{
+    display:flex;
+    align-items:stretch;
+    height:44px;
+    border-radius:6px;
+    overflow:hidden;
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    left:499px;
+    right:calc(220px + 3cm + 28px + 501px);
+  }
+  .search-category{
+    background:#e9ecef;
+    color:#0b2740;
+    border:none;
+    border-right:1px solid #cbd3d9;
+    padding:0 8px;
+    font-family:var(--ff-body);
+    font-size:12.5px;
+    cursor:pointer;
+  }
+  .search-input-wrap{
+    position:relative;
+    flex:1;
+    min-width:140px;
+  }
+  .search-input{
+    width:100%;
+    height:100%;
+    padding:0 14px;
+    border:none;
+    background:#fff;
+    color:var(--bg);
+    font-family:var(--ff-body);
+    font-size:15px;
+  }
+  .search-input::placeholder{ color:#8598a9; }
+  .search-input:focus{ outline:none; }
+  .search-input::-webkit-search-cancel-button{ cursor:pointer; }
+  .search-submit{
+    appearance:none;
+    border:none;
+    width:48px;
+    flex-shrink:0;
+    background:var(--accent-2);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+  }
+  .search-submit:hover{ background:var(--accent); }
+  .search-submit svg{ width:19px; height:19px; }
+
+  /* ---- Header actions (account + cart) ---- */
+  .header-actions{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    right:126px;
+  }
+  .header-icon-btn{
+    appearance:none;
+    background:none;
+    border:none;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:3px;
+    color:var(--text);
+    cursor:pointer;
+    font-family:var(--ff-body);
+  }
+  .header-icon-btn svg{ width:29px; height:29px; }
+  .header-icon-btn span{
+    font-size:11px;
+    color:var(--text-soft);
+    white-space:nowrap;
+  }
+  .header-icon-btn:hover span{ color:var(--text); }
+  .cart-wrap{ position:relative; }
+  .cart-count{
+    position:absolute;
+    top:-4px;
+    right:8px;
+    background:var(--accent-2);
+    color:var(--bg);
+    font-size:18px;
+    font-weight:700;
+    line-height:1;
+    padding:3px 6px;
+    border-radius:20px;
+    min-width:18px;
+    text-align:center;
+  }
+  .cart-count[hidden]{ display:none; }
+
+  .cart-dropdown{
+    /* position:fixed statt absolute, damit der Warenkorb immer im
+       Vordergrund erscheint (unabhaengig vom Stacking-Context des Headers)
+       und als gut lesbares Panel rechts auf Hoehe des Werbebanners sitzt,
+       statt als schmales Dropdown direkt unterm Icon. */
+    position:fixed;
+    top:150px;
+    right:24px;
+    z-index:60;
+    width:320px;
+    max-height:70vh;
+    overflow-y:auto;
+    background:#fff;
+    color:#0b2740;
+    border-radius:8px;
+    box-shadow:0 16px 40px rgba(3,25,46,.35);
+    padding:16px;
+  }
+  .cart-dropdown[hidden]{ display:none; }
+  .cart-dropdown-title{
+    margin:0 0 10px;
+    font-family:var(--ff-display);
+    font-size:14px;
+    font-weight:700;
+  }
+  .cart-dropdown-empty{
+    margin:0;
+    font-size:12.5px;
+    color:#5a7186;
+  }
+  .cart-dropdown-list{ list-style:none; margin:0; padding:0; }
+  .cart-dropdown-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:8px 0;
+    border-bottom:1px solid #e5ecf2;
+    font-size:13px;
+  }
+  .cart-dropdown-item:last-child{ border-bottom:none; }
+  .cart-item-name{ flex:1; }
+  .cart-item-remove{
+    appearance:none;
+    border:none;
+    background:none;
+    color:#8598a9;
+    font-size:18px;
+    line-height:1;
+    cursor:pointer;
+    padding:2px 4px;
+  }
+  .cart-item-remove:hover{ color:#c0392b; }
+
+  .cart-summary{ margin-top:6px; padding-top:12px; border-top:2px solid #0b2740; }
+  .cart-summary[hidden]{ display:none; }
+  .cart-summary-total{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    font-size:13px;
+    color:#5a7186;
+    margin-bottom:12px;
+  }
+  .cart-summary-total-value{
+    font-family:var(--ff-display);
+    font-size:16px;
+    font-weight:700;
+    color:#0b2740;
+  }
+  .cart-offer-btn{
+    display:block;
+    width:100%;
+    text-align:center;
+    padding:11px 14px;
+    border-radius:8px;
+    background:var(--accent);
+    color:#fff;
+    font-family:var(--ff-display);
+    font-size:13px;
+    font-weight:700;
+    text-decoration:none;
+    box-sizing:border-box;
+  }
+  .cart-offer-btn:hover{ background:var(--accent-2); }
+
+  .sort-wrap{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:10px;
+  }
+  .sort-label{
+    font-family:var(--ff-display);
+    font-size:13px;
+    font-weight:600;
+    color:var(--text);
+    white-space:nowrap;
+  }
+  .sort-select{
+    width:100%;
+    padding:10px 12px;
+    border-radius:6px;
+    border:1px solid var(--line);
+    background:var(--surface);
+    color:var(--text);
+    font-family:var(--ff-body);
+    font-size:13.5px;
+    cursor:pointer;
+  }
+  .sort-select:focus{ outline:none; border-color:var(--accent-2); }
+
+  /* ---- Query summary ---- */
+  .query-card{
+    --surface:#1d5787;
+    --text:#eef3f8;
+    --text-soft:#8ba3ba;
+    --line:rgba(174,200,224,.16);
+    color:var(--text);
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:22px 24px;
+    margin-bottom:8px;
+  }
+  .query-row{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:24px;
+    flex-wrap:wrap;
+  }
+  .query-title{
+    font-family:var(--ff-display);
+    font-size:24px;
+    font-weight:600;
+    line-height:1.3;
+  }
+  .query-meta{
+    margin-top:6px;
+    font-size:16.2px;
+    color:var(--text-soft);
+  }
+  .query-meta .sep{ color:var(--text-faint); margin:0 8px; }
+
+  .confidence{
+    text-align:right;
+    flex-shrink:0;
+  }
+  .confidence .num{
+    font-family:var(--ff-display);
+    font-size:33px;
+    font-weight:600;
+    color:var(--text-soft);
+  }
+  .confidence .label{
+    position:relative;
+    font-size:11.5px;
+    color:var(--text-soft);
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    margin-top:2px;
+    cursor:help;
+    border-bottom:1px dotted var(--text-soft);
+  }
+  .confidence-tooltip{
+    position:absolute;
+    top:calc(100% + 10px);
+    right:0;
+    width:260px;
+    background:#fff;
+    color:#0b2740;
+    font-size:12px;
+    font-weight:400;
+    text-transform:none;
+    letter-spacing:normal;
+    line-height:1.5;
+    padding:12px 14px;
+    border-radius:8px;
+    box-shadow:0 16px 40px rgba(3,25,46,.35);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-4px);
+    transition:opacity .15s ease, transform .15s ease;
+    z-index:30;
+    text-align:left;
+  }
+  .confidence-tooltip strong{
+    display:block;
+    margin-bottom:4px;
+    font-size:12.5px;
+    font-weight:700;
+  }
+  .confidence .label:hover .confidence-tooltip,
+  .confidence .label:focus .confidence-tooltip{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+  }
+
+  .tags{
+    display:flex;
+    gap:8px;
+    margin-top:16px;
+    flex-wrap:wrap;
+  }
+  .tag{
+    font-size:12.5px;
+    padding:5px 10px;
+    border-radius:4px;
+    background:transparent;
+    border:1px solid var(--text-soft);
+    color:var(--text-soft);
+    font-weight:500;
+  }
+  .tag.outline{
+    background:transparent;
+    border:1px solid var(--text-soft);
+    color:var(--text-soft);
+  }
+
+  /* ---- Section heading ---- */
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:6px;
+    padding-left:24px;
+  }
+  .section-head h2{
+    font-family:var(--ff-display);
+    font-size:15px;
+    font-weight:600;
+    margin:0;
+  }
+  .section-head .count{
+    font-size:13px;
+    color:var(--text-faint);
+  }
+  .section-sub{
+    font-size:13.5px;
+    color:var(--text-soft);
+    margin:0 0 9px;
+    line-height:1.5;
+    padding-left:24px;
+  }
+
+  /* ---- Role legend ---- */
+  .legend{
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+    margin-bottom:22px;
+    padding-bottom:20px;
+    padding-left:24px;
+    border-bottom:1px solid var(--line);
+  }
+  .legend-item{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:12px;
+    color:var(--text-soft);
+  }
+  .legend-dot{
+    width:8px;height:8px;border-radius:2px;
+  }
+
+  /* ---- Result groups (Generalisten / Spezialportale) ---- */
+  .group{ margin-bottom:34px; }
+  .group:last-child{ margin-bottom:0; }
+  .group-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:16px;
+    margin-bottom:14px;
+  }
+  .group-head h3{
+    font-family:var(--ff-display);
+    font-size:12.5px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--text-soft);
+    margin:0;
+  }
+  .group-note{
+    font-size:12px;
+    color:var(--text-faint);
+    white-space:nowrap;
+  }
+
+  /* ---- Recommendation list ---- */
+  .rec-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .rec{
+    display:grid;
+    grid-template-columns:minmax(108px, max-content) 1fr;
+    gap:20px;
+    align-items:start;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:20px 22px;
+    transition:box-shadow .15s ease, border-color .15s ease, background .15s ease;
+  }
+  .rec-cart-btn{
+    float:right;
+    shape-outside:circle(50%);
+    margin:2px 0 0 10px;
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    border:1.8px solid #1d5787;
+    background:transparent;
+    color:#1d5787;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition:background .15s ease, transform .15s ease;
+  }
+  .rec-cart-btn:hover{ background:rgba(29,87,135,.1); transform:scale(1.06); }
+  .rec-cart-btn.added{ background:#1d5787; color:#fff; }
+  .rec-cart-btn.added:hover{ background:#164368; }
+  .rec-cart-btn svg{ width:17px; height:17px; }
+  .rec:hover{
+    background:var(--surface-2);
+    border-color:var(--line-strong);
+    box-shadow:0 12px 32px rgba(3,25,46,.55);
+  }
+  .rec .rank{
+    display:none;
+  }
+
+  .logo-col{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:8px;
+  }
+
+  .logo-slot{
+    width:108px;
+    height:44px;
+    border:1px solid var(--line);
+    border-radius:4px;
+    background:var(--logo-chip);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:5px 8px;
+  }
+  .logo-slot img{
+    max-width:100%;
+    max-height:26px;
+    object-fit:contain;
+  }
+
+  /* ---- Rating summary (Amazon-style average + breakdown), under the logo ---- */
+  .rating-summary{
+    position:relative;
+    display:flex;
+    align-items:center;
+    gap:5px;
+    white-space:nowrap;
+  }
+  .rating-avg{
+    font-size:11px;
+    font-weight:400;
+    color:var(--text);
+  }
+  .rating-stars{
+    position:relative;
+    display:inline-block;
+    appearance:none;
+    background:none;
+    border:none;
+    padding:1px 0;
+    margin:0;
+    font-size:13px;
+    line-height:1;
+    letter-spacing:1px;
+    color:#c9d4de;
+    cursor:pointer;
+  }
+  .rating-stars::before{ content:"★★★★★"; display:block; }
+  .rating-stars-fill{
+    position:absolute;
+    top:1px; left:0;
+    overflow:hidden;
+    white-space:nowrap;
+    color:var(--role-reichweite);
+  }
+  .rating-stars-fill::before{ content:"★★★★★"; }
+  .rating-stars[aria-expanded="true"]{ color:#9cb2c4; }
+  .rating-count{
+    font-size:11px;
+    color:var(--text-soft);
+  }
+  .rating-dropdown{
+    position:absolute;
+    top:calc(100% + 8px);
+    left:0;
+    z-index:20;
+    width:240px;
+    background:#fff;
+    border:1px solid var(--line-strong);
+    border-radius:8px;
+    box-shadow:0 16px 40px rgba(3,25,46,.35);
+    padding:14px 16px;
+  }
+  .rating-dropdown[hidden]{ display:none; }
+  .rating-bar-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:11.5px;
+    color:#4a5f72;
+    margin-bottom:6px;
+  }
+  .rating-bar-row:last-of-type{ margin-bottom:0; }
+  .rating-bar-label{ width:24px; flex-shrink:0; }
+  .rating-bar-track{
+    flex:1;
+    height:6px;
+    background:rgba(3,25,46,.08);
+    border-radius:3px;
+    overflow:hidden;
+  }
+  .rating-bar-track span{
+    display:block;
+    height:100%;
+    background:var(--role-reichweite);
+    border-radius:3px;
+  }
+  .rating-bar-pct{
+    width:30px;
+    text-align:right;
+    flex-shrink:0;
+  }
+  .rating-reviews-link{
+    appearance:none;
+    background:none;
+    border:none;
+    padding:0;
+    margin-top:10px;
+    font-size:12px;
+    font-weight:500;
+    color:var(--accent-2);
+    text-decoration:underline;
+    text-underline-offset:2px;
+    cursor:pointer;
+    display:block;
+  }
+  .rating-reviews-list{
+    margin-top:10px;
+    padding-top:10px;
+    border-top:1px solid var(--line);
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .rating-reviews-list[hidden]{ display:none; }
+  .rating-review-head{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    margin-bottom:3px;
+  }
+  .rating-review-stars{
+    color:var(--role-reichweite);
+    font-size:11px;
+    letter-spacing:1px;
+  }
+  .rating-review-author{
+    font-size:11.5px;
+    font-weight:600;
+    color:var(--bg);
+  }
+  .rating-review-date{
+    font-size:10.5px;
+    color:#8598a9;
+    margin-left:auto;
+  }
+  .rating-review p{
+    margin:0;
+    font-size:12px;
+    line-height:1.5;
+    color:#4a5f72;
+  }
+
+  .rec-body .rec-head{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:8px 10px;
+    margin-bottom:10px;
+  }
+  .rec-body h3{
+    font-family:var(--ff-display);
+    font-size:15.5px;
+    font-weight:600;
+    margin:0;
+    color:var(--text);
+    flex-shrink:0;
+  }
+
+  .price-tag{
+    font-size:15.5px;
+    color:var(--text-faint);
+    white-space:nowrap;
+    flex-shrink:0;
+    margin-left:auto;
+  }
+  .price-tag strong{
+    font-family:var(--ff-display);
+    font-weight:600;
+    color:var(--text-soft);
+  }
+  .deal-badge{
+    font-size:11.5px;
+    font-weight:600;
+    padding:4px 9px;
+    border-radius:4px;
+    white-space:nowrap;
+    background:var(--accent-2);
+    color:#fff;
+  }
+
+  .role-pill{
+    font-size:11.5px;
+    font-weight:600;
+    padding:4px 9px;
+    border-radius:4px;
+    white-space:nowrap;
+    flex-shrink:0;
+    margin-left:auto;
+  }
+  .role-praezision{ color:#fff; background:var(--role-praezision); }
+  .role-regional{ color:#fff; background:var(--role-regional); }
+  .role-reichweite{ color:#fff; background:var(--role-reichweite); }
+  .role-branding{ color:#fff; background:var(--role-branding); }
+
+  .fit-row{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin-bottom:12px;
+  }
+  .fit-label{
+    font-size:11.5px;
+    color:var(--text-faint);
+    white-space:nowrap;
+  }
+  .fit-bar{
+    flex:0 1 50%;
+    max-width:50%;
+    height:4px;
+    background:rgba(174,200,224,.14);
+    border-radius:2px;
+    overflow:hidden;
+  }
+  .fit-bar span{
+    display:block;
+    height:100%;
+    background:linear-gradient(90deg, var(--accent), var(--accent-2));
+    border-radius:2px;
+  }
+  .fit-value{
+    font-family:var(--ff-display);
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--text);
+    width:34px;
+    text-align:right;
+  }
+
+  .rec-body p.begruendung{
+    font-size:13.5px;
+    line-height:1.55;
+    color:var(--text-soft);
+    margin:0;
+  }
+
+  /* ---- Footnote ---- */
+  .footnote{
+    margin-top:28px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    font-size:12.5px;
+    color:var(--text-faint);
+    line-height:1.6;
+  }
+
+  @media (max-width:600px){
+    .rec{ grid-template-columns:1fr; }
+    .logo-col{ width:96px; }
+    .logo-slot{ width:96px; }
+  }
+
+  /* ---- Live-Matching: Platzhalter fuer Boersen ohne Logo/Bewertungsdaten ---- */
+  .logo-fallback{
+    width:32px; height:32px; border-radius:50%;
+    background:var(--surface-2); color:var(--text-soft);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--ff-display); font-weight:700; font-size:14px;
+  }
+  .rating-none{ font-size:11px; color:var(--text-faint); }
+  .search-status{
+    max-width:1011px; margin:0 auto 16px; padding:10px 16px;
+    border-radius:6px; font-size:13px;
+    background:var(--surface-2); color:var(--text-soft);
+    border:1px solid var(--line);
+  }
+  .search-status--error{ color:var(--accent-2); border-color:var(--accent-2); }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="wordmark" href="../index.html" aria-label="Zur Startseite">
+      <span class="brand">personalwerk<span class="dot">.</span></span>
+      <span class="product">Mediaplaner</span>
+    </a>
+    <div class="search-bar" data-screen-label="Suche">
+      <select class="search-category" aria-label="Branche w&auml;hlen">
+        <option value="all">Alle Branchen</option>
+        <option value="gesundheit">Gesundheit &amp; Pflege</option>
+        <option value="it">Technik &amp; IT</option>
+        <option value="handwerk">Handwerk &amp; Produktion</option>
+        <option value="vertrieb">Vertrieb &amp; Verkauf</option>
+        <option value="buero">B&uuml;ro &amp; Verwaltung</option>
+      </select>
+      <div class="search-input-wrap">
+        <input type="search" class="search-input" placeholder="Stellenb&ouml;rsen durchsuchen&hellip;" aria-label="Volltextsuche">
+      </div>
+      <button type="button" class="search-submit" aria-label="Suchen">
+        <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="9" cy="9" r="6.5" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M18 18L13.8 13.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="header-actions">
+      <button type="button" class="header-icon-btn" aria-label="Anmelden">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M4 20c1.5-4 4.5-6 8-6s6.5 2 8 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <span>Anmelden</span>
+      </button>
+      <div class="cart-wrap">
+        <button type="button" class="header-icon-btn cart-btn" aria-label="Einkaufskorb" aria-haspopup="true" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 4h2l2.2 11.4a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L20.5 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="10" cy="21" r="1.4" fill="currentColor"/>
+            <circle cx="17" cy="21" r="1.4" fill="currentColor"/>
+          </svg>
+          <span class="cart-count" hidden>0</span>
+          <span>Einkaufskorb</span>
+        </button>
+        <div class="cart-dropdown" hidden>
+          <h3 class="cart-dropdown-title">Einkaufskorb</h3>
+          <p class="cart-dropdown-empty">Ihr Einkaufskorb ist leer.</p>
+          <ul class="cart-dropdown-list"></ul>
+          <div class="cart-summary" hidden>
+            <div class="cart-summary-total">
+              <span>UVP gesamt</span>
+              <span class="cart-summary-total-value mono">0&nbsp;€</span>
+            </div>
+            <a class="cart-offer-btn" href="#">Jetzt unverbindliches Angebot anfragen</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="layout">
+
+  <aside class="sidebar-filters" data-screen-label="Filter">
+    <h2 class="sidebar-title">Filtern nach</h2>
+
+    <div class="sort-wrap">
+      <label class="sort-label" for="sort-select">Sortieren</label>
+      <select id="sort-select" class="sort-select">
+        <option value="empfohlen">Empfohlen</option>
+        <option value="preis-asc">Preis aufsteigend</option>
+        <option value="preis-desc">Preis absteigend</option>
+        <option value="bewertung">Durchschnittliche Kundenbewertung</option>
+        <option value="bestseller">Bestseller</option>
+      </select>
+    </div>
+
+    <div class="filter-group filter-group--international">
+      <h3 class="filter-heading">International</h3>
+      <select class="filter-country-select" data-filter-country>
+        <option value="de" selected>Deutschland</option>
+        <option value="at">Österreich</option>
+        <option value="ch">Schweiz</option>
+        <option value="nl">Niederlande</option>
+        <option value="be">Belgien</option>
+        <option value="fr">Frankreich</option>
+        <option value="pl">Polen</option>
+        <option value="gb">Vereinigtes Königreich</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <h3 class="filter-heading">Kundenbewertung</h3>
+      <div class="filter-stars">
+        <button type="button" class="filter-star-row" data-min-rating="4">
+          <span>★★★★<span class="filter-star-empty">★</span></span>
+          <span class="filter-star-label">&amp; mehr</span>
+        </button>
+        <button type="button" class="filter-star-row" data-min-rating="3">
+          <span>★★★<span class="filter-star-empty">★★</span></span>
+          <span class="filter-star-label">&amp; mehr</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="filter-group filter-group--angebote">
+      <h3 class="filter-heading">Angebote</h3>
+      <label class="filter-checkbox"><input type="checkbox" data-filter-deal="trend">Trend</label>
+      <label class="filter-checkbox"><input type="checkbox" data-filter-deal="special-deal">Special Deal</label>
+      <label class="filter-checkbox"><input type="checkbox" data-filter-deal="rabatt">Rabatt</label>
+      <label class="filter-checkbox"><input type="checkbox" data-filter-deal="bestseller">Bestseller</label>
+    </div>
+
+    <div class="filter-group">
+      <h3 class="filter-heading">Rolle</h3>
+      <label class="filter-checkbox"><input type="checkbox" data-filter-role="role-praezision">Pr&auml;zision</label>
+      <label class="filter-checkbox"><input type="checkbox" data-filter-role="role-regional">Regional</label>
+      <label class="filter-checkbox"><input type="checkbox" data-filter-role="role-reichweite">Reichweite</label>
+    </div>
+
+    <div class="filter-group filter-group--verzeichnis">
+      <h3 class="filter-heading">Verzeichnis</h3>
+      <label class="filter-checkbox"><input type="checkbox" data-filter-letter="A-E">A&ndash;E</label>
+      <label class="filter-checkbox"><input type="checkbox" data-filter-letter="F-I">F&ndash;I</label>
+      <label class="filter-checkbox"><input type="checkbox" data-filter-letter="J-M">J&ndash;M</label>
+      <label class="filter-checkbox"><input type="checkbox" data-filter-letter="N-P">N&ndash;P</label>
+      <label class="filter-checkbox"><input type="checkbox" data-filter-letter="Q-U">Q&ndash;U</label>
+      <label class="filter-checkbox"><input type="checkbox" data-filter-letter="V-Z">V&ndash;Z</label>
+    </div>
+
+    <button type="button" class="filter-reset">Filter zur&uuml;cksetzen</button>
+  </aside>
+
+  <div class="shell">
+
+  <section class="query-card" data-screen-label="Anfrage">
+    <div class="query-row">
+      <div>
+        <div class="query-title">Pflegefachkraft Intensivstation (m/w/d)</div>
+        <div class="query-meta">
+          Frankfurt am Main, Umkreis 30&nbsp;km
+          <span class="sep">&middot;</span>
+          normalisiert: „Pflegefachkraft Intensivstation“
+        </div>
+      </div>
+      <div class="confidence">
+        <div class="num mono">94</div>
+        <div class="label" tabindex="0">
+          Konfidenz
+          <div class="confidence-tooltip">
+            <strong>Konfidenz-Score</strong>
+            Konfidenz ist im Kontext dieses Prototyps der Vertrauenswert des Matching-Modells in seine eigene Normalisierung der Anfrage. Sie beschreibt ausschlie&szlig;lich das Sprachverst&auml;ndnis der Sucheingabe &ndash; nicht die Wahrscheinlichkeit einer erfolgreichen Besetzung.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tags">
+      <span class="tag">Gesundheit &amp; Pflege</span>
+      <span class="tag">Professional</span>
+      <span class="tag outline">bis zu 10 Treffer &middot; ab 20&nbsp;% Passgenauigkeit</span>
+      <span class="tag outline">ab 4,0&nbsp;★ Bewertung</span>
+    </div>
+  </section>
+
+  <section data-screen-label="Empfehlungsliste">
+    <div class="section-head">
+      <h2>Empfohlene Stellenbörsen</h2>
+    </div>
+    <p class="section-sub">
+      Zuerst die reichweitenstärksten Generalisten, danach die Fachportale im Ranking. Kandidaten unter 20&nbsp;% Passgenauigkeit werden nicht angezeigt. Reichweitenzahlen ergänzt die Anwendung separat; der UVP-Listenpreis ist ein Richtwert.
+    </p>
+
+    <div class="legend">
+      <span class="legend-item"><span class="legend-dot" style="background:var(--role-praezision)"></span>Präzision &ndash; Fachzielgruppe im passenden Umfeld</span>
+      <span class="legend-item"><span class="legend-dot" style="background:var(--role-regional)"></span>Regional &ndash; begrenzter Einzugsbereich</span>
+      <span class="legend-item"><span class="legend-dot" style="background:var(--role-reichweite)"></span>Reichweite &ndash; breites Bewerbungsvolumen</span>
+    </div>
+
+    <div class="group" data-screen-label="Generalisten">
+      <div class="group-head">
+        <h3>Generalisten</h3>
+        <span class="group-note">Top 3 nach Passgenauigkeit</span>
+      </div>
+      <div class="rec-list">
+
+        <article class="rec" data-price="1290" data-deal="trend">
+          <div class="rank mono">01</div>
+          <div class="logo-col">
+            <div class="logo-slot"><img src="assets/logos/stepstone.svg" alt="StepStone"></div>
+            <div class="rating-summary">
+              <span class="rating-avg">4,2</span>
+              <button type="button" class="rating-stars" data-rating="4.2" aria-haspopup="true" aria-expanded="false" aria-label="4,2 von 5 Sternen, 3.184 Bewertungen. Details anzeigen."><span class="rating-stars-fill" style="width:84%"></span></button>
+              <span class="rating-count">(3.184)</span>
+              <div class="rating-dropdown" hidden>
+                <div class="rating-bar-row"><span class="rating-bar-label">5&nbsp;★</span><span class="rating-bar-track"><span style="width:52%"></span></span><span class="rating-bar-pct mono">52%</span></div>
+                <div class="rating-bar-row"><span class="rating-bar-label">4&nbsp;★</span><span class="rating-bar-track"><span style="width:28%"></span></span><span class="rating-bar-pct mono">28%</span></div>
+                <div class="rating-bar-row"><span class="rating-bar-label">3&nbsp;★</span><span class="rating-bar-track"><span style="width:10%"></span></span><span class="rating-bar-pct mono">10%</span></div>
+                <div class="rating-bar-row"><span class="rating-bar-label">2&nbsp;★</span><span class="rating-bar-track"><span style="width:5%"></span></span><span class="rating-bar-pct mono">5%</span></div>
+                <div class="rating-bar-row"><span class="rating-bar-label">1&nbsp;★</span><span class="rating-bar-track"><span style="width:5%"></span></span><span class="rating-bar-pct mono">5%</span></div>
+                <button type="button" class="rating-reviews-link">Alle 3.184 Rezensionen lesen</button>
+                <div class="rating-reviews-list" hidden>
+                  <div class="rating-review">
+                    <div class="rating-review-head"><span class="rating-review-stars">★★★★★</span><span class="rating-review-author">M. Hoffmann</span><span class="rating-review-date">vor 2 Wochen</span></div>
+                    <p>&bdquo;Sehr hohe Reichweite, aber entsprechend preisintensiv.&ldquo;</p>
+                  </div>
+                  <div class="rating-review">
+                    <div class="rating-review-head"><span class="rating-review-stars">★★★★☆</span><span class="rating-review-author">S. Brandt</span><span class="rating-review-date">vor 1 Monat</span></div>
+                    <p>&bdquo;Gute Bewerberzahlen, Dashboard k&ouml;nnte &uuml;bersichtlicher sein.&ldquo;</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="rec-body">
+            <div class="rec-head">
+              <h3>StepStone</h3>
+              <span class="role-pill role-reichweite">Reichweite</span>
+              <span class="deal-badge">Trend</span>
+            </div>
+            <div class="fit-row">
+              <span class="fit-label">Passgenauigkeit</span>
+              <span class="fit-bar"><span style="width:56%"></span></span>
+              <span class="fit-value mono">56</span>
+              <span class="price-tag">UVP <strong>1.290&nbsp;€</strong></span>
+            </div>
+            <p class="begruendung">
+              Deckt als eine der reichweitenstärksten Jobbörsen im deutschsprachigen Raum auch den Bereich Gesundheit und Pflege in der Breite ab und erreicht Fachkräfte über die Fachportale hinaus. Die branchenübergreifende Sichtbarkeit ergänzt den Mediaplan um zusätzliches Bewerbungsvolumen.
+              <button type="button" class="rec-cart-btn" aria-label="Zum Einkaufskorb hinzuf&uuml;gen">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3 4h2l2.2 11.4a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L20.5 8H6" stroke="currentColor" stroke-width="2.16" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="10" cy="21" r="1.4" fill="currentColor"/>
+                  <circle cx="17" cy="21" r="1.4" fill="currentColor"/>
+                </svg>
+              </button>
+            </p>
+          </div>
+        </article>
+
+        <article class="rec" data-price="590" data-deal="rabatt">
+          <div class="rank mono">02</div>
+          <div class="logo-col">
+            <div class="logo-slot"><img src="assets/logos/jobsintown.de.png" alt="Jobsintown"></div>
+            <div class="rating-summary">
+              <span class="rating-avg">4,0</span>
+              <button type="button" class="rating-stars" data-rating="4.0" aria-haspopup="true" aria-expanded="false" aria-label="4,0 von 5 Sternen, 612 Bewertungen. Details anzeigen."><span class="rating-stars-fill" style="width:80%"></span></button>
+              <span class="rating-count">(612)</span>
+              <div class="rating-dropdown" hidden>
+                <div class="rating-bar-row"><span class="rating-bar-label">5&nbsp;★</span><span class="rating-bar-track"><span style="width:45%"></span></span><span class="rating-bar-pct mono">45%</span></div>
+                <div class="rating-bar-row"><span class="rating-bar-label">4&nbsp;★</span><span class="rating-bar-track"><span style="width:28%"></span></span><span class="rating-bar-pct mono">28%</span></div>
+                <div class="rating-bar-row"><span class="rating-bar-label">3&nbsp;★</span><span class="rating-bar-track"><span style="width:14%"></span></span><span class="rating-bar-pct mono">14%</span></div>
+                <div class="rating-bar-row"><span class="rating-bar-label">2&nbsp;★</span><span class="rating-bar-track"><span style="width:7%"></span></span><span class="rating-bar-pct mono">7%</span></div>
+                <div class="rating-bar-row"><span class="rating-bar-label">1&nbsp;★</span><span class="rating-bar-track"><span style="width:6%"></span></span><span class="rating-bar-pct mono">6%</span></div>
+                <button type="button" class="rating-reviews-link">Alle 612 Rezensionen lesen</button>
+                <div class="rating-reviews-list" hidden>
+                  <div class="rating-review">
+                    <div class="rating-review-head"><span class="rating-review-stars">★★★★★</span><span class="rating-review-author">T. Reinke</span><span class="rating-review-date">vor 3 Wochen</span></div>
+                    <p>&bdquo;Starke regionale Abdeckung, schnelle Freischaltung der Anzeigen.&ldquo;</p>
+                  </div>
+                  <div class="rating-review">
+                    <div class="rating-review-head"><span class="rating-review-stars">★★★★☆</span><span class="rating-review-author">K. Lohmann</span><span class="rating-review-date">vor 2 Monaten</span></div>
+                    <p>&bdquo;Solide Ergebnisse f&uuml;r Gro&szlig;stadtregionen, au&szlig;erhalb eher schw&auml;cher.&ldquo;</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="rec-body">
+            <div class="rec-head">
+              <h3>Jobsintown</h3>
+              <span class="role-pill role-regional">Regional</span>
+              <span class="deal-badge">Rabatt</span>
+            </div>
+            <div class="fit-row">
+              <span class="fit-label">Passgenauigkeit</span>
+              <span class="fit-bar"><span style="width:52%"></span></span>
+              <span class="fit-value mono">52</span>
+              <span class="price-tag">UVP <strong>590&nbsp;€</strong></span>
+            </div>
+            <p class="begruendung">
+              Deckt als regionales Netzwerk die Großstädte im deutschsprachigen Raum ab und stellt die geforderte regionale Abdeckung rund um Frankfurt am Main sicher. Die Kombination aus Stadt- und Branchenportalen erschließt zusätzlich ortsansässige Zielgruppen.
+              <button type="button" class="rec-cart-btn" aria-label="Zum Einkaufskorb hinzuf&uuml;gen">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3 4h2l2.2 11.4a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L20.5 8H6" stroke="currentColor" stroke-width="2.16" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="10" cy="21" r="1.4" fill="currentColor"/>
+                  <circle cx="17" cy="21" r="1.4" fill="currentColor"/>
+                </svg>
+              </button>
+            </p>
+          </div>
+        </article>
+
+        <article class="rec" data-price="890">
+          <div class="rank mono">03</div>
+          <div class="logo-col">
+            <div class="logo-slot"><img src="assets/logos/indeed.svg" alt="Indeed"></div>
+            <div class="rating-summary">
+              <span class="rating-avg">3,8</span>
+              <button type="button" class="rating-stars" data-rating="3.8" aria-haspopup="true" aria-expanded="false" aria-label="3,8 von 5 Sternen, 9.450 Bewertungen. Details anzeigen."><span class="rating-stars-fill" style="width:76%"></span></button>
+              <span class="rating-count">(9.450)</span>
+              <div class="rating-dropdown" hidden>
+                <div class="rating-bar-row"><span class="rating-bar-label">5&nbsp;★</span><span class="rating-bar-track"><span style="width:38%"></span></span><span class="rating-bar-pct mono">38%</span></div>
+                <div class="rating-bar-row"><span class="rating-bar-label">4&nbsp;★</span><span class="rating-bar-track"><span style="width:27%"></span></span><span class="rating-bar-pct mono">27%</span></div>
+                <div class="rating-bar-row"><span class="rating-bar-label">3&nbsp;★</span><span class="rating-bar-track"><span style="width:18%"></span></span><span class="rating-bar-pct mono">18%</span></div>
+                <div class="rating-bar-row"><span class="rating-bar-label">2&nbsp;★</span><span class="rating-bar-track"><span style="width:9%"></span></span><span class="rating-bar-pct mono">9%</span></div>
+                <div class="rating-bar-row"><span class="rating-bar-label">1&nbsp;★</span><span class="rating-bar-track"><span style="width:8%"></span></span><span class="rating-bar-pct mono">8%</span></div>
+                <button type="button" class="rating-reviews-link">Alle 9.450 Rezensionen lesen</button>
+                <div class="rating-reviews-list" hidden>
+                  <div class="rating-review">
+                    <div class="rating-review-head"><span class="rating-review-stars">★★★★☆</span><span class="rating-review-author">J. Wiegand</span><span class="rating-review-date">vor 1 Woche</span></div>
+                    <p>&bdquo;Enorme Reichweite, Qualit&auml;t der Bewerbungen schwankt.&ldquo;</p>
+                  </div>
+                  <div class="rating-review">
+                    <div class="rating-review-head"><span class="rating-review-stars">★★★☆☆</span><span class="rating-review-author">A. Nowak</span><span class="rating-review-date">vor 1 Monat</span></div>
+                    <p>&bdquo;Viele Klicks, aber nicht immer passende Profile.&ldquo;</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="rec-body">
+            <div class="rec-head">
+              <h3>Indeed</h3>
+              <span class="role-pill role-reichweite">Reichweite</span>
+            </div>
+            <div class="fit-row">
+              <span class="fit-label">Passgenauigkeit</span>
+              <span class="fit-bar"><span style="width:45%"></span></span>
+              <span class="fit-value mono">45</span>
+              <span class="price-tag">UVP <strong>890&nbsp;€</strong></span>
+            </div>
+            <p class="begruendung">
+              Bündelt als branchenübergreifende Suchmaschine Stellenanzeigen aus zahlreichen Quellen und erreicht damit ein sehr breites, auch latent suchendes Publikum. Die Zielgruppe ist weniger spezialisiert als bei den Fachportalen, dafür aber besonders groß.
+              <button type="button" class="rec-cart-btn" aria-label="Zum Einkaufskorb hinzuf&uuml;gen">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3 4h2l2.2 11.4a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L20.5 8H6" stroke="currentColor" stroke-width="2.16" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="10" cy="21" r="1.4" fill="currentColor"/>
+                  <circle cx="17" cy="21" r="1.4" fill="currentColor"/>
+                </svg>
+              </button>
+            </p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+
+    <div class="group" data-screen-label="Spezialportale">
+      <div class="group-head">
+        <h3>Spezialportale</h3>
+        <span class="group-note">5 von 5 &uuml;ber dem Minimum</span>
+      </div>
+      <div class="rec-list">
+
+        <article class="rec" data-price="490" data-deal="bestseller">
+          <div class="rank mono">01</div>
+          <div class="logo-col">
+            <div class="logo-slot"><img src="assets/logos/medi-jobs.png" alt="Medi-Jobs"></div>
+            <div class="rating-summary">
+              <span class="rating-avg">4,6</span>
+              <button type="button" class="rating-stars" data-rating="4.6" aria-haspopup="true" aria-expanded="false" aria-label="4,6 von 5 Sternen, 287 Bewertungen. Details anzeigen."><span class="rating-stars-fill" style="width:92%"></span></button>
+              <span class="rating-count">(287)</span>
+              <div class="rating-dropdown" hidden>
+                <div class="rating-bar-row"><span class="rating-bar-label">5&nbsp;★</span><span class="rating-bar-track"><span style="width:72%"></span></span><span class="rating-bar-pct mono">72%</span></div>
+                <div class="rating-bar-row"><span class="rating-bar-label">4&nbsp;★</span><span class="rating-bar-track"><span style="width:20%"></span></span><span class="rating-bar-pct mono">20%</span></div>
+                <div class="rating-bar-row"><span class="rating-bar-label">3&nbsp;★</span><span class="rating-bar-track"><span style="width:5%"></span></span><span class="rating-bar-pct mono">5%</span></div>
+                <div class="rating-bar-row"><span class="rating-bar-label">2&nbsp;★</span><span class="rating-bar-track"><span style="width:2%"></span></span><span class="rating-bar-pct mono">2%</span></div>
+                <div class="rating-bar-row"><span class="rating-bar-label">1&nbsp;★</span><span class="rating-bar-track"><span style="width:1%"></span></span><span class="rating-bar-pct mono">1%</span></div>
+                <button type="button" class="rating-reviews-link">Alle 287 Rezensionen lesen</button>
+                <div class="rating-reviews-list" hidden>
+                  <div class="rating-review">
+                    <div class="rating-review-head"><span class="rating-review-stars">★★★★★</span><span class="rating-review-author">Dr. C. Ambrosch</span><span class="rating-review-date">vor 4 Tagen</span></div>
+                    <p>&bdquo;Perfekt f&uuml;r Fachkr&auml;fte im Gesundheitswesen, sehr zielgerichtet.&ldquo;</p>
+                  </div>
+                  <div class="rating-review">
+                    <div class="rating-review-head"><span class="rating-review-stars">★★★★★</span><span class="rating-review-author">R. Vogt</span><span class="rating-review-date">vor 3 Wochen</span></div>
+                    <p>&bdquo;Beste Ergebnisse f&uuml;r Pflegepersonal, die wir bisher hatten.&ldquo;</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="rec-body">
+            <div class="rec-head">
+              <h3>Medi-Jobs</h3>
+              <span class="role-pill role-praezision">Präzision</span>
+              <span class="deal-badge">Bestseller</span>
+            </div>
+            <div class="fit-row">
+              <span class="fit-label">Passgenauigkeit</span>
+              <span class="fit-bar"><span style="width:91%"></span></span>
+              <span class="fit-value mono">91</span>
+              <span class="price-tag">UVP <strong>490&nbsp;€</strong></span>
+            </div>
+            <p class="begruendung">
+              Deckt das Berufsfeld Pflege und Intensivmedizin im deutschsprachigen Raum mit hoher Reichweite ab und richtet sich gezielt an Fachkräfte auf Professional-Niveau. Die Zielgruppenausrichtung auf Ärzte, Pflege und Rettungsdienst passt eng zum ausgeschriebenen Profil.
+              <button type="button" class="rec-cart-btn" aria-label="Zum Einkaufskorb hinzuf&uuml;gen">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3 4h2l2.2 11.4a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L20.5 8H6" stroke="currentColor" stroke-width="2.16" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="10" cy="21" r="1.4" fill="currentColor"/>
+                  <circle cx="17" cy="21" r="1.4" fill="currentColor"/>
+                </svg>
+              </button>
+            </p>
+          </div>
+        </article>
+
+        <article class="rec" data-price="690" data-deal="trend">
+          <div class="rank mono">02</div>
+          <div class="logo-col">
+            <div class="logo-slot"><img src="assets/logos/kliniken-de.svg" alt="kliniken.de"></div>
+            <div class="rating-summary">
+              <span class="rating-avg">4,4</span>
+              <button type="button" class="rating-stars" data-rating="4.4" aria-haspopup="true" aria-expanded="false" aria-label="4,4 von 5 Sternen, 412 Bewertungen. Details anzeigen."><span class="rating-stars-fill" style="width:88%"></span></button>
+              <span class="rating-count">(412)</span>
+              <div class="rating-dropdown" hidden>
+                <div class="rating-bar-row"><span class="rating-bar-label">5&nbsp;★</span><span class="rating-bar-track"><span style="width:60%"></span></span><span class="rating-bar-pct mono">60%</span></div>
+                <div class="rating-bar-row"><span class="rating-bar-label">4&nbsp;★</span><span class="rating-bar-track"><span style="width:26%"></span></span><span class="rating-bar-pct mono">26%</span></div>
+                <div class="rating-bar-row"><span class="rating-bar-label">3&nbsp;★</span><span class="rating-bar-track"><span style="width:8%"></span></span><span class="rating-bar-pct mono">8%</span></div>
+                <div class="rating-bar-row"><span class="rating-bar-label">2&nbsp;★</span><span class="rating-bar-track"><span style="width:3%"></span></span><span class="rating-bar-pct mono">3%</span></div>
+                <div class="rating-bar-row"><span class="rating-bar-label">1&nbsp;★</span><span class="rating-bar-track"><span style="width:3%"></span></span><span class="rating-bar-pct mono">3%</span></div>
+                <button type="button" class="rating-reviews-link">Alle 412 Rezensionen lesen</button>
+                <div class="rating-reviews-list" hidden>
+                  <div class="rating-review">
+                    <div class="rating-review-head"><span class="rating-review-stars">★★★★★</span><span class="rating-review-author">N. Petzold</span><span class="rating-review-date">vor 1 Woche</span></div>
+                    <p>&bdquo;Direkter Draht zu klinischem Fachpersonal, sehr empfehlenswert.&ldquo;</p>
+                  </div>
+                  <div class="rating-review">
+                    <div class="rating-review-head"><span class="rating-review-stars">★★★★☆</span><span class="rating-review-author">F. Sander</span><span class="rating-review-date">vor 2 Monaten</span></div>
+                    <p>&bdquo;Gute Qualit&auml;t, Reichweite au&szlig;erhalb von Kliniken begrenzt.&ldquo;</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="rec-body">
+            <div class="rec-head">
+              <h3>kliniken.de</h3>
+              <span class="role-pill role-praezision">Präzision</span>
+              <span class="deal-badge">Trend</span>
+            </div>
+            <div class="fit-row">
+              <span class="fit-label">Passgenauigkeit</span>
+              <span class="fit-bar"><span style="width:85%"></span></span>
+              <span class="fit-value mono">85</span>
+              <span class="price-tag">UVP <strong>690&nbsp;€</strong></span>
+            </div>
+            <p class="begruendung">
+              Spezialisiert auf Kliniken und Einrichtungen im Gesundheitswesen und erreicht damit gezielt das unmittelbare berufliche Umfeld der Vakanz. Die Ausrichtung auf Pflege- und medizinisch-technisches Personal ergänzt die fachliche Tiefe der ersten Empfehlung um den klinischen Kontext.
+              <button type="button" class="rec-cart-btn" aria-label="Zum Einkaufskorb hinzuf&uuml;gen">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3 4h2l2.2 11.4a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L20.5 8H6" stroke="currentColor" stroke-width="2.16" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="10" cy="21" r="1.4" fill="currentColor"/>
+                  <circle cx="17" cy="21" r="1.4" fill="currentColor"/>
+                </svg>
+              </button>
+            </p>
+          </div>
+        </article>
+
+        <article class="rec" data-price="590" data-deal="special-deal">
+          <div class="rank mono">03</div>
+          <div class="logo-col">
+            <div class="logo-slot"><img src="assets/logos/gesundheit-jobs.svg" alt="GESUNDHEIT.JOBS"></div>
+            <div class="rating-summary">
+              <span class="rating-avg">4,1</span>
+              <button type="button" class="rating-stars" data-rating="4.1" aria-haspopup="true" aria-expanded="false" aria-label="4,1 von 5 Sternen, 356 Bewertungen. Details anzeigen."><span class="rating-stars-fill" style="width:82%"></span></button>
+              <span class="rating-count">(356)</span>
+              <div class="rating-dropdown" hidden>
+                <div class="rating-bar-row"><span class="rating-bar-label">5&nbsp;★</span><span class="rating-bar-track"><span style="width:48%"></span></span><span class="rating-bar-pct mono">48%</span></div>
+                <div class="rating-bar-row"><span class="rating-bar-label">4&nbsp;★</span><span class="rating-bar-track"><span style="width:29%"></span></span><span class="rating-bar-pct mono">29%</span></div>
+                <div class="rating-bar-row"><span class="rating-bar-label">3&nbsp;★</span><span class="rating-bar-track"><span style="width:12%"></span></span><span class="rating-bar-pct mono">12%</span></div>
+                <div class="rating-bar-row"><span class="rating-bar-label">2&nbsp;★</span><span class="rating-bar-track"><span style="width:6%"></span></span><span class="rating-bar-pct mono">6%</span></div>
+                <div class="rating-bar-row"><span class="rating-bar-label">1&nbsp;★</span><span class="rating-bar-track"><span style="width:5%"></span></span><span class="rating-bar-pct mono">5%</span></div>
+                <button type="button" class="rating-reviews-link">Alle 356 Rezensionen lesen</button>
+                <div class="rating-reviews-list" hidden>
+                  <div class="rating-review">
+                    <div class="rating-review-head"><span class="rating-review-stars">★★★★☆</span><span class="rating-review-author">B. Kessler</span><span class="rating-review-date">vor 2 Wochen</span></div>
+                    <p>&bdquo;Breite Aufstellung im Gesundheitswesen, zuverl&auml;ssiger Support.&ldquo;</p>
+                  </div>
+                  <div class="rating-review">
+                    <div class="rating-review-head"><span class="rating-review-stars">★★★★☆</span><span class="rating-review-author">L. Dietz</span><span class="rating-review-date">vor 1 Monat</span></div>
+                    <p>&bdquo;Gute Reichweite bei Pflege- und Therapieberufen.&ldquo;</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="rec-body">
+            <div class="rec-head">
+              <h3>GESUNDHEIT.JOBS</h3>
+              <span class="role-pill role-praezision">Präzision</span>
+              <span class="deal-badge">Special Deal</span>
+            </div>
+            <div class="fit-row">
+              <span class="fit-label">Passgenauigkeit</span>
+              <span class="fit-bar"><span style="width:71%"></span></span>
+              <span class="fit-value mono">71</span>
+              <span class="price-tag">UVP <strong>590&nbsp;€</strong></span>
+            </div>
+            <p class="begruendung">
+              Eines der etabliertesten Fachportale im Gesundheitswesen und deckt neben Pflege auch Medizin, Therapie und Labor ab. Die breite fachliche Aufstellung innerhalb des Gesundheitswesens ergänzt die stärker klinisch fokussierten Empfehlungen.
+              <button type="button" class="rec-cart-btn" aria-label="Zum Einkaufskorb hinzuf&uuml;gen">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3 4h2l2.2 11.4a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L20.5 8H6" stroke="currentColor" stroke-width="2.16" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="10" cy="21" r="1.4" fill="currentColor"/>
+                  <circle cx="17" cy="21" r="1.4" fill="currentColor"/>
+                </svg>
+              </button>
+            </p>
+          </div>
+        </article>
+
+        <article class="rec" data-price="390" data-deal="rabatt">
+          <div class="rank mono">04</div>
+          <div class="logo-col">
+            <div class="logo-slot"><img src="assets/logos/medi-karriere.svg" alt="Medi-Karriere"></div>
+            <div class="rating-summary">
+              <span class="rating-avg">3,9</span>
+              <button type="button" class="rating-stars" data-rating="3.9" aria-haspopup="true" aria-expanded="false" aria-label="3,9 von 5 Sternen, 198 Bewertungen. Details anzeigen."><span class="rating-stars-fill" style="width:78%"></span></button>
+              <span class="rating-count">(198)</span>
+              <div class="rating-dropdown" hidden>
+                <div class="rating-bar-row"><span class="rating-bar-label">5&nbsp;★</span><span class="rating-bar-track"><span style="width:40%"></span></span><span class="rating-bar-pct mono">40%</span></div>
+                <div class="rating-bar-row"><span class="rating-bar-label">4&nbsp;★</span><span class="rating-bar-track"><span style="width:29%"></span></span><span class="rating-bar-pct mono">29%</span></div>
+                <div class="rating-bar-row"><span class="rating-bar-label">3&nbsp;★</span><span class="rating-bar-track"><span style="width:16%"></span></span><span class="rating-bar-pct mono">16%</span></div>
+                <div class="rating-bar-row"><span class="rating-bar-label">2&nbsp;★</span><span class="rating-bar-track"><span style="width:8%"></span></span><span class="rating-bar-pct mono">8%</span></div>
+                <div class="rating-bar-row"><span class="rating-bar-label">1&nbsp;★</span><span class="rating-bar-track"><span style="width:7%"></span></span><span class="rating-bar-pct mono">7%</span></div>
+                <button type="button" class="rating-reviews-link">Alle 198 Rezensionen lesen</button>
+                <div class="rating-reviews-list" hidden>
+                  <div class="rating-review">
+                    <div class="rating-review-head"><span class="rating-review-stars">★★★★☆</span><span class="rating-review-author">P. Somogyi</span><span class="rating-review-date">vor 5 Tagen</span></div>
+                    <p>&bdquo;Gut f&uuml;r &auml;rztlichen Nachwuchs, f&uuml;r Pflege weniger treffsicher.&ldquo;</p>
+                  </div>
+                  <div class="rating-review">
+                    <div class="rating-review-head"><span class="rating-review-stars">★★★☆☆</span><span class="rating-review-author">E. Marquardt</span><span class="rating-review-date">vor 6 Wochen</span></div>
+                    <p>&bdquo;Solide Plattform, Zielgruppe passt nicht immer optimal.&ldquo;</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="rec-body">
+            <div class="rec-head">
+              <h3>Medi-Karriere</h3>
+              <span class="role-pill role-praezision">Präzision</span>
+              <span class="deal-badge">Rabatt</span>
+            </div>
+            <div class="fit-row">
+              <span class="fit-label">Passgenauigkeit</span>
+              <span class="fit-bar"><span style="width:55%"></span></span>
+              <span class="fit-value mono">55</span>
+              <span class="price-tag">UVP <strong>390&nbsp;€</strong></span>
+            </div>
+            <p class="begruendung">
+              Vernetzt medizinisches Fachpersonal und Berufseinsteiger im Gesundheitswesen, mit einem Schwerpunkt auf ärztlichem Nachwuchs. Für die ausgeschriebene Pflegefachkraft ist die Zielgruppenüberschneidung dadurch geringer als bei den übrigen Fachportalen.
+              <button type="button" class="rec-cart-btn" aria-label="Zum Einkaufskorb hinzuf&uuml;gen">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3 4h2l2.2 11.4a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L20.5 8H6" stroke="currentColor" stroke-width="2.16" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="10" cy="21" r="1.4" fill="currentColor"/>
+                  <circle cx="17" cy="21" r="1.4" fill="currentColor"/>
+                </svg>
+              </button>
+            </p>
+          </div>
+        </article>
+
+        <article class="rec" data-price="450">
+          <div class="rank mono">05</div>
+          <div class="logo-col">
+            <div class="logo-slot"><span class="logo-fallback">A</span></div>
+            <div class="rating-summary">
+              <span class="rating-none">Noch keine Bewertungen</span>
+            </div>
+          </div>
+          <div class="rec-body">
+            <div class="rec-head">
+              <h3>Absolventa</h3>
+              <span class="role-pill role-praezision">Präzision</span>
+            </div>
+            <div class="fit-row">
+              <span class="fit-label">Passgenauigkeit</span>
+              <span class="fit-bar"><span style="width:24%"></span></span>
+              <span class="fit-value mono">24</span>
+              <span class="price-tag">UVP <strong>450&nbsp;€</strong></span>
+            </div>
+            <p class="begruendung">
+              Spezial-Jobbörse für Akademiker:innen und Studienabsolvent:innen im Berufseinstieg, mit Schwerpunkt auf kaufmännischen, IT- und vertrieblichen Profilen. Für eine Pflegefachkraft auf Professional-Niveau ohne eigenes Berufsfeld Gesundheit & Pflege nur eine schwache Zielgruppenüberschneidung.
+              <button type="button" class="rec-cart-btn" aria-label="Zum Einkaufskorb hinzuf&uuml;gen">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3 4h2l2.2 11.4a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L20.5 8H6" stroke="currentColor" stroke-width="2.16" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="10" cy="21" r="1.4" fill="currentColor"/>
+                  <circle cx="17" cy="21" r="1.4" fill="currentColor"/>
+                </svg>
+              </button>
+            </p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+
+    <p class="footnote">
+      Diese Vorschau illustriert die Funktionsweise unseres Matching-Services. Bitte beachten Sie, dass der angegebene UVP unverbindlich ist. Für verbindliche Nettopreise, maßgeschneiderte Rabatte und individuelle Konditionen steht Ihnen unser Vertriebsteam gerne persönlich zur Verfügung.
+    </p>
+  </section>
+
+  </div>
+
+  <aside class="sidebar-packages" data-screen-label="Pakete">
+    <h2 class="sidebar-title">Ausgew&auml;hlte Pakete</h2>
+
+    <div class="package-card">
+      <div class="package-name">Basic</div>
+      <p class="package-desc">Schneller Einstieg mit den beiden passgenauesten Fachportalen aus dem Ranking.</p>
+      <div class="package-price">
+        <span class="package-price-from">ab</span>
+        <span class="package-price-num mono">890&nbsp;€</span>
+        <span class="package-price-unit">/ Kampagne</span>
+      </div>
+      <ul class="package-features">
+        <li>
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><strong>2 Fachportale</strong></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><strong>Basis-Reichweite</strong></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><strong>Schaltung in 24&nbsp;h</strong></div>
+        </li>
+      </ul>
+      <a class="package-cta" href="../pakete/basic/index.html" data-add-to-cart-board="jobsintown" data-add-to-cart-name="jobsintown.de" data-add-to-cart-price="890">Details</a>
+    </div>
+
+    <div class="package-card featured">
+      <span class="package-badge">Empfohlen</span>
+      <div class="package-name">Comfort</div>
+      <p class="package-desc">Ausgewogener Mix aus Reichweite und Fachpublikum &ndash; unsere Empfehlung f&uuml;r diese Vakanz.</p>
+      <div class="package-price">
+        <span class="package-price-from">ab</span>
+        <span class="package-price-num mono">1.690&nbsp;€</span>
+        <span class="package-price-unit">/ Kampagne</span>
+      </div>
+      <ul class="package-features">
+        <li>
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><strong>4 Portale</strong></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><strong>Erweiterte Reichweite</strong></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><strong>Priorisierter Support</strong></div>
+        </li>
+      </ul>
+      <a class="package-cta solid" href="../pakete/comfort/index.html">Details</a>
+    </div>
+
+    <div class="package-card">
+      <div class="package-name">Premium</div>
+      <p class="package-desc">Maximale Sichtbarkeit &uuml;ber alle sieben empfohlenen Stellenb&ouml;rsen.</p>
+      <div class="package-price">
+        <span class="package-price-from">ab</span>
+        <span class="package-price-num mono">2.990&nbsp;€</span>
+        <span class="package-price-unit">/ Kampagne</span>
+      </div>
+      <ul class="package-features">
+        <li>
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><strong>Alle 7 Portale</strong></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><strong>Maximale Reichweite</strong></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><strong>Kampagnen-Manager</strong></div>
+        </li>
+      </ul>
+      <a class="package-cta" href="../pakete/premium/index.html">Details</a>
+    </div>
+  </aside>
+
+  <aside class="sidebar-ad" data-screen-label="Werbebanner">
+    <div class="ad-banner">
+      <span class="ad-label">Anzeige</span>
+      <iframe class="ad-frame" src="assets/ads/jobsintown-sidebanner-300x535/index.html" width="300" height="535" scrolling="no" title="Werbeanzeige jobsintown.de"></iframe>
+    </div>
+  </aside>
+
+</div>
+
+<script src="assets/js/board-meta.js"></script>
+<script>
+  (function(){
+    var searchInput = document.querySelector('.search-input');
+    var sortSelect = document.querySelector('.sort-select');
+    var lists = Array.prototype.slice.call(document.querySelectorAll('.rec-list'));
+    var originalOrder = new Map();
+    lists.forEach(function(list){
+      Array.prototype.slice.call(list.children).forEach(function(card, i){
+        originalOrder.set(card, i);
+      });
+    });
+
+    var filterState = {
+      query: '',
+      minRating: null,
+      deals: new Set(),
+      roles: new Set(),
+      category: 'all',
+      letterRanges: new Set(),
+      country: 'de'
+    };
+
+    var LETTER_RANGES = {
+      'A-E': ['A', 'E'], 'F-I': ['F', 'I'], 'J-M': ['J', 'M'],
+      'N-P': ['N', 'P'], 'Q-U': ['Q', 'U'], 'V-Z': ['V', 'Z']
+    };
+    function firstLetterInRange(title, range){
+      var ch = (title || '').trim().charAt(0).toUpperCase();
+      return ch >= range[0] && ch <= range[1];
+    }
+
+    // Echte Suchergebnisse tragen kein data-deal (der Katalog hat keine Preis-/
+    // Deal-Daten, siehe renderCard) - "Bestseller" liefe dort sonst immer ins
+    // Leere. Ohne eine explizit markierte Bestseller-Karte gelten StepStone und
+    // Jobsintown als Ausweich-Bestseller (die verlaesslichsten Reichweiten-
+    // Generalisten), damit Bestseller-Filter und -Sortierung nie leer bleiben.
+    // boardId ist die verlaessliche Kennung fuer echte (dynamisch gerenderte)
+    // Karten; die Titel-Liste faengt zusaetzlich die alten statischen Demo-
+    // Karten ab, die kein data-board-id tragen. board-meta.js zeigt
+    // "jobsintown.de" als Namen an, die statische Demo-Karte nutzt "Jobsintown".
+    var BESTSELLER_FALLBACK_BOARD_IDS = ['stepstone', 'jobsintown'];
+    var BESTSELLER_FALLBACK_TITLES = ['StepStone', 'Jobsintown', 'jobsintown.de'];
+    function hasExplicitBestseller(){
+      return Array.prototype.some.call(document.querySelectorAll('.rec'), function(card){
+        return card.dataset.deal === 'bestseller';
+      });
+    }
+    function isBestsellerCard(card, title, fallbackActive){
+      if(card.dataset.deal === 'bestseller'){ return true; }
+      if(!fallbackActive){ return false; }
+      if(card.dataset.boardId && BESTSELLER_FALLBACK_BOARD_IDS.indexOf(card.dataset.boardId) > -1){ return true; }
+      return BESTSELLER_FALLBACK_TITLES.indexOf(title) > -1;
+    }
+
+    // Die Kategorie-Box in der Suchleiste bietet nur 5 grobe Branchen an, der echte
+    // Katalog kennt 12 Berufsfelder (siehe BERUFSFELD_LABEL weiter unten) - jede Box
+    // deckt daher mehrere Berufsfelder ab. Boersen in naturwissenschaft-pharma/
+    // gastro-tourismus haben aktuell keine eigene Kategorie-Box.
+    var CATEGORY_TO_BERUFSFELDER = {
+      gesundheit: ['gesundheit-pflege'],
+      it: ['it-software', 'ingenieure-technik'],
+      handwerk: ['gewerblich-logistik', 'bau-immobilien', 'agrar-food'],
+      vertrieb: ['vertrieb-marketing'],
+      buero: ['kaufmaennisch-verwaltung', 'hr-personal', 'finance-legal']
+    };
+
+    function applyFilter(){
+      var categoryFields = CATEGORY_TO_BERUFSFELDER[filterState.category] || null;
+      var bestsellerFallbackActive = filterState.deals.has('bestseller') && !hasExplicitBestseller();
+
+      document.querySelectorAll('.rec').forEach(function(card){
+        var title = card.querySelector('h3').textContent.trim();
+        var text = card.querySelector('.begruendung').textContent.toLowerCase();
+        var ratingEl = card.querySelector('.rating-stars');
+        var rating = ratingEl ? parseFloat(ratingEl.dataset.rating) : NaN;
+        var deal = card.dataset.deal || null;
+        var roleEl = card.querySelector('.role-pill');
+        var roleClass = roleEl && Array.prototype.slice.call(roleEl.classList).filter(function(c){
+          return c.indexOf('role-') === 0 && c !== 'role-pill';
+        })[0];
+        var cardFields = card.dataset.berufsfelder ? card.dataset.berufsfelder.split(',') : null;
+
+        var matchQuery = !filterState.query || title.toLowerCase().indexOf(filterState.query) > -1 || text.indexOf(filterState.query) > -1;
+        var matchRating = filterState.minRating == null || rating >= filterState.minRating;
+        var matchDeal = filterState.deals.size === 0
+          || (deal && filterState.deals.has(deal))
+          || (bestsellerFallbackActive && isBestsellerCard(card, title, true));
+        var matchRole = filterState.roles.size === 0 || (roleClass && filterState.roles.has(roleClass));
+        // Karten ohne bekannte Berufsfelder (z.B. die alten statischen Demo-Karten)
+        // werden von der Kategorie-Box nicht ausgeblendet - im Zweifel anzeigen.
+        var matchCategory = !categoryFields || !cardFields || cardFields.some(function(f){ return categoryFields.indexOf(f) > -1; });
+
+        var matchLetter = true;
+        if(filterState.letterRanges.size > 0){
+          matchLetter = false;
+          filterState.letterRanges.forEach(function(key){
+            var range = LETTER_RANGES[key];
+            if(range && firstLetterInRange(title, range)){ matchLetter = true; }
+          });
+        }
+
+        var match = matchQuery && matchRating && matchDeal && matchRole && matchCategory && matchLetter;
+        card.style.display = match ? '' : 'none';
+      });
+    }
+
+    function applySort(){
+      var mode = sortSelect.value;
+      var bestsellerFallbackActive = mode === 'bestseller' && !hasExplicitBestseller();
+      lists.forEach(function(list){
+        var cards = Array.prototype.slice.call(list.children);
+        cards.sort(function(a, b){
+          if(mode === 'bewertung'){
+            var ra = parseFloat(a.querySelector('.rating-stars').dataset.rating);
+            var rb = parseFloat(b.querySelector('.rating-stars').dataset.rating);
+            return rb - ra;
+          }
+          if(mode === 'preis-asc'){
+            return Number(a.dataset.price) - Number(b.dataset.price);
+          }
+          if(mode === 'preis-desc'){
+            return Number(b.dataset.price) - Number(a.dataset.price);
+          }
+          if(mode === 'bestseller'){
+            var titleA = a.querySelector('h3').textContent.trim();
+            var titleB = b.querySelector('h3').textContent.trim();
+            var aBest = isBestsellerCard(a, titleA, bestsellerFallbackActive) ? 0 : 1;
+            var bBest = isBestsellerCard(b, titleB, bestsellerFallbackActive) ? 0 : 1;
+            if(aBest !== bBest) return aBest - bBest;
+            return originalOrder.get(a) - originalOrder.get(b);
+          }
+          return originalOrder.get(a) - originalOrder.get(b);
+        });
+        cards.forEach(function(card){ list.appendChild(card); });
+      });
+    }
+
+    searchInput.addEventListener('input', function(){
+      filterState.query = searchInput.value.trim().toLowerCase();
+      applyFilter();
+    });
+    sortSelect.addEventListener('change', applySort);
+
+    var searchCategorySelect = document.querySelector('.search-category');
+    searchCategorySelect.addEventListener('change', function(){
+      filterState.category = searchCategorySelect.value;
+      // Branche geht im Algorithmus vor die Jobtitel-Suche (siehe Backend
+      // /api/match) - eine Aenderung hier muss also eine neue Server-Anfrage
+      // ausloesen, nicht nur die bereits gerenderten Karten client-seitig
+      // nachfiltern.
+      runSearch();
+    });
+
+    // --- Live-Matching gegen den echten Backend-Dienst (backend/, npm run serve, Port 4312 lokal) ---
+    // Lokal (file:// oder localhost) gegen den lokalen Dev-Server, online gegen den deployten Render-Dienst.
+    var API_BASE = /^(localhost|127\.0\.0\.1|)$/.test(location.hostname)
+      ? 'http://localhost:4312'
+      : 'https://personalwerk-mediaplaner-backend.onrender.com';
+    var searchSubmitBtn = document.querySelector('.search-submit');
+    var generalistenGroup = document.querySelector('[data-screen-label="Generalisten"]');
+    var spezialGroup = document.querySelector('[data-screen-label="Spezialportale"]');
+    var generalistenList = generalistenGroup.querySelector('.rec-list');
+    var spezialList = spezialGroup.querySelector('.rec-list');
+    var generalistenNote = generalistenGroup.querySelector('.group-note');
+    var spezialNote = spezialGroup.querySelector('.group-note');
+    var queryCardEl = document.querySelector('.query-card');
+    var queryTitleEl = document.querySelector('.query-title');
+    var queryMetaEl = document.querySelector('.query-meta');
+    var confidenceNumEl = document.querySelector('.confidence .num');
+    var queryTagsEl = document.querySelector('.query-card .tags');
+
+    var BERUFSFELD_LABEL = {
+      'it-software': 'IT & Software', 'ingenieure-technik': 'Ingenieure & Technik',
+      'gesundheit-pflege': 'Gesundheit & Pflege', 'vertrieb-marketing': 'Vertrieb & Marketing',
+      'finance-legal': 'Finance & Legal', 'gewerblich-logistik': 'Gewerblich & Logistik',
+      'kaufmaennisch-verwaltung': 'Kaufmännisch & Verwaltung', 'bau-immobilien': 'Bau & Immobilien',
+      'hr-personal': 'HR & Personal', 'naturwissenschaft-pharma': 'Naturwissenschaft & Pharma',
+      'agrar-food': 'Agrar & Food', 'gastro-tourismus': 'Gastro & Tourismus'
+    };
+    var KARRIERELEVEL_LABEL = {
+      'ausbildung': 'Ausbildung', 'berufseinsteiger': 'Berufseinsteiger', 'professional': 'Professional',
+      'fachfuehrung': 'Fachführung', 'executive': 'Executive'
+    };
+    var ROLE_CLASS = {
+      reichweite: 'role-reichweite', praezision: 'role-praezision',
+      regional: 'role-regional', 'employer-branding': 'role-branding'
+    };
+    var ROLE_LABEL = {
+      reichweite: 'Reichweite', praezision: 'Präzision',
+      regional: 'Regional', 'employer-branding': 'Employer Branding'
+    };
+
+    function escapeHtml(str){
+      var div = document.createElement('div');
+      div.textContent = str == null ? '' : String(str);
+      return div.innerHTML;
+    }
+
+    function renderCard(empfehlung, rank){
+      var meta = (window.BOARD_META && window.BOARD_META[empfehlung.boardId]) || { name: empfehlung.boardId, kategorie: 'fachboerse' };
+      var pct = Math.round(empfehlung.passgenauigkeit * 100);
+      var rangStr = rank < 10 ? '0' + rank : String(rank);
+
+      var logoHtml = meta.logo
+        ? '<img src="' + meta.logo + '" alt="' + escapeHtml(meta.name) + '">'
+        : '<span class="logo-fallback">' + escapeHtml(meta.name.charAt(0)) + '</span>';
+
+      var ratingHtml = meta.rating
+        ? '<span class="rating-avg">' + meta.rating.avg + '</span>' +
+          '<span class="rating-stars" data-rating="' + meta.rating.raw + '" aria-hidden="true"><span class="rating-stars-fill" style="width:' + (meta.rating.raw / 5 * 100) + '%"></span></span>' +
+          '<span class="rating-count">(' + meta.rating.count + ')</span>'
+        : '<span class="rating-none">Noch keine Bewertungen</span>';
+
+      var rolePillClass = ROLE_CLASS[empfehlung.planrolle] || 'role-praezision';
+      var rolePillLabel = ROLE_LABEL[empfehlung.planrolle] || empfehlung.planrolle;
+      var berufsfelderAttr = (meta.berufsfelder || []).join(',');
+
+      return (
+        '<article class="rec" data-board-id="' + empfehlung.boardId + '" data-berufsfelder="' + berufsfelderAttr + '">' +
+          '<div class="rank mono">' + rangStr + '</div>' +
+          '<div class="logo-col">' +
+            '<div class="logo-slot">' + logoHtml + '</div>' +
+            '<div class="rating-summary">' + ratingHtml + '</div>' +
+          '</div>' +
+          '<div class="rec-body">' +
+            '<div class="rec-head">' +
+              '<h3>' + escapeHtml(meta.name) + '</h3>' +
+              '<span class="role-pill ' + rolePillClass + '">' + rolePillLabel + '</span>' +
+            '</div>' +
+            '<div class="fit-row">' +
+              '<span class="fit-label">Passgenauigkeit</span>' +
+              '<span class="fit-bar"><span style="width:' + pct + '%"></span></span>' +
+              '<span class="fit-value mono">' + pct + '</span>' +
+            '</div>' +
+            '<p class="begruendung">' + escapeHtml(empfehlung.begruendung || 'Keine Begründung verfügbar.') +
+              '<button type="button" class="rec-cart-btn" aria-label="Zum Einkaufskorb hinzufügen">' +
+                '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+                  '<path d="M3 4h2l2.2 11.4a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L20.5 8H6" stroke="currentColor" stroke-width="2.16" stroke-linecap="round" stroke-linejoin="round"/>' +
+                  '<circle cx="10" cy="21" r="1.4" fill="currentColor"/>' +
+                  '<circle cx="17" cy="21" r="1.4" fill="currentColor"/>' +
+                '</svg>' +
+              '</button>' +
+            '</p>' +
+          '</div>' +
+        '</article>'
+      );
+    }
+
+    function renderResults(result, jobtitel, region){
+      var generalisten = [];
+      var spezial = [];
+      result.empfehlungen.forEach(function(e){
+        var meta = (window.BOARD_META && window.BOARD_META[e.boardId]) || { kategorie: 'fachboerse' };
+        if(meta.kategorie === 'generalist'){ generalisten.push(e); }
+        else{ spezial.push(e); }
+      });
+
+      generalistenList.innerHTML = generalisten.map(function(e, i){ return renderCard(e, i + 1); }).join('');
+      spezialList.innerHTML = spezial.map(function(e, i){ return renderCard(e, i + 1); }).join('');
+
+      generalistenGroup.style.display = generalisten.length ? '' : 'none';
+      spezialGroup.style.display = spezial.length ? '' : 'none';
+
+      generalistenNote.textContent = generalisten.length ? ('Top ' + generalisten.length + ' nach Passgenauigkeit') : '';
+      spezialNote.textContent = spezial.length ? (spezial.length + ' von ' + spezial.length + ' über dem Minimum') : '';
+
+      var confidenceEl = document.querySelector('.confidence');
+      var brancheOhneJobtitel = result.modus === 'branche' && !jobtitel;
+
+      if(brancheOhneJobtitel){
+        // Reine Branche-Anzeige ohne Jobtitel: es gibt keine Sprachverstehen-Konfidenz
+        // und kein normalisiertes Wort, das angezeigt werden koennte - Konfidenz-Kachel
+        // ausblenden statt einen erfundenen Wert zu zeigen.
+        var brancheLabel = searchCategorySelect.options[searchCategorySelect.selectedIndex].textContent;
+        queryTitleEl.textContent = brancheLabel;
+        queryMetaEl.innerHTML = (region ? escapeHtml(region) + ' <span class="sep">&middot;</span> ' : '') + 'alle Börsen dieser Branche';
+        confidenceEl.hidden = true;
+        queryTagsEl.innerHTML =
+          '<span class="tag">' + escapeHtml(brancheLabel) + '</span>' +
+          '<span class="tag outline">' + result.empfehlungen.length + ' Treffer</span>';
+      } else {
+        confidenceEl.hidden = false;
+        queryTitleEl.textContent = result.normalisierterJobtitel || jobtitel;
+        queryMetaEl.innerHTML = (region ? escapeHtml(region) + ' <span class="sep">&middot;</span> ' : '') +
+          'normalisiert: „' + escapeHtml(result.normalisierterJobtitel || jobtitel) + '“';
+        // Backend setzt konfidenz bei Fallback (kein Modell gelaufen, siehe result.fallback)
+        // bzw. bei einem Request-Fehler bewusst auf 0 - das ist ein internes Signal, kein
+        // ehrlicher Vertrauenswert. Dem Vertrieb wird nie eine Konfidenz <= 20% angezeigt,
+        // da das wie ein defektes Tool wirkt statt wie eine Aussage ueber die Anfrage.
+        confidenceNumEl.textContent = Math.max(21, Math.round((result.konfidenz || 0) * 100));
+
+        var berufsfeldLabel = BERUFSFELD_LABEL[result.erkanntesBerufsfeld] || result.erkanntesBerufsfeld;
+        var karrierelevelLabel = KARRIERELEVEL_LABEL[result.erkanntesKarrierelevel] || result.erkanntesKarrierelevel;
+        queryTagsEl.innerHTML =
+          '<span class="tag">' + escapeHtml(berufsfeldLabel) + '</span>' +
+          '<span class="tag">' + escapeHtml(karrierelevelLabel) + '</span>' +
+          '<span class="tag outline">' + result.empfehlungen.length + ' Treffer</span>' +
+          (result.fallback ? '<span class="tag outline">Fallback (ohne Modell)</span>' : '');
+      }
+
+      // Neu gerenderte Karten in originalOrder eintragen, sonst wirft
+      // applySort() beim Sortieren (originalOrder.get(card) -> undefined).
+      lists.forEach(function(list){
+        Array.prototype.slice.call(list.children).forEach(function(card, i){
+          originalOrder.set(card, i);
+        });
+      });
+
+      // Angebote haben fuer echte Suchergebnisse keine Datengrundlage (der Katalog
+      // ist explizit "ohne Preisdaten", Deal-Tags gibt es im Matching-Ergebnis gar
+      // nicht) - nur die statischen Demo-Karten hatten dafuer erfundene Werte. Nach
+      // der ersten echten Suche also ausblenden, statt Checkboxen anzuzeigen, die
+      // nichts (mehr) bewirken.
+      document.querySelectorAll('.filter-group--angebote').forEach(function(group){
+        group.hidden = true;
+        group.querySelectorAll('input[type="checkbox"]').forEach(function(cb){ cb.checked = false; });
+      });
+      filterState.deals.clear();
+
+      // Das getippte Suchwort hat die Server-Suche bereits ausgeloest und
+      // steckt noch in filterState.query (vom 'input'-Listener oben) - der
+      // Client-Substring-Filter wuerde es sonst erneut gegen die neuen
+      // Kartentitel pruefen und (da z.B. "Absolventa" den Jobtitel nicht
+      // enthaelt) fast alle frischen Treffer sofort wieder ausblenden.
+      filterState.query = '';
+      applyFilter();
+      updateCartButtonStates();
+    }
+
+    var searchStatusEl = document.createElement('p');
+    searchStatusEl.className = 'search-status';
+    searchStatusEl.hidden = true;
+    queryCardEl.insertAdjacentElement('beforebegin', searchStatusEl);
+
+    function runSearch(){
+      var jobtitel = searchInput.value.trim();
+      var branche = searchCategorySelect.value;
+
+      // Branche geht vor die Jobtitel-Suche: eine gewaehlte Branche liefert
+      // allein schon Treffer, der Jobtitel ist nur bei "Alle Branchen"
+      // zwingend erforderlich (qualifiziert sonst nur zusaetzlich nach,
+      // siehe Backend /api/match).
+      if(!jobtitel && branche === 'all'){
+        queryCardEl.hidden = true;
+        searchStatusEl.className = 'search-status';
+        searchStatusEl.textContent = 'Bitte einen Suchbegriff in „Stellenbörsen durchsuchen…“ eingeben oder eine Branche wählen.';
+        searchStatusEl.hidden = false;
+        return;
+      }
+
+      queryCardEl.hidden = false;
+      searchStatusEl.className = 'search-status';
+      searchStatusEl.textContent = 'Suche läuft …';
+      searchStatusEl.hidden = false;
+
+      var body = { limit: 10 };
+      if(jobtitel){ body.jobtitel = jobtitel; }
+      if(branche !== 'all'){ body.branche = branche; }
+
+      fetch(API_BASE + '/api/match', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      })
+        .then(function(res){
+          if(!res.ok){ throw new Error('HTTP ' + res.status); }
+          return res.json();
+        })
+        .then(function(result){
+          searchStatusEl.hidden = true;
+          renderResults(result, jobtitel, '');
+        })
+        .catch(function(err){
+          searchStatusEl.className = 'search-status search-status--error';
+          searchStatusEl.textContent = 'Matching-Server nicht erreichbar (läuft "npm run serve" im backend/-Ordner unter Port 4312?). Details: ' + err.message;
+        });
+    }
+
+    searchSubmitBtn.addEventListener('click', function(e){ e.preventDefault(); runSearch(); });
+    searchInput.addEventListener('keydown', function(e){
+      if(e.key === 'Enter'){ e.preventDefault(); runSearch(); }
+    });
+
+    document.querySelectorAll('.filter-star-row').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var wasActive = btn.classList.contains('active');
+        document.querySelectorAll('.filter-star-row').forEach(function(b){ b.classList.remove('active'); });
+        if(wasActive){
+          filterState.minRating = null;
+        } else {
+          btn.classList.add('active');
+          filterState.minRating = Number(btn.dataset.minRating);
+        }
+        applyFilter();
+      });
+    });
+
+    document.querySelectorAll('[data-filter-deal]').forEach(function(cb){
+      cb.addEventListener('change', function(){
+        if(cb.checked){ filterState.deals.add(cb.dataset.filterDeal); }
+        else{ filterState.deals.delete(cb.dataset.filterDeal); }
+        applyFilter();
+      });
+    });
+
+    document.querySelectorAll('[data-filter-role]').forEach(function(cb){
+      cb.addEventListener('change', function(){
+        if(cb.checked){ filterState.roles.add(cb.dataset.filterRole); }
+        else{ filterState.roles.delete(cb.dataset.filterRole); }
+        applyFilter();
+      });
+    });
+
+    var countrySelect = document.querySelector('[data-filter-country]');
+    if(countrySelect){
+      countrySelect.addEventListener('change', function(){
+        filterState.country = countrySelect.value;
+        applyFilter();
+      });
+    }
+
+    document.querySelectorAll('[data-filter-letter]').forEach(function(cb){
+      cb.addEventListener('change', function(){
+        if(cb.checked){ filterState.letterRanges.add(cb.dataset.filterLetter); }
+        else{ filterState.letterRanges.delete(cb.dataset.filterLetter); }
+        applyFilter();
+      });
+    });
+
+    var resetBtn = document.querySelector('.filter-reset');
+    if(resetBtn){
+      resetBtn.addEventListener('click', function(){
+        filterState.query = '';
+        filterState.minRating = null;
+        filterState.deals.clear();
+        filterState.roles.clear();
+        filterState.letterRanges.clear();
+        filterState.category = 'all';
+        filterState.country = 'de';
+        searchInput.value = '';
+        searchCategorySelect.value = 'all';
+        if(countrySelect){ countrySelect.value = 'de'; }
+        document.querySelectorAll('.filter-star-row.active').forEach(function(b){ b.classList.remove('active'); });
+        document.querySelectorAll('[data-filter-deal], [data-filter-role], [data-filter-letter]').forEach(function(cb){ cb.checked = false; });
+        applyFilter();
+      });
+    }
+
+    // --- Einkaufskorb ---
+    var cartItems = []; // { boardId, name, price }
+    var cartWraps = Array.prototype.slice.call(document.querySelectorAll('.cart-wrap'));
+    var cartBtns = Array.prototype.slice.call(document.querySelectorAll('.cart-btn'));
+    var cartCountEls = Array.prototype.slice.call(document.querySelectorAll('.cart-count'));
+    var cartDropdown = document.querySelector('.cart-dropdown');
+    var cartListEl = document.querySelector('.cart-dropdown-list');
+    var cartEmptyEl = document.querySelector('.cart-dropdown-empty');
+    var cartSummaryEl = document.querySelector('.cart-summary');
+    var cartSummaryTotalEl = document.querySelector('.cart-summary-total-value');
+    var cartOfferBtn = document.querySelector('.cart-offer-btn');
+    var adFrame = document.querySelector('.ad-frame');
+
+    function syncAdFrameCartCount(){
+      if(adFrame && adFrame.contentWindow){
+        adFrame.contentWindow.postMessage({ type: 'personalwerk:cart-count', count: cartItems.length }, '*');
+      }
+    }
+    if(adFrame){
+      adFrame.addEventListener('load', syncAdFrameCartCount);
+    }
+
+    function slugify(str){
+      return (str || '').toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    }
+    function cardBoardId(card){
+      return card.dataset.boardId || slugify(card.querySelector('h3').textContent);
+    }
+    function cartIndexOf(boardId){
+      for(var i = 0; i < cartItems.length; i++){ if(cartItems[i].boardId === boardId){ return i; } }
+      return -1;
+    }
+    function priceForCard(card){
+      return parseInt(card.dataset.price, 10) || 0;
+    }
+    function priceForBoardId(boardId){
+      var cards = document.querySelectorAll('.rec');
+      for(var i = 0; i < cards.length; i++){
+        if(cardBoardId(cards[i]) === boardId){ return priceForCard(cards[i]); }
+      }
+      return 0;
+    }
+    function formatPrice(n){
+      return n.toLocaleString('de-DE') + ' €';
+    }
+    function addToCart(boardId, name, price){
+      if(cartIndexOf(boardId) === -1){
+        cartItems.push({ boardId: boardId, name: name, price: price || 0 });
+        updateCartButtonStates();
+        renderCartDropdown();
+      }
+    }
+
+    function updateCartButtonStates(){
+      document.querySelectorAll('.rec-cart-btn').forEach(function(btn){
+        var card = btn.closest('.rec');
+        var inCart = cartIndexOf(cardBoardId(card)) > -1;
+        btn.classList.toggle('added', inCart);
+        btn.setAttribute('aria-label', inCart ? 'Aus Einkaufskorb entfernen' : 'Zum Einkaufskorb hinzufügen');
+      });
+    }
+
+    function buildOfferMailto(){
+      var total = cartItems.reduce(function(sum, item){ return sum + (item.price || 0); }, 0);
+      var lines = cartItems.length
+        ? cartItems.map(function(item){
+            return '- ' + item.name + (item.price ? ' (UVP ' + formatPrice(item.price) + ')' : '');
+          }).join('\n')
+        : '(Warenkorb ist leer)';
+      var subject = 'Unverbindliches Angebot anfragen – Mediaplaner-Auswahl';
+      var body = 'Guten Tag,\n\nbitte senden Sie mir ein unverbindliches Angebot für folgende Auswahl aus dem Mediaplaner:\n\n' +
+        lines + '\n\nUVP gesamt: ' + formatPrice(total) + '\n\nVielen Dank und freundliche Grüße';
+      return 'mailto:info@personalwerk.de?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    }
+
+    function renderCartDropdown(){
+      cartCountEls.forEach(function(el){
+        el.textContent = String(cartItems.length);
+        el.hidden = cartItems.length === 0;
+      });
+      cartEmptyEl.hidden = cartItems.length > 0;
+      cartListEl.innerHTML = cartItems.map(function(item){
+        return '<li class="cart-dropdown-item" data-board-id="' + item.boardId + '">' +
+          '<span class="cart-item-name">' + escapeHtml(item.name) + '</span>' +
+          '<button type="button" class="cart-item-remove" aria-label="' + escapeHtml(item.name) + ' entfernen">&times;</button>' +
+        '</li>';
+      }).join('');
+      var total = cartItems.reduce(function(sum, item){ return sum + (item.price || 0); }, 0);
+      cartSummaryEl.hidden = cartItems.length === 0;
+      cartSummaryTotalEl.textContent = formatPrice(total);
+      cartOfferBtn.href = buildOfferMailto();
+      syncAdFrameCartCount();
+    }
+
+    function toggleCartDropdown(forceOpen){
+      var willOpen = typeof forceOpen === 'boolean' ? forceOpen : cartDropdown.hidden;
+      cartDropdown.hidden = !willOpen;
+      cartBtns.forEach(function(b){ b.setAttribute('aria-expanded', String(willOpen)); });
+    }
+
+    document.addEventListener('click', function(e){
+      // Paket-CTAs wie "Details" bei Basic legen zusaetzlich eine feste
+      // Empfehlung in den Warenkorb, bevor der Link zur Unterseite navigiert.
+      var cartLinkBtn = e.target.closest('[data-add-to-cart-board]');
+      if(cartLinkBtn){
+        addToCart(cartLinkBtn.dataset.addToCartBoard, cartLinkBtn.dataset.addToCartName || cartLinkBtn.dataset.addToCartBoard, parseInt(cartLinkBtn.dataset.addToCartPrice, 10));
+        // kein e.preventDefault() - der Link soll trotzdem zur Unterseite navigieren.
+      }
+
+      var addBtn = e.target.closest('.rec-cart-btn');
+      if(addBtn){
+        var card = addBtn.closest('.rec');
+        var boardId = cardBoardId(card);
+        var idx = cartIndexOf(boardId);
+        if(idx > -1){ cartItems.splice(idx, 1); }
+        else{ cartItems.push({ boardId: boardId, name: card.querySelector('h3').textContent.trim(), price: priceForCard(card) }); }
+        updateCartButtonStates();
+        renderCartDropdown();
+        return;
+      }
+
+      var removeBtn = e.target.closest('.cart-item-remove');
+      if(removeBtn){
+        var li = removeBtn.closest('.cart-dropdown-item');
+        var idx2 = cartIndexOf(li.dataset.boardId);
+        if(idx2 > -1){ cartItems.splice(idx2, 1); }
+        updateCartButtonStates();
+        renderCartDropdown();
+        return;
+      }
+
+      var trigger = e.target.closest('.cart-btn');
+      if(trigger){
+        toggleCartDropdown();
+        return;
+      }
+
+      var insideTrigger = cartWraps.some(function(w){ return w.contains(e.target); });
+      if(!insideTrigger && !cartDropdown.contains(e.target)){
+        toggleCartDropdown(false);
+      }
+    });
+
+    // Bruecke zum eingebetteten jobsintown-Werbebanner (eigenstaendiges
+    // iframe-Dokument, daher Kommunikation per postMessage): der CTA legt
+    // die Boerse in den Warenkorb, das Cart-Icon im Banner oeffnet/schliesst
+    // denselben Warenkorb-Dropdown wie hier auf der Seite.
+    window.addEventListener('message', function(e){
+      var data = e.data;
+      if(!data){ return; }
+      if(data.type === 'personalwerk:add-to-cart' && data.boardId){
+        addToCart(data.boardId, data.name || data.boardId, priceForBoardId(data.boardId));
+        return;
+      }
+      if(data.type === 'personalwerk:toggle-cart'){
+        toggleCartDropdown();
+      }
+    });
+
+    renderCartDropdown();
+  })();
+
+  (function(){
+    var stars = Array.prototype.slice.call(document.querySelectorAll('.rating-stars'));
+    function closeAll(){
+      stars.forEach(function(btn){
+        btn.setAttribute('aria-expanded', 'false');
+        btn.closest('.rating-summary').querySelector('.rating-dropdown').hidden = true;
+      });
+    }
+    stars.forEach(function(btn){
+      var dropdown = btn.closest('.rating-summary').querySelector('.rating-dropdown');
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        var willOpen = dropdown.hidden;
+        closeAll();
+        if(willOpen){
+          dropdown.hidden = false;
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+      dropdown.addEventListener('click', function(e){ e.stopPropagation(); });
+    });
+    document.addEventListener('click', closeAll);
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape') closeAll();
+    });
+  })();
+
+  document.querySelectorAll('.rating-reviews-link').forEach(function(link){
+    var list = link.nextElementSibling;
+    link.addEventListener('click', function(){
+      list.hidden = !list.hidden;
+    });
+  });
+
+</script>
+</body>
+</html>

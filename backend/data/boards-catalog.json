@@ -1,0 +1,1240 @@
+[
+  {
+    "boardId": "absolventa",
+    "name": "Absolventa",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "Spezial-Jobbörse von FUNKE Works für Akademiker:innen und Studienabsolvent:innen im Berufseinstieg, ergänzt um Employer-Branding-Lösungen für Unternehmen von Start-ups bis DAX-Konzerne.",
+    "berufsfelder": {
+      "kaufmaennisch-verwaltung": 33,
+      "it-software": 28,
+      "vertrieb-marketing": 22,
+      "finance-legal": 7,
+      "gewerblich-logistik": 6,
+      "hr-personal": 2,
+      "naturwissenschaft-pharma": 2
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "praezision",
+      "reichweite"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "agrajo",
+    "name": "Agrajo",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "Führendes Karriereportal der grünen Branche im deutschsprachigen Raum für Berufe in Land- und Forstwirtschaft, Agrarwissenschaft und Lebensmitteltechnik über alle Karrierestufen hinweg.",
+    "berufsfelder": {
+      "vertrieb-marketing": 20,
+      "ingenieure-technik": 12,
+      "agrar-food": 22,
+      "kaufmaennisch-verwaltung": 15
+    },
+    "karrierelevel": [
+      "ausbildung",
+      "berufseinsteiger",
+      "professional",
+      "fachfuehrung"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "azubiyo",
+    "name": "Azubiyo",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "Spezial-Jobbörse der FUNKE Works GmbH für Ausbildungs- und Duale-Studienplätze mit Matching-Verfahren, ergänzt durch Schulkooperationen.",
+    "berufsfelder": {
+      "kaufmaennisch-verwaltung": 74.6,
+      "it-software": 5.3,
+      "ingenieure-technik": 5.1,
+      "gewerblich-logistik": 8.0,
+      "gesundheit-pflege": 2.5,
+      "bau-immobilien": 0.9
+    },
+    "karrierelevel": [
+      "ausbildung"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "aerztestellen",
+    "name": "ÄRZTESTELLEN",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "Stellenmarkt des Deutschen Ärzteblattes und führende Stellenbörse für Mediziner:innen aller Fachrichtungen und Karrierelevel, mit zusätzlicher Reichweite über Jobbox und das Magazin Arzt und Karriere.",
+    "berufsfelder": {
+      "gesundheit-pflege": 100
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional",
+      "fachfuehrung",
+      "executive"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "baugewerbe-jobs",
+    "name": "BAUGEWERBE.JOBS",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "Fachspezifisches Stellenportal der ZIEGELER MEDIEN Gruppe für alle Berufsfelder im Baugewerbe, von Bauleitung über Poliere bis zu Handwerkern.",
+    "berufsfelder": {
+      "bau-immobilien": 42,
+      "gewerblich-logistik": 43,
+      "kaufmaennisch-verwaltung": 15
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional",
+      "fachfuehrung"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "bauingenieur24",
+    "name": "Bauingenieur24",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "Berufsportal-Stellenmarkt speziell für Bauingenieure, Architekten und Bautechniker mit Platzierung im fachlich relevanten redaktionellen Umfeld statt in allgemeinen Stellenmärkten.",
+    "berufsfelder": {
+      "bau-immobilien": 100
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional",
+      "fachfuehrung"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "careerbuilder",
+    "name": "Careerbuilder",
+    "kategorie": "generalist",
+    "kurzbeschreibung": "Generalisten-Jobbörse (jobs.de) mit Social-Media-Boost-Kampagnen, automatisiertem Active Sourcing und Programmatic-Advertising-Optionen über viele Branchen hinweg.",
+    "berufsfelder": {
+      "gesundheit-pflege": 16,
+      "ingenieure-technik": 21,
+      "gewerblich-logistik": 25,
+      "it-software": 9,
+      "vertrieb-marketing": 4
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "reichweite"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "dv-treff",
+    "name": "DV-Treff",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "Seit 1996 spezialisiertes Portal rund um SAP mit Stellenangeboten ausschließlich für SAP-Berater und -Entwickler, ergänzt durch das Diskussionsforum SAP Community für hohe Reichweite bei latent Suchenden.",
+    "berufsfelder": {
+      "it-software": 77
+    },
+    "karrierelevel": [
+      "professional",
+      "fachfuehrung"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "experteer",
+    "name": "Experteer",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "Premium-Karrieredienst für die vertrauliche, direkte Ansprache wechselbereiter Senior Professionals und Executives in Deutschland und neun weiteren Ländern, mit über 8 Millionen Kandidat:innen im Netzwerk.",
+    "berufsfelder": {
+      "kaufmaennisch-verwaltung": 14,
+      "it-software": 14,
+      "naturwissenschaft-pharma": 12,
+      "bau-immobilien": 7,
+      "ingenieure-technik": 7,
+      "gesundheit-pflege": 7,
+      "finance-legal": 7,
+      "gewerblich-logistik": 6
+    },
+    "karrierelevel": [
+      "professional",
+      "fachfuehrung",
+      "executive"
+    ],
+    "planrolle": [
+      "praezision",
+      "reichweite"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "facility-jobboerse",
+    "name": "Facility Jobbörse",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "Seit 2013 auf Facility Management spezialisierte Jobbörse mit SEO-optimierten, sofort veröffentlichbaren Anzeigen sowie Zusatzplatzierung in Newsletter und Fachmagazin Der Facility Manager.",
+    "berufsfelder": {
+      "bau-immobilien": 100
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional",
+      "fachfuehrung"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "faz-stellenmarkt-digital",
+    "name": "F.A.Z. Stellenmarkt Digital",
+    "kategorie": "generalist",
+    "kurzbeschreibung": "Digitaler Stellenmarkt der Frankfurter Allgemeinen Zeitung auf FAZ.NET, redaktionell eingebunden und gezielt für Fach- und Führungskräfte über alle Branchen hinweg.",
+    "berufsfelder": {
+      "kaufmaennisch-verwaltung": 100
+    },
+    "karrierelevel": [
+      "professional",
+      "fachfuehrung"
+    ],
+    "planrolle": [
+      "reichweite",
+      "employer-branding"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "foodjobs",
+    "name": "foodjobs.de",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "foodjobs.de ist das Jobportal der Lebensmittelbranche im deutschsprachigen Raum und vermittelt Fach- und Führungskräften passgenaue Angebote von Produktion/Technik über QM/QS bis Vertrieb/Logistik.",
+    "berufsfelder": {
+      "agrar-food": 25,
+      "vertrieb-marketing": 31,
+      "gewerblich-logistik": 21,
+      "naturwissenschaft-pharma": 12,
+      "ingenieure-technik": 10,
+      "kaufmaennisch-verwaltung": 8
+    },
+    "karrierelevel": [
+      "professional",
+      "fachfuehrung"
+    ],
+    "planrolle": [
+      "praezision",
+      "employer-branding"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "finanz-jobs",
+    "name": "FINANZ.JOBS",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "FINANZ.JOBS ist der fachspezifische Stellenmarkt für alle Berufsgruppen im Finanzwesen, Banking, Controlling, Buchhaltung sowie Steuer- und Rechnungswesen.",
+    "berufsfelder": {
+      "finance-legal": 100
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "gesundheit-jobs",
+    "name": "GESUNDHEIT.JOBS",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "GESUNDHEIT.JOBS zählt zu den ältesten Jobbörsen im Gesundheitswesen/Medizinbereich im deutschsprachigen Raum, mit über 20 Jahren Erfahrung in der Jobbörsenwelt.",
+    "berufsfelder": {
+      "gesundheit-pflege": 52,
+      "vertrieb-marketing": 11,
+      "naturwissenschaft-pharma": 9,
+      "ingenieure-technik": 9,
+      "kaufmaennisch-verwaltung": 19
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "handwerkerstellen",
+    "name": "HandwerkerStellen",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "handwerkerstellen.de steht seit 2004 für ein attraktives Preis-Qualitäts-Leistungsverhältnis im E-Recruiting für das Handwerk und technische bzw. berufsverwandte Tätigkeiten.",
+    "berufsfelder": {
+      "gewerblich-logistik": 100
+    },
+    "karrierelevel": [
+      "ausbildung",
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "praezision",
+      "reichweite"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "der-haufe-stellenmarkt",
+    "name": "Der Haufe Stellenmarkt",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "Der Haufe Stellenmarkt erreicht über starke Fachportale sowie elf reichweitenstarke Newsletter und branchenspezifische Fachzeitschriften passiv suchende Fach- und Führungskräfte, u.a. in Immobilien, Personal und Finance/Controlling.",
+    "berufsfelder": {
+      "bau-immobilien": 30,
+      "hr-personal": 30,
+      "finance-legal": 35,
+      "kaufmaennisch-verwaltung": 5
+    },
+    "karrierelevel": [
+      "professional",
+      "fachfuehrung"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "heise-jobs",
+    "name": "heise jobs",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "heise jobs ist die Jobbörse für IT-Experten mit Widget-Push der Anzeigen auf heise online. Kooperationspartner ist Jobware.",
+    "berufsfelder": {
+      "it-software": 100
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "heyjobs",
+    "name": "HeyJobs",
+    "kategorie": "generalist",
+    "kurzbeschreibung": "HeyJobs setzt auf datengetriebenes Recruiting: eine Marketingmaschine schaltet Stellenanzeigen mit Premium-Platzierungen auf über 50 Kanälen und verteilt das Budget algorithmisch im 24h-Takt neu.",
+    "berufsfelder": {
+      "gewerblich-logistik": 26,
+      "kaufmaennisch-verwaltung": 35,
+      "vertrieb-marketing": 13,
+      "gastro-tourismus": 13,
+      "gesundheit-pflege": 13
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "reichweite"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "indeed",
+    "name": "Indeed",
+    "kategorie": "generalist",
+    "kurzbeschreibung": "Indeed ist die größte Jobseite der Welt, seit 2008 auch in Deutschland aktiv, mit rund 250 Millionen Nutzern monatlich weltweit und über 90.000 kooperierenden Unternehmen in Deutschland.",
+    "berufsfelder": {
+      "kaufmaennisch-verwaltung": 24,
+      "vertrieb-marketing": 24,
+      "gewerblich-logistik": 33,
+      "gesundheit-pflege": 10,
+      "it-software": 9
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "reichweite",
+      "employer-branding"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "ingenieur-de",
+    "name": "ingenieur.de",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "Auf dem TechnikKarriereNewsPortal ingenieur.de finden Ingenieur*innen und IT-Ingenieur*innen neben Techniknews auch Stellenangebote, Firmenprofile, Fachartikel und einen Gehaltstest.",
+    "berufsfelder": {
+      "bau-immobilien": 17,
+      "ingenieure-technik": 38,
+      "it-software": 6,
+      "naturwissenschaft-pharma": 8
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "ingenieurcenter",
+    "name": "INGENIEURCENTER",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "INGENIEURCENTER ist seit 2001 eine der ältesten Ingenieur-Jobbörsen im deutschsprachigen Raum mit ausschließlicher Ausrichtung auf das Ingenieurwesen und technische Fach- und Führungskräfte.",
+    "berufsfelder": {
+      "ingenieure-technik": 76,
+      "bau-immobilien": 11,
+      "naturwissenschaft-pharma": 13
+    },
+    "karrierelevel": [
+      "professional",
+      "fachfuehrung"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "it-entwickler-jobs",
+    "name": "IT-ENTWICKLER.JOBS",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "IT-ENTWICKLER.JOBS ist das fachspezifische Stellenportal für IT-Entwicklung/IT-Development, Teil des Mediennetzwerks der ZIEGELER MEDIEN Gruppe.",
+    "berufsfelder": {
+      "it-software": 100
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "itsteps",
+    "name": "ITSTEPS",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "ITSTEPS ist seit 2005 eine der ältesten IT-Jobbörsen im deutschsprachigen Raum mit ausschließlicher Ausrichtung auf alle IT-Berufsgruppen.",
+    "berufsfelder": {
+      "it-software": 85,
+      "kaufmaennisch-verwaltung": 15
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "it-treff",
+    "name": "IT-Treff",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "IT-Treff ist ausschließlich auf IT-Stellenangebote spezialisiert und bietet dank übersichtlichem Website-Aufbau und flexiblen Suchagenten einen schnellen Zugang zu passenden Stellen.",
+    "berufsfelder": {
+      "kaufmaennisch-verwaltung": 28,
+      "it-software": 64,
+      "vertrieb-marketing": 5
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional",
+      "fachfuehrung"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "iz-jobs",
+    "name": "IZ-Jobs",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "IZ-Jobs.de ist eine etablierte Plattform für gezieltes Recruiting in der Immobilienwirtschaft und bildet das gesamte Job-Spektrum von Fach- und Führungspositionen bis zu Finanz- und Vertriebsspezialisten ab.",
+    "berufsfelder": {
+      "bau-immobilien": 100
+    },
+    "karrierelevel": [
+      "professional",
+      "fachfuehrung"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "job-treff",
+    "name": "Job-Treff",
+    "kategorie": "generalist",
+    "kurzbeschreibung": "Jobbörse der VeriTreff GmbH für Bewerber aus allen Berufen und Branchen, mit mobiloptimierter Darstellung, Google-Jobsuche-Integration und Anbindung an zahlreiche Jobsuchmaschinen.",
+    "berufsfelder": {
+      "ingenieure-technik": 13,
+      "vertrieb-marketing": 17,
+      "kaufmaennisch-verwaltung": 26,
+      "finance-legal": 8
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional",
+      "fachfuehrung"
+    ],
+    "planrolle": [
+      "reichweite"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "jobdental",
+    "name": "jobDENTAL",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "Spezialisierte Jobbörse rein für die Dentalbranche: Zahnärzte, Dentallabore, Dentalindustrie und Dentalhandel.",
+    "berufsfelder": {
+      "gesundheit-pflege": 100
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "jobninja",
+    "name": "JobNinja",
+    "kategorie": "generalist",
+    "kurzbeschreibung": "Performance-Marketing-Jobbörse mit KI-gestütztem Traffic Optimizer, der das Budget automatisiert auf die leistungsstärksten von über 130 Partner-Jobbörsen, regionalen und fachspezifischen Portalen verteilt.",
+    "berufsfelder": {
+      "gesundheit-pflege": 20,
+      "vertrieb-marketing": 12,
+      "gewerblich-logistik": 15,
+      "ingenieure-technik": 10,
+      "kaufmaennisch-verwaltung": 7,
+      "it-software": 4
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "reichweite",
+      "regional"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "jobs-fuer-meine-region",
+    "name": "Jobs für meine Region",
+    "kategorie": "regional",
+    "kurzbeschreibung": "Netzwerk eigenständiger regionaler Stellenmärkte (z. B. jobs-für-köln.de, jobs-für-dresden.de) von Jobware, das insbesondere KMU eine gezielte, lokal fokussierte Ansprache von Bewerbern ermöglicht.",
+    "berufsfelder": {
+      "kaufmaennisch-verwaltung": 24,
+      "it-software": 23,
+      "gewerblich-logistik": 15,
+      "vertrieb-marketing": 12
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "regional",
+      "reichweite"
+    ],
+    "bundesweit": false
+  },
+  {
+    "boardId": "jobsintown",
+    "name": "jobsintown.de",
+    "kategorie": "regional",
+    "kurzbeschreibung": "Regionales, zielgruppenspezifisches Netzwerk mit Regionalstellenbörsen in deutschen Großstädten und allen Bundesländern, ergänzt um 15 fachspezifische Branchenportale und über 60 Partnerportale.",
+    "berufsfelder": {
+      "kaufmaennisch-verwaltung": 18,
+      "gesundheit-pflege": 9,
+      "naturwissenschaft-pharma": 9,
+      "vertrieb-marketing": 18,
+      "bau-immobilien": 9,
+      "ingenieure-technik": 9,
+      "gewerblich-logistik": 9,
+      "finance-legal": 9,
+      "it-software": 9
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "regional",
+      "reichweite"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "jobsuma",
+    "name": "Jobsuma",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "Größte Jobsuchmaschine für Studenten und Absolventen; durchsucht mit einer Suchanfrage hunderte Jobbörsen und Karrierewebsites und bietet zusätzlich Premium-Stellenanzeigen.",
+    "berufsfelder": {
+      "kaufmaennisch-verwaltung": 24,
+      "it-software": 19,
+      "ingenieure-technik": 15,
+      "finance-legal": 12,
+      "vertrieb-marketing": 10,
+      "bau-immobilien": 8,
+      "naturwissenschaft-pharma": 13
+    },
+    "karrierelevel": [
+      "ausbildung",
+      "berufseinsteiger"
+    ],
+    "planrolle": [
+      "reichweite",
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "jobmorgen-de",
+    "name": "Jobmorgen.de",
+    "kategorie": "regional",
+    "kurzbeschreibung": "Größte Stellensuchmaschine der Metropolregion Rhein-Neckar, erreicht monatlich rund 30.000 Unique User aus Mannheim, Heidelberg, Bensheim, Schwetzingen/Hockenheim und Tauberbischofsheim.",
+    "berufsfelder": {
+      "gewerblich-logistik": 36,
+      "vertrieb-marketing": 12,
+      "it-software": 9,
+      "ingenieure-technik": 7,
+      "gesundheit-pflege": 6,
+      "kaufmaennisch-verwaltung": 5
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "regional"
+    ],
+    "bundesweit": false
+  },
+  {
+    "boardId": "jobvector",
+    "name": "Jobvector",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "Fachspezifische Jobbörse und mehrfacher Testsieger für Informatiker, Ingenieure, Mediziner und Naturwissenschaftler, mit hochpräziser taxonomischer Klassifizierung.",
+    "berufsfelder": {
+      "ingenieure-technik": 28,
+      "it-software": 24,
+      "naturwissenschaft-pharma": 29,
+      "gesundheit-pflege": 19
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional",
+      "fachfuehrung"
+    ],
+    "planrolle": [
+      "praezision",
+      "employer-branding"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "jobware",
+    "name": "Jobware",
+    "kategorie": "generalist",
+    "kurzbeschreibung": "Branchenübergreifender Stellenmarkt mit über 25 Jahren Erfahrung, ausgezeichnetem Service und über 400 Fach- und Regionalpartnern, inklusive virtueller Firmenrundgänge.",
+    "berufsfelder": {
+      "ingenieure-technik": 20.3,
+      "it-software": 16.8,
+      "kaufmaennisch-verwaltung": 21.5,
+      "vertrieb-marketing": 7.8,
+      "gesundheit-pflege": 6.6,
+      "bau-immobilien": 5.5,
+      "naturwissenschaft-pharma": 4.6
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional",
+      "fachfuehrung"
+    ],
+    "planrolle": [
+      "reichweite"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "kalaydo",
+    "name": "kalaydo.de",
+    "kategorie": "regional",
+    "kurzbeschreibung": "Regionale Jobbörse und erster Ansprechpartner für Unternehmen und Jobsuchende in NRW, Hessen und Rheinland-Pfalz, insbesondere für kleine und mittelständische Unternehmen.",
+    "berufsfelder": {
+      "gewerblich-logistik": 16,
+      "kaufmaennisch-verwaltung": 12,
+      "gesundheit-pflege": 20,
+      "vertrieb-marketing": 8,
+      "finance-legal": 7,
+      "it-software": 5,
+      "ingenieure-technik": 5
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "regional"
+    ],
+    "bundesweit": false
+  },
+  {
+    "boardId": "karrero",
+    "name": "Karrero",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "Agrarjobbörse des Fachmagazins top agrar für Jobs in Landwirtschaft und Agribusiness, mit Stellenmarkt, Unternehmensprofilen und Lebenslaufdatenbank.",
+    "berufsfelder": {
+      "agrar-food": 43,
+      "vertrieb-marketing": 17
+    },
+    "karrierelevel": [
+      "ausbildung",
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "kimeta",
+    "name": "kimeta.de",
+    "kategorie": "generalist",
+    "kurzbeschreibung": "Führende deutsche Jobsuchmaschine und eines der fünf reichweitenstärksten Stellenportale Deutschlands mit rund 2,8 Millionen verfügbaren Stellenangeboten.",
+    "berufsfelder": {
+      "it-software": 20,
+      "ingenieure-technik": 20,
+      "vertrieb-marketing": 15,
+      "kaufmaennisch-verwaltung": 15,
+      "gewerblich-logistik": 15,
+      "gesundheit-pflege": 15
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "reichweite"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "kliniken-de",
+    "name": "kliniken.de",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "Seit 1997 professioneller Partner für Rekrutierung und Karriereplanung im Gesundheitsbereich, mit rund 2,8 Mio. aktiven Nutzern, spezialisiert auf Ärzte, Pflegekräfte und medizinisches Personal.",
+    "berufsfelder": {
+      "gesundheit-pflege": 90,
+      "kaufmaennisch-verwaltung": 10
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional",
+      "fachfuehrung"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "logistikplatz",
+    "name": "LOGISTIKPLATZ",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "Fachspezifischer Stellenmarkt für alle Berufsgruppen in Logistik, Transportwesen und Cargo, mit Kunden aus der D/A/CH-Region sowie weiteren europäischen Ländern.",
+    "berufsfelder": {
+      "gewerblich-logistik": 100
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "lumitos-chemie-de",
+    "name": "LUMITOS AG - chemie.de",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "Europas führendes Fachportal für die chemische Industrie und ihre Zulieferer, genutzt von Fachleuten aus Chemie, Analytik und Labor zur täglichen Information.",
+    "berufsfelder": {
+      "naturwissenschaft-pharma": 100
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional",
+      "fachfuehrung"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "medi-jobs",
+    "name": "Medi-Jobs",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "Eine der größten und reichweitenstärksten Online-Jobbörsen für Medizin und Gesundheit im deutschsprachigen Raum, mit Fokus auf Ärzte, Arzthelferinnen, Pflegepersonal, therapeutisches Personal, Rettungsdienstkräfte und Verwaltung.",
+    "berufsfelder": {
+      "gesundheit-pflege": 100
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "praezision",
+      "reichweite"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "meinestadt-de",
+    "name": "meinestadt.de",
+    "kategorie": "regional",
+    "kurzbeschreibung": "Lokal ausgerichtetes Portal, das Jobs, Immobilien, Auto und Freizeit für alle 11.000 Städte und Gemeinden in Deutschland bündelt und den führenden Stellenmarkt für Fachkräfte mit Berufsausbildung bietet.",
+    "berufsfelder": {
+      "gewerblich-logistik": 30,
+      "vertrieb-marketing": 14,
+      "gesundheit-pflege": 16,
+      "kaufmaennisch-verwaltung": 7,
+      "ingenieure-technik": 5,
+      "it-software": 3
+    },
+    "karrierelevel": [
+      "ausbildung",
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "regional",
+      "reichweite"
+    ],
+    "bundesweit": false
+  },
+  {
+    "boardId": "mint-jobs",
+    "name": "MINT.JOBS",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "Fachspezifisches Stellenportal für die Berufsfelder Mathematik, Ingenieurwesen, Naturwissenschaften und Technik, Teil des ZIEGELER MEDIEN-Mediennetzwerks.",
+    "berufsfelder": {
+      "it-software": 31,
+      "ingenieure-technik": 44,
+      "naturwissenschaft-pharma": 21
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "monster",
+    "name": "Monster",
+    "kategorie": "generalist",
+    "kurzbeschreibung": "Breit aufgestellter Recruiting-Lösungsanbieter, der Unternehmen individuelle, technologiebasierte Recruiting-Strategien über verschiedenste Branchen hinweg bietet.",
+    "berufsfelder": {
+      "ingenieure-technik": 13,
+      "it-software": 11,
+      "vertrieb-marketing": 17,
+      "kaufmaennisch-verwaltung": 24,
+      "finance-legal": 5
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "reichweite"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "newjob-de",
+    "name": "newjob.de",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "Seit 1999 spezialisierte Stellenbörse für SAP-Spezialisten (Berater, Consultants, Entwickler) aus Deutschland, Österreich und der Schweiz.",
+    "berufsfelder": {
+      "it-software": 100
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "pharma-zeitung-de",
+    "name": "pharma-zeitung.de",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "Spezialisierter Online-Stellenmarkt für die Life-Science-Branche (Pharma, Chemie, Biotechnologie), ergänzt durch redaktionelle Inhalte wie Nachrichten und Messeberichte.",
+    "berufsfelder": {
+      "naturwissenschaft-pharma": 100
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "regio-jobanzeiger",
+    "name": "Regio-Jobanzeiger",
+    "kategorie": "regional",
+    "kurzbeschreibung": "Führendes Netzwerk regionaler Stellenmärkte mit 75 regionalen Jobportalen in Deutschland, das Bewerber gezielt in ihrer Region anspricht.",
+    "berufsfelder": {
+      "kaufmaennisch-verwaltung": 19.92,
+      "ingenieure-technik": 13.86,
+      "vertrieb-marketing": 13.73,
+      "gewerblich-logistik": 17.02,
+      "gesundheit-pflege": 7.21,
+      "it-software": 4.32
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "regional",
+      "reichweite"
+    ],
+    "bundesweit": false
+  },
+  {
+    "boardId": "salesjob-stellenmarkt",
+    "name": "Salesjob Stellenmarkt",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "Seit über 20 Jahren das Karriereportal für Vertriebsfachkräfte mit dem deutschlandweit größten Stellenmarkt ausschließlich für Vertriebsjobs.",
+    "berufsfelder": {
+      "vertrieb-marketing": 100
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "sekretaerin-de",
+    "name": "sekretaerin.de",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "Deutschlands führender Stellenmarkt für Sekretariat, Assistenz und Office Management, seit 1996 online, mit einer Besetzungsquote von über 90%.",
+    "berufsfelder": {
+      "kaufmaennisch-verwaltung": 100
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "staufenbiel-institut",
+    "name": "Staufenbiel Institut",
+    "kategorie": "generalist",
+    "kurzbeschreibung": "Karriereportal für Studenten, Absolventen und Young Professionals (bis 3 Jahre Berufserfahrung), das Unternehmen mit jungen Talenten über eine Talent-Datenbank sowie Karriere-Events verbindet.",
+    "berufsfelder": {
+      "kaufmaennisch-verwaltung": 63,
+      "ingenieure-technik": 36
+    },
+    "karrierelevel": [
+      "berufseinsteiger"
+    ],
+    "planrolle": [
+      "reichweite",
+      "employer-branding"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "softwareentwickler-jobs",
+    "name": "SOFTWAREENTWICKLER.JOBS",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "Fachspezifisches Stellenportal für den Bereich Softwareentwicklung, Teil des ZIEGELER MEDIEN-Mediennetzwerks.",
+    "berufsfelder": {
+      "it-software": 100
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "stellenanzeigen-de",
+    "name": "stellenanzeigen.de",
+    "kategorie": "generalist",
+    "kurzbeschreibung": "Generalistische Jobbörse mit großem Mediennetzwerk aus Online- und Print-Partnern; SmartReach 2.0 platziert Stellenanzeigen automatisch bei passenden Reichweitenpartnern.",
+    "berufsfelder": {
+      "kaufmaennisch-verwaltung": 14,
+      "ingenieure-technik": 12,
+      "gewerblich-logistik": 12,
+      "it-software": 10,
+      "vertrieb-marketing": 8,
+      "gesundheit-pflege": 12,
+      "finance-legal": 5
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "reichweite"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "stellenticket",
+    "name": "Stellenticket",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "Akademisches Jobportal-Netzwerk in enger Kooperation mit Hochschulen, gerichtet an Studierende, Graduierte und Absolvent:innen, mit persönlichem Beratungs- und Einstell-Service.",
+    "berufsfelder": {
+      "kaufmaennisch-verwaltung": 20,
+      "it-software": 20,
+      "naturwissenschaft-pharma": 15,
+      "ingenieure-technik": 20,
+      "finance-legal": 15,
+      "bau-immobilien": 10
+    },
+    "karrierelevel": [
+      "berufseinsteiger"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "stellenwerk",
+    "name": "stellenwerk",
+    "kategorie": "regional",
+    "kurzbeschreibung": "Bundesweites Hochschulnetzwerk (18 Hochschulen, 15 Standorte) für Studierende und Absolvent:innen, mit Fokus auf Praktika, Nebenjobs und Werkstudierendenstellen.",
+    "berufsfelder": {
+      "kaufmaennisch-verwaltung": 25,
+      "it-software": 20,
+      "finance-legal": 15,
+      "gastro-tourismus": 15,
+      "hr-personal": 10,
+      "naturwissenschaft-pharma": 5,
+      "gewerblich-logistik": 5,
+      "bau-immobilien": 5
+    },
+    "karrierelevel": [
+      "berufseinsteiger"
+    ],
+    "planrolle": [
+      "regional",
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "stepstone",
+    "name": "StepStone",
+    "kategorie": "generalist",
+    "kurzbeschreibung": "Eine der führenden Online-Jobbörsen Deutschlands für alle Berufsgruppen, Altersklassen und Qualifikationsstufen, mit KI-gestütztem Autonomous Matching für passgenauere Bewerber.",
+    "berufsfelder": {
+      "ingenieure-technik": 18,
+      "it-software": 15,
+      "vertrieb-marketing": 16,
+      "kaufmaennisch-verwaltung": 9,
+      "finance-legal": 7,
+      "gewerblich-logistik": 12
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional",
+      "fachfuehrung"
+    ],
+    "planrolle": [
+      "reichweite"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "technik-jobs",
+    "name": "TECHNIK.JOBS",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "Fachspezifische Jobbörse für technische, gewerbliche und handwerkliche Berufe, Teil des Mediennetzwerks der ZIEGELER MEDIEN Gruppe.",
+    "berufsfelder": {
+      "ingenieure-technik": 49,
+      "bau-immobilien": 35,
+      "gewerblich-logistik": 11
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "sueddeutsche-zeitung-stellenmarkt-digital",
+    "name": "Süddeutsche Zeitung Stellenmarkt Digital",
+    "kategorie": "generalist",
+    "kurzbeschreibung": "Überregionaler Stellenmarkt für Fach- und Führungskräfte, integriert in das digitale Angebot der Süddeutschen Zeitung, mit Fokus auf High Potentials und Top-Entscheider.",
+    "berufsfelder": {
+      "kaufmaennisch-verwaltung": 25,
+      "vertrieb-marketing": 20,
+      "it-software": 15,
+      "bau-immobilien": 15,
+      "finance-legal": 15,
+      "hr-personal": 10
+    },
+    "karrierelevel": [
+      "professional",
+      "fachfuehrung",
+      "executive"
+    ],
+    "planrolle": [
+      "reichweite"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "vertrieb-jobs",
+    "name": "VERTRIEB.JOBS",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "Fachspezifische Jobbörse für Vertriebspositionen über alle Branchen hinweg in der D-A-CH-Region, Teil des Mediennetzwerks der ZIEGELER MEDIEN Gruppe.",
+    "berufsfelder": {
+      "gewerblich-logistik": 45,
+      "it-software": 20,
+      "kaufmaennisch-verwaltung": 15
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "weinjobs-com",
+    "name": "weinjobs.com",
+    "kategorie": "fachboerse",
+    "kurzbeschreibung": "Jobportal für die deutschsprachige Weinbranche (D-A-CH) mit Positionen von Keller/Produktion bis Vertrieb sowie Saison- und Ausbildungsstellen.",
+    "berufsfelder": {
+      "agrar-food": 59,
+      "vertrieb-marketing": 20,
+      "gastro-tourismus": 14
+    },
+    "karrierelevel": [
+      "ausbildung",
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "praezision"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "xing",
+    "name": "XING",
+    "kategorie": "generalist",
+    "kurzbeschreibung": "Deutschlands führendes Karrierenetzwerk mit über 20 Millionen Mitgliedern im deutschsprachigen Raum, mit modernem E-Recruiting und großer Reichweite über zahlreiche Partner.",
+    "berufsfelder": {
+      "hr-personal": 19,
+      "it-software": 14,
+      "gesundheit-pflege": 11,
+      "ingenieure-technik": 8
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional",
+      "fachfuehrung"
+    ],
+    "planrolle": [
+      "reichweite"
+    ],
+    "bundesweit": true
+  },
+  {
+    "boardId": "yourfirm-de",
+    "name": "Yourfirm.de",
+    "kategorie": "generalist",
+    "kurzbeschreibung": "Führendes Jobportal ausschließlich für Stellenangebote mittelständischer Arbeitgeber (keine Zeitarbeit, Headhunter oder Großkonzerne) mit hoher Sichtbarkeit dank breitem Partnernetzwerk.",
+    "berufsfelder": {
+      "kaufmaennisch-verwaltung": 18,
+      "ingenieure-technik": 18,
+      "bau-immobilien": 14,
+      "vertrieb-marketing": 10,
+      "it-software": 8,
+      "finance-legal": 8,
+      "gesundheit-pflege": 7,
+      "gewerblich-logistik": 7
+    },
+    "karrierelevel": [
+      "berufseinsteiger",
+      "professional"
+    ],
+    "planrolle": [
+      "reichweite"
+    ],
+    "bundesweit": true
+  }
+]

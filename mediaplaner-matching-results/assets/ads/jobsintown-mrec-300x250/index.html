@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="ad.size" content="width=300,height=250">
+<title>jobsintown.de &ndash; "Digitaler K&auml;fig" 300x250</title>
+<!--
+  ASSET-SPEZIFIKATION (Platzhalter, siehe img/-Ordner)
+  ------------------------------------------------------------
+  img/frame1-digitalcage.webp / .jpg   600x500px (Retina 2x), Motiv "erschoepfte Person nachts am Laptop"
+  img/frame2-zoomhoelle.webp / .jpg    600x500px (Retina 2x), Motiv "erschoepfte Person mit Headset vor Video-Call-Wand"
+  img/logo-jobsintown.png              253x56px, jobsintown.de-Wortmarke (PNG, verlustfrei)
+  Alle Fotomotive sind KI-generierte Platzhalter (Nano Banana) und vor Livegang
+  durch freigegebenes Kampagnenmaterial im gleichen Seitenverhaeltnis (6:5) zu ersetzen.
+  Die "Gefaengnisgitter"/"Kettenglied"-Grafiken sind reine CSS/SVG-Overlays,
+  keine Bildbestandteile.
+
+  STATISCHES BACKUP-IMAGE (separat bereitzustellen, kein HTML)
+  ------------------------------------------------------------
+  Dateiname:  jobsintown-mrec-300x250-backup.jpg
+  Masse:      300x250px (1x)
+  Motiv:      = Endframe (Frame 4): einfarbige Markenflaeche Orange #FF6A00,
+              jobsintown.de-Logo zentriert, Headline "Finden Sie Ihren echten
+              Platz.", CTA-Button "JETZT WECHSELN -&gt;".
+  Format:     JPG, sRGB, ohne Transparenz.
+
+  TECHNISCHE HINWEISE
+  ------------------------------------------------------------
+  - clickTag: window.clickTag wird von Ad-Server/Trafficking vor dem Laden
+    gesetzt bzw. per Querystring injiziert. Ohne gesetzten clickTag bleibt
+    das Creative unverlinkt (Fallback-Href leer).
+  - ACHTUNG Loop-Verhalten weicht von der vorherigen Creative-Version ab:
+    diese Version loopt laut Vorgabe ENDLOS (kein Stop nach 2 Durchlaeufen).
+    Viele Ad-Server/Netzwerke (z.B. Google Ads/GAM-Richtlinien) verlangen
+    ein begrenztes Loop-Verhalten (typ. max. 3 Durchlaeufe / 15-30s). Vor
+    echtem Trafficking pruefen und ggf. animation-iteration-count anpassen.
+  - Keine externen Requests (keine Google Fonts, keine CDN-Assets).
+-->
+<script>
+  window.clickTag = window.clickTag || "";
+</script>
+<style>
+  html,body{ margin:0; padding:0; }
+  *{ box-sizing:border-box; }
+  body{
+    font-family:-apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  .ad{
+    position:relative;
+    width:300px;
+    height:250px;
+    overflow:hidden;
+    border:1px solid #D9D9D9;
+    background:#000000;
+  }
+  a.click-layer{
+    display:block;
+    position:relative;
+    width:100%;
+    height:100%;
+    text-decoration:none;
+    color:inherit;
+    cursor:pointer;
+  }
+
+  /* ---- Background frames (12s master cycle, continuous loop) ---- */
+  .bg-layer{ position:absolute; inset:0; z-index:0; overflow:hidden; }
+  .bg-layer img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .frame1{ animation:frame1Opacity 12s linear infinite; }
+  .frame1 img{ animation:kenBurns1 12s linear infinite; transform-origin:60% 40%; }
+  .frame2{ opacity:0; animation:frame2Opacity 12s linear infinite; }
+  .frame2 img{ animation:kenBurns2 12s linear infinite; transform-origin:50% 35%; }
+  .frame3{ opacity:0; background:#000000; animation:frame3Opacity 12s linear infinite; }
+  .frame4{ opacity:0; background:#FF6A00; animation:frame4Opacity 12s linear infinite; }
+
+  .flash{
+    position:absolute; inset:0; z-index:4; background:#FFFFFF;
+    opacity:0; pointer-events:none;
+    animation:flashCut 12s linear infinite;
+  }
+
+  .scrim{
+    position:absolute; left:0; right:0; bottom:0; height:58%; z-index:1;
+    background:linear-gradient(to top, rgba(0,0,0,.82), rgba(0,0,0,0));
+    pointer-events:none;
+  }
+
+  /* ---- Prison-bar overlay (Frame 1) ---- */
+  .bars{
+    position:absolute; inset:0; z-index:2; pointer-events:none;
+    background:repeating-linear-gradient(
+      90deg,
+      rgba(0,0,0,.85) 0px, rgba(0,0,0,.85) 7px,
+      transparent 7px, transparent 44px
+    );
+    opacity:0;
+    animation:frame1Opacity 12s linear infinite;
+  }
+
+  /* ---- Chain-link overlay (Frame 2, nod to "ball and chain" headset) ---- */
+  .chain{
+    position:absolute; left:14px; top:14px; z-index:2; width:26px; height:26px;
+    opacity:0;
+    animation:frame2Opacity 12s linear infinite, chainSway 1.4s ease-in-out infinite;
+  }
+
+  /* ---- Copy blocks ---- */
+  .copy{ position:absolute; left:16px; right:16px; z-index:3; text-align:left; }
+  .copy-1{ top:18px; opacity:0; animation:copy1Fade 12s linear infinite; }
+  .copy-2{ bottom:16px; opacity:0; animation:copy2Fade 12s linear infinite; }
+  .copy-3{ top:0; bottom:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; opacity:0; animation:copy3Fade 12s linear infinite; }
+  .copy-4{ top:0; bottom:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; opacity:0; animation:copy4Fade 12s linear infinite; }
+
+  .headline{
+    margin:0;
+    color:#FFFFFF;
+    font-weight:800;
+    font-size:21px;
+    line-height:1.2;
+    letter-spacing:-0.01em;
+    text-shadow:0 2px 6px rgba(0,0,0,.7);
+  }
+  .headline-3{ margin:0; font-weight:800; font-size:22px; line-height:1.22; }
+  .headline-3 .line-a{ display:block; color:#FFFFFF; }
+  .headline-3 .line-b{ display:block; color:#FF6A00; -webkit-text-stroke:.5px #fff; }
+  .headline-4{ margin:0 0 16px; color:#FFFFFF; font-weight:800; font-size:20px; line-height:1.25; }
+
+  .bullet-tag{
+    display:inline-block;
+    margin-top:8px;
+    padding:3px 8px;
+    background:#FF6A00;
+    color:#000000;
+    font-size:10px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    border-radius:3px;
+  }
+
+  /* ---- Persistent logo, bottom-left, all 12s ---- */
+  .logo{ position:absolute; left:14px; bottom:12px; height:18px; z-index:5; }
+  .logo img{ height:18px; width:auto; display:block; border-radius:3px; }
+
+  /* ---- CTA, appears only in Frame 4 ---- */
+  .cta{
+    display:flex; align-items:center; justify-content:center;
+    height:34px; padding:0 18px; margin-top:4px;
+    border-radius:17px;
+    background:#FFFFFF;
+    color:#000000;
+    font-size:13px;
+    font-weight:800;
+    white-space:nowrap;
+    box-shadow:0 2px 8px rgba(0,0,0,.35);
+    opacity:0;
+    animation:copy4Fade 12s linear infinite, ctaPulse 1.1s ease-in-out infinite;
+  }
+
+  /* ---- Keyframes: 12s master cycle = 4 x 3s frames, hard 0.1s cuts, infinite loop ---- */
+  @keyframes frame1Opacity{
+    0%{ opacity:1; } 25%{ opacity:1; } 25.8%{ opacity:0; } 100%{ opacity:0; }
+  }
+  @keyframes frame2Opacity{
+    0%{ opacity:0; } 25%{ opacity:0; } 25.8%{ opacity:1; } 50%{ opacity:1; } 50.8%{ opacity:0; } 100%{ opacity:0; }
+  }
+  @keyframes frame3Opacity{
+    0%{ opacity:0; } 50%{ opacity:0; } 50.8%{ opacity:1; } 75%{ opacity:1; } 75.8%{ opacity:0; } 100%{ opacity:0; }
+  }
+  @keyframes frame4Opacity{
+    0%{ opacity:0; } 75%{ opacity:0; } 75.8%{ opacity:1; } 100%{ opacity:1; }
+  }
+  @keyframes flashCut{
+    0%{ opacity:0; } 25%{ opacity:0; } 25.3%{ opacity:.85; } 25.6%{ opacity:0; }
+    50%{ opacity:0; } 50.3%{ opacity:.7; } 50.6%{ opacity:0; }
+    75%{ opacity:0; } 75.3%{ opacity:.9; } 75.6%{ opacity:0; }
+    100%{ opacity:0; }
+  }
+
+  @keyframes kenBurns1{
+    0%{ transform:scale(1); } 25%{ transform:scale(1.08); } 100%{ transform:scale(1.08); }
+  }
+  @keyframes kenBurns2{
+    25.8%{ transform:scale(1); } 50%{ transform:scale(1.16); } 100%{ transform:scale(1); }
+  }
+
+  @keyframes copy1Fade{
+    0%{ opacity:0; transform:scale(.8); }
+    1.5%{ opacity:0; transform:scale(.8); }
+    3%{ opacity:1; transform:scale(1.04); }
+    4%{ opacity:1; transform:scale(1); }
+    25%{ opacity:1; transform:scale(1); }
+    25.8%{ opacity:0; transform:scale(1); }
+    100%{ opacity:0; transform:scale(1); }
+  }
+  @keyframes copy2Fade{
+    25.8%{ opacity:0; transform:translateX(0); }
+    27%{ opacity:1; transform:translateX(-3px); }
+    27.5%{ transform:translateX(3px); }
+    28%{ transform:translateX(-2px); }
+    28.5%{ transform:translateX(2px); }
+    29%{ transform:translateX(0); }
+    50%{ opacity:1; transform:translateX(0); }
+    50.8%{ opacity:0; transform:translateX(0); }
+    100%{ opacity:0; }
+  }
+  @keyframes chainSway{
+    0%,100%{ transform:rotate(-6deg); } 50%{ transform:rotate(6deg); }
+  }
+  @keyframes copy3Fade{
+    50.8%{ opacity:0; transform:scale(.85); }
+    52%{ opacity:1; transform:scale(1.03); }
+    53%{ opacity:1; transform:scale(1); }
+    75%{ opacity:1; transform:scale(1); }
+    75.8%{ opacity:0; transform:scale(1); }
+    100%{ opacity:0; }
+  }
+  @keyframes copy4Fade{
+    75.8%{ opacity:0; transform:translateY(6px); }
+    77%{ opacity:1; transform:translateY(0); }
+    100%{ opacity:1; transform:translateY(0); }
+  }
+  @keyframes ctaPulse{
+    0%,100%{ transform:scale(1); } 50%{ transform:scale(1.06); }
+  }
+</style>
+</head>
+<body>
+  <div class="ad">
+    <a class="click-layer" id="adClick" target="_blank" rel="noopener noreferrer" aria-label="Zur Anzeige von jobsintown.de">
+
+      <div class="bg-layer frame1">
+        <picture>
+          <source srcset="img/frame1-digitalcage.webp" type="image/webp">
+          <img src="img/frame1-digitalcage.jpg" alt="">
+        </picture>
+      </div>
+      <div class="bg-layer frame2">
+        <picture>
+          <source srcset="img/frame2-zoomhoelle.webp" type="image/webp">
+          <img src="img/frame2-zoomhoelle.jpg" alt="">
+        </picture>
+      </div>
+      <div class="bg-layer frame3"></div>
+      <div class="bg-layer frame4"></div>
+
+      <div class="bars"></div>
+      <div class="scrim"></div>
+      <div class="flash"></div>
+
+      <svg class="chain" viewBox="0 0 24 24" fill="none">
+        <rect x="3" y="3" width="9" height="13" rx="4.5" stroke="#FF6A00" stroke-width="2.4"/>
+        <rect x="11" y="9" width="9" height="13" rx="4.5" stroke="#FFFFFF" stroke-width="2.4"/>
+      </svg>
+
+      <div class="copy copy-1">
+        <p class="headline">EINGESPERRT IM<br>HOMEOFFICE?</p>
+      </div>
+
+      <div class="copy copy-2">
+        <p class="headline">Wieder 8 Stunden<br>ZOOM-H&ouml;lle?</p>
+      </div>
+
+      <div class="copy copy-3">
+        <p class="headline-3">
+          <span class="line-a">Das Leben ist zu kurz</span>
+          <span class="line-b">f&uuml;r den falschen Kandidaten.</span>
+        </p>
+      </div>
+
+      <div class="copy copy-4">
+        <p class="headline-4">Finden Sie Ihren<br>echten Platz.</p>
+        <span class="cta">JETZT WECHSELN &rarr;</span>
+      </div>
+
+      <div class="logo"><img src="img/logo-jobsintown.png" alt="jobsintown.de"></div>
+
+    </a>
+  </div>
+
+  <script>
+    (function(){
+      var link = document.getElementById('adClick');
+      if (window.clickTag) {
+        link.setAttribute('href', window.clickTag);
+      } else {
+        link.removeAttribute('href');
+      }
+    })();
+  </script>
+</body>
+</html>

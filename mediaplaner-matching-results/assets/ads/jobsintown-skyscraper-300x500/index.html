@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="ad.size" content="width=300,height=500">
+<title>jobsintown.de &ndash; Skyscraper 300x500</title>
+<!--
+  Skyscraper-Variante des Medium-Rectangle-Creatives (300x250), doppelt so
+  lang (300x500). Identisches Konzept, Timing und Assets wie
+  ../jobsintown-mrec-300x250/index.html, nur Format/Canvas angepasst.
+  Eigene img/-Kopie fuer echte Eigenstaendigkeit des Ad-Pakets (kein
+  Verweis auf den Sibling-Ordner), Details siehe dortige Asset-Spezifikation.
+
+  TECHNISCHE HINWEISE
+  ------------------------------------------------------------
+  - clickTag: window.clickTag wird von Ad-Server/Trafficking vor dem Laden
+    gesetzt bzw. per Querystring injiziert. Ohne gesetzten clickTag bleibt
+    das Creative unverlinkt (Fallback-Href leer).
+  - Animation laeuft exakt 2x (2 x 10s = 20s) und friert danach auf dem
+    Endframe (Frame 3, vergroesserter CTA) ein. Kein Endlos-Loop.
+  - Keine externen Requests (keine Google Fonts, keine CDN-Assets).
+-->
+<script>
+  window.clickTag = window.clickTag || "";
+</script>
+<style>
+  html,body{ margin:0; padding:0; }
+  *{ box-sizing:border-box; }
+  body{
+    font-family:-apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  .ad{
+    position:relative;
+    width:300px;
+    height:500px;
+    overflow:hidden;
+    border:1px solid #D9D9D9;
+    background:#000000;
+  }
+  a.click-layer{
+    display:block;
+    position:relative;
+    width:100%;
+    height:100%;
+    text-decoration:none;
+    color:inherit;
+    cursor:pointer;
+  }
+
+  /* ---- Background frames ---- */
+  .bg-layer{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    overflow:hidden;
+  }
+  .bg-layer img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .frame1{ animation:frame1Opacity 10s ease-in-out 2 forwards; }
+  .frame1 img{ animation:kenBurns 10s ease-in-out 2 forwards; transform-origin:center center; }
+  .frame2{ opacity:0; animation:frame2Opacity 10s ease-in-out 2 forwards; }
+  .frame3{ opacity:0; background:#03192E; animation:frame3Opacity 10s ease-in-out 2 forwards; }
+
+  .scrim{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    height:44%;
+    z-index:1;
+    background:linear-gradient(to top, rgba(0,0,0,.8), rgba(0,0,0,0));
+    pointer-events:none;
+  }
+  .scrim-top{
+    position:absolute;
+    left:0; right:0; top:0;
+    height:34%;
+    z-index:1;
+    background:linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,0));
+    pointer-events:none;
+  }
+
+  /* ---- Copy blocks ---- */
+  .copy{ position:absolute; left:18px; right:18px; z-index:2; text-align:left; }
+  .copy-1{ top:20px; opacity:0; animation:copy1Fade 10s ease-in-out 2 forwards; }
+  .copy-2{ top:20px; opacity:0; animation:copy2Fade 10s ease-in-out 2 forwards; }
+  .copy-3{ top:200px; left:24px; right:24px; text-align:center; opacity:0; animation:copy3Fade 10s ease-in-out 2 forwards; }
+
+  .headline{
+    margin:0;
+    color:#FFFFFF;
+    font-weight:700;
+    font-size:22px;
+    line-height:1.28;
+    text-shadow:0 1px 3px rgba(0,0,0,.55);
+  }
+  .copy-3 .headline{ font-size:23px; }
+  .sublabel{
+    margin:8px 0 0;
+    color:#FFFFFF;
+    opacity:.85;
+    font-size:12px;
+    font-weight:500;
+  }
+
+  .bullets{ list-style:none; margin:14px 0 0; padding:0; display:flex; flex-direction:column; gap:9px; }
+  .bullet{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    color:#FFFFFF;
+    font-size:13.5px;
+    font-weight:600;
+    text-shadow:0 1px 2px rgba(0,0,0,.5);
+    opacity:0;
+    transform:translateY(8px);
+  }
+  .bullet svg{ flex:none; width:15px; height:15px; }
+  .bullet-1{ animation:bulletFade1 10s ease-in-out 2 forwards; }
+  .bullet-2{ animation:bulletFade2 10s ease-in-out 2 forwards; }
+  .bullet-3{ animation:bulletFade3 10s ease-in-out 2 forwards; }
+
+  /* ---- Persistent elements ---- */
+  .logo{ position:absolute; left:16px; bottom:16px; height:18px; z-index:3; }
+  .logo img{ height:18px; width:auto; display:block; border-radius:3px; }
+
+  .cta{
+    position:absolute;
+    left:16px;
+    right:16px;
+    bottom:44px;
+    z-index:3;
+    transform-origin:center bottom;
+    animation:ctaEnlarge 10s ease-in-out 2 forwards;
+  }
+  .cta-pulse{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:36px;
+    padding:0 14px;
+    border-radius:18px;
+    background:#B40000;
+    color:#FFFFFF;
+    font-size:13px;
+    font-weight:700;
+    white-space:nowrap;
+    box-shadow:0 2px 6px rgba(0,0,0,.4);
+    transform-origin:center;
+    animation:ctaPulse 1.6s ease-in-out 2s 11 both;
+  }
+
+  /* ---- Keyframes: master 10s cycle, 2 iterations = 20s, then freeze ---- */
+  @keyframes kenBurns{
+    0%{ transform:scale(1); }
+    20%{ transform:scale(1.06); }
+    100%{ transform:scale(1.06); }
+  }
+  @keyframes frame1Opacity{
+    0%{ opacity:1; } 20%{ opacity:1; } 25%{ opacity:0; } 100%{ opacity:0; }
+  }
+  @keyframes frame2Opacity{
+    0%{ opacity:0; } 20%{ opacity:0; } 25%{ opacity:1; } 55%{ opacity:1; } 60%{ opacity:0; } 100%{ opacity:0; }
+  }
+  @keyframes frame3Opacity{
+    0%{ opacity:0; } 55%{ opacity:0; } 60%{ opacity:1; } 100%{ opacity:1; }
+  }
+
+  @keyframes copy1Fade{
+    0%{ opacity:0; transform:translateY(8px); }
+    3%{ opacity:0; transform:translateY(8px); }
+    7%{ opacity:1; transform:translateY(0); }
+    20%{ opacity:1; transform:translateY(0); }
+    25%{ opacity:0; transform:translateY(0); }
+    100%{ opacity:0; transform:translateY(0); }
+  }
+  @keyframes copy2Fade{
+    0%{ opacity:0; transform:translateY(8px); }
+    22%{ opacity:0; transform:translateY(8px); }
+    26%{ opacity:1; transform:translateY(0); }
+    55%{ opacity:1; transform:translateY(0); }
+    60%{ opacity:0; transform:translateY(0); }
+    100%{ opacity:0; transform:translateY(0); }
+  }
+  @keyframes copy3Fade{
+    0%{ opacity:0; transform:translateY(8px); }
+    58%{ opacity:0; transform:translateY(8px); }
+    63%{ opacity:1; transform:translateY(0); }
+    100%{ opacity:1; transform:translateY(0); }
+  }
+
+  @keyframes bulletFade1{
+    0%{ opacity:0; transform:translateY(8px); }
+    30%{ opacity:0; transform:translateY(8px); }
+    34%{ opacity:1; transform:translateY(0); }
+    55%{ opacity:1; transform:translateY(0); }
+    60%{ opacity:0; transform:translateY(0); }
+    100%{ opacity:0; transform:translateY(0); }
+  }
+  @keyframes bulletFade2{
+    0%{ opacity:0; transform:translateY(8px); }
+    34%{ opacity:0; transform:translateY(8px); }
+    38%{ opacity:1; transform:translateY(0); }
+    55%{ opacity:1; transform:translateY(0); }
+    60%{ opacity:0; transform:translateY(0); }
+    100%{ opacity:0; transform:translateY(0); }
+  }
+  @keyframes bulletFade3{
+    0%{ opacity:0; transform:translateY(8px); }
+    38%{ opacity:0; transform:translateY(8px); }
+    42%{ opacity:1; transform:translateY(0); }
+    55%{ opacity:1; transform:translateY(0); }
+    60%{ opacity:0; transform:translateY(0); }
+    100%{ opacity:0; transform:translateY(0); }
+  }
+
+  @keyframes ctaEnlarge{
+    0%{ transform:scale(1); }
+    55%{ transform:scale(1); }
+    60%{ transform:scale(1.08); }
+    100%{ transform:scale(1.08); }
+  }
+  @keyframes ctaPulse{
+    0%,100%{ transform:scale(1); }
+    50%{ transform:scale(1.05); }
+  }
+</style>
+</head>
+<body>
+  <div class="ad">
+    <a class="click-layer" id="adClick" target="_blank" rel="noopener noreferrer" aria-label="Zur Anzeige von jobsintown.de">
+
+      <div class="bg-layer frame1">
+        <picture>
+          <source srcset="img/frame1-erschoepft-schreibtisch.webp" type="image/webp">
+          <img src="img/frame1-erschoepft-schreibtisch.jpg" alt="">
+        </picture>
+      </div>
+      <div class="bg-layer frame2">
+        <picture>
+          <source srcset="img/frame2-team-buero.webp" type="image/webp">
+          <img src="img/frame2-team-buero.jpg" alt="">
+        </picture>
+      </div>
+      <div class="bg-layer frame3"></div>
+      <div class="scrim-top"></div>
+      <div class="scrim"></div>
+
+      <div class="copy copy-1">
+        <p class="headline">Das Leben ist zu kurz f&uuml;r den falschen Job.</p>
+      </div>
+
+      <div class="copy copy-2">
+        <p class="headline">Finden Sie die Richtigen.</p>
+        <ul class="bullets">
+          <li class="bullet bullet-1">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Maximale Reichweite
+          </li>
+          <li class="bullet bullet-2">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Gratis Layout-Service
+          </li>
+          <li class="bullet bullet-3">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.5 12L13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            30 Tage inkl. Refresh
+          </li>
+        </ul>
+      </div>
+
+      <div class="copy copy-3">
+        <p class="headline">Jetzt Anzeige schalten.</p>
+        <p class="sublabel">Schnell. Flexibel. Zielgerichtet.</p>
+      </div>
+
+      <div class="logo"><img src="img/logo-jobsintown.png" alt="jobsintown.de"></div>
+
+      <div class="cta"><span class="cta-pulse">Jetzt schalten &rarr;</span></div>
+
+    </a>
+  </div>
+
+  <script>
+    (function(){
+      var link = document.getElementById('adClick');
+      if (window.clickTag) {
+        link.setAttribute('href', window.clickTag);
+      } else {
+        link.removeAttribute('href');
+      }
+    })();
+  </script>
+</body>
+</html>
